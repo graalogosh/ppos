@@ -17,37 +17,37 @@ public class Student {
 //    private Long version;
 
     @Id
-    @Column(name = "StudentID")
+    @Column(name = "student_id")
     private String studentID;
 
-    @Column(name = "Name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "EntryDate")
+    @Column(name = "entry_date")
     private Date entryDate;
 
-    @Column(name = "EducationalGroup")
+    @Column(name = "educational_group")
     private String educationalGroup;
 
-    @Column(name = "AcademicStatus")
+    @Column(name = "academic_status")
     private int academicStatus;
 
-    @Column(name = "FinancialStatus")
+    @Column(name = "financial_status")
     private int financialStatus;
 
-    @Column(name = "Faculty")
+    @Column(name = "faculty")
     private String faculty;
 
-    @Column(name = "Phone")
+    @Column(name = "phone")
     private String phone;
 
-    @Column(name = "BankAccountNumber")
+    @Column(name = "bank_account_number")
     private String bankAccountNumber;
 
-    @Column(name = "StudentPaid")
+    @Column(name = "student_paid")
     private int studentPaid;
 
-    @Column(name = "StudentMustPay")
+    @Column(name = "student_must_pay")
     private int studentMustPay;
 
     public String getStudentID() {
@@ -135,6 +135,20 @@ public class Student {
     }
 
     public void setStudentMustPay(int studentMustPay) {
+        this.studentMustPay = studentMustPay;
+    }
+
+    public Student(String studentID, String name, Date entryDate, String educationalGroup, int academicStatus, int financialStatus, String faculty, String phone, String bankAccountNumber, int studentPaid, int studentMustPay) {
+        this.studentID = studentID;
+        this.name = name;
+        this.entryDate = entryDate;
+        this.educationalGroup = educationalGroup;
+        this.academicStatus = academicStatus;
+        this.financialStatus = financialStatus;
+        this.faculty = faculty;
+        this.phone = phone;
+        this.bankAccountNumber = bankAccountNumber;
+        this.studentPaid = studentPaid;
         this.studentMustPay = studentMustPay;
     }
 }

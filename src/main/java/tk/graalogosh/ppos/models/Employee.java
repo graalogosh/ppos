@@ -11,7 +11,7 @@ import java.sql.Date;
 public class Employee {
     @Id
     @GeneratedValue
-    private int employeeID;
+    private Integer employeeID;
 
     @Column(name = "name")
     private String name;
@@ -99,6 +99,17 @@ public class Employee {
     }
 
     public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
+    public Employee(String name, int accessLevel, String password, String passwordHash, Date registrationDate, Date lastLoginDate, boolean dismissed, String faculty) {
+        this.name = name;
+        this.accessLevel = accessLevel;
+        this.password = password;
+        this.passwordHash = passwordHash;
+        this.registrationDate = registrationDate;
+        this.lastLoginDate = lastLoginDate;
+        this.dismissed = dismissed;
         this.faculty = faculty;
     }
 }
