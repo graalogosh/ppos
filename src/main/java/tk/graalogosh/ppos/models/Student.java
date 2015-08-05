@@ -1,6 +1,9 @@
 package tk.graalogosh.ppos.models;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Date;
 
 /**
@@ -14,7 +17,6 @@ public class Student {
 //    private Long version;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "StudentID")
     private String studentID;
 
