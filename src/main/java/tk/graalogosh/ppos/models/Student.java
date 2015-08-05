@@ -12,9 +12,8 @@ import java.sql.Date;
 @Entity
 @Table(name="student")
 public class Student {
-
-//    @Version
-//    private Long version;
+    public Student() {
+    }
 
     @Id
     @Column(name = "student_id")

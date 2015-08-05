@@ -9,6 +9,9 @@ import java.sql.Date;
 @Entity
 @Table(name = "events")
 public class Event {
+    public Event() {
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "eventID")

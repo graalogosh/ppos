@@ -9,8 +9,12 @@ import java.sql.Date;
 @Entity
 @Table(name = "employees")
 public class Employee {
+    public Employee() {
+    }
+
     @Id
     @GeneratedValue
+    @Column(name="employee_id")
     private Integer employeeID;
 
     @Column(name = "name")

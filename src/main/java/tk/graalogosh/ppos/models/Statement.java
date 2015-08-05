@@ -9,6 +9,8 @@ import java.sql.Date;
 @Entity
 @Table(name = "statement")
 public class Statement {
+    public Statement(){}
+
     //TODO Change field names to JAVA convention
     @Id
     @GeneratedValue

@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "status")
 public class Status {
+    public Status() {
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "status_id")

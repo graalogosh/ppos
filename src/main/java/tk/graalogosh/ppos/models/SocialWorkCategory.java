@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "socialworkcategory")
 public class SocialWorkCategory {
+    public SocialWorkCategory() {
+    }
+
     //TODO Change field names to JAVA convention
     @Id
     @GeneratedValue

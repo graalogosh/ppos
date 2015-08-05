@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tripcount")
 public class TripCount {
+    public TripCount() {
+    }
+
     @Id
     @Column(name = "trip_count")
     private Integer tripCount;

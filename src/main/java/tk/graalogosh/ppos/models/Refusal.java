@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "refusal")
 public class Refusal {
+    public Refusal() {
+    }
+
     @Id
     @Column(name = "refusal_count")
     private Integer refusalCount;

@@ -7,6 +7,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="course")
 public class Course {
+    public Course() {
+    }
+
     @Id
     @Column(name = "course")
     private Integer course;

@@ -9,6 +9,9 @@ import java.sql.Date;
 @Entity
 @Table(name = "list")
 public class StatementList {
+    public StatementList() {
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "list_id")

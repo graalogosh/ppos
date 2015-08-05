@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import tk.graalogosh.ppos.models.Employee;
 import tk.graalogosh.ppos.repositories.EmployeeRepository;
 
+import java.util.List;
+
 /**
  * Created by graal on 05.08.2015.
  */
@@ -20,7 +22,7 @@ public class EmployeeController {
     }
 
     @RequestMapping("employee")
-    public Employee getEmployee(@RequestParam("employeeID") Integer employeeID) {
+    public Employee getEmployee(@RequestParam(value = "employeeID", defaultValue = "0") Integer employeeID) {
         Employee employee = employeeRepository.findOne(employeeID);
         System.out.println(employee);
         //employeeRepository.sa

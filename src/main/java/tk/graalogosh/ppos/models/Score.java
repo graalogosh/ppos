@@ -8,6 +8,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "score")
 public class Score {
+    public Score() {
+    }
+
+    @Id
+@GeneratedValue
+    private Integer id;
 
     private double minScore;
     private double maxScore;

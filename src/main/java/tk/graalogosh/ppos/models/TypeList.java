@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "typelist")
 public class TypeList {
+    public TypeList() {
+    }
+
     @Id
     @GeneratedValue
     @Column(name = "type_id")

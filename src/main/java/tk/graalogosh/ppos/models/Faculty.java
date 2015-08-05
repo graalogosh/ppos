@@ -8,6 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "events")
 public class Faculty {
+    public Faculty() {
+    }
+
     @Id
     @Column(name = "faculty")
     private String faculty;
