@@ -12,10 +12,10 @@ public class SocialCategory {
     public SocialCategory() {
     }
 
-    //TODO Change field names to JAVA convention
     @Id
     @GeneratedValue
-    private Integer social_category_id;
+    @Column(name = "social_category_id")
+    private Integer socialCategoryID;
     private String title;
     private int priority;
     private int point;
@@ -23,12 +23,12 @@ public class SocialCategory {
     private double money;
     private boolean visible;
 
-    public Integer getSocial_category_id() {
-        return social_category_id;
+    public Integer getSocialCategoryID() {
+        return socialCategoryID;
     }
 
-    public void setSocial_category_id(Integer social_category_id) {
-        this.social_category_id = social_category_id;
+    public void setSocial_category_id(Integer socialCategoryID) {
+        this.socialCategoryID = socialCategoryID;
     }
 
     public String getTitle() {
