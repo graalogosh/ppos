@@ -16,7 +16,7 @@ public class Statement {
     @Column(name = "statement_id")
     private Integer statementID;
 
-    private Date date;
+    private Date fillingDate;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
@@ -65,7 +65,7 @@ public class Statement {
 
     @ManyToOne
     @JoinColumn(name = "list_id")
-    private int list;
+    private StatementList list;
 
     private String comment;
 
@@ -82,11 +82,11 @@ public class Statement {
     }
 
     public Date getDate() {
-        return date;
+        return fillingDate;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.fillingDate = date;
     }
 
     public Student getStudent() {
@@ -201,11 +201,11 @@ public class Statement {
         this.cancellationDate = cancellationDate;
     }
 
-    public int getList() {
+    public StatementList getList() {
         return list;
     }
 
-    public void setList(int list) {
+    public void setList(StatementList list) {
         this.list = list;
     }
 
@@ -233,8 +233,8 @@ public class Statement {
         this.reserve = reserve;
     }
 
-    public Statement(Date date, Student student, Event event, Employee employee, boolean socialGrant, SocialCategory socialCategory, SocialWork socialWork, double moneyCategory, Course course, TripCount tripCount, double average_score, Refusal refusalCount, int permitNumber, Date refusalDate, Date cancellationDate, int list, String comment, boolean completeDocs, boolean reserve) {
-        this.date = date;
+    public Statement(Date fillingDate, Student student, Event event, Employee employee, boolean socialGrant, SocialCategory socialCategory, SocialWork socialWork, double moneyCategory, Course course, TripCount tripCount, double average_score, Refusal refusalCount, int permitNumber, Date refusalDate, Date cancellationDate, StatementList list, String comment, boolean completeDocs, boolean reserve) {
+        this.fillingDate = fillingDate;
         this.student = student;
         this.event = event;
         this.employee = employee;

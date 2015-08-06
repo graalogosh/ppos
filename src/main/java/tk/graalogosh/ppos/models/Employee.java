@@ -1,5 +1,7 @@
 package tk.graalogosh.ppos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -21,10 +23,15 @@ public class Employee {
     private String name;
     @Column(name = "access_level")
     private int accessLevel;
+
     @Column(name = "password")
+    @JsonIgnore
     private String password;
+
     @Column(name = "hash")
+    @JsonIgnore
     private String passwordHash;
+
     @Column(name = "registration_date")
     private Date registrationDate;
     @Column(name = "last_login_date")

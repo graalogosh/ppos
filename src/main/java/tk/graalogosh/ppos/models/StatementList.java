@@ -12,6 +12,8 @@ public class StatementList {
     public StatementList() {
     }
 
+    //TODO fix naming
+
     @Id
     @GeneratedValue
     @Column(name = "list_id")

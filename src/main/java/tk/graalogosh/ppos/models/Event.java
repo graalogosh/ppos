@@ -14,7 +14,7 @@ public class Event {
 
     @Id
     @GeneratedValue
-    @Column(name = "eventID")
+    @Column(name = "event_id")
     private Integer eventID;
     @Column(name = "title")
     private String title;
@@ -28,7 +28,7 @@ public class Event {
     private Date reseptionFinish;
 
     @ManyToOne
-    @Column(name = "employee_id")
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @ManyToOne
