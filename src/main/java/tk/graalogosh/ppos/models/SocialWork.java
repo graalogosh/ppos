@@ -17,7 +17,11 @@ public class SocialWork {
     private Integer social_work_id;
     private String title;
     private int point;
-    private int social_work_category_id;
+
+    @ManyToOne
+    @JoinColumn(name = "social_work_category_id")
+    private SocialWorkCategory socialWorkCategory;
+
     private boolean visible;
 
     public Integer getSocial_work_id() {
@@ -44,12 +48,12 @@ public class SocialWork {
         this.point = point;
     }
 
-    public int getSocial_work_category_id() {
-        return social_work_category_id;
+    public SocialWorkCategory getSocialWorkCategory() {
+        return socialWorkCategory;
     }
 
-    public void setSocial_work_category_id(int social_work_category_id) {
-        this.social_work_category_id = social_work_category_id;
+    public void setSocial_work_category_id(SocialWorkCategory socialWorkCategory) {
+        this.socialWorkCategory = socialWorkCategory;
     }
 
     public boolean getVisible() {
@@ -60,10 +64,10 @@ public class SocialWork {
         this.visible = visible;
     }
 
-    public SocialWork(String title, int point, int social_work_category_id, boolean visible) {
+    public SocialWork(String title, int point, SocialWorkCategory socialWorkCategory, boolean visible) {
         this.title = title;
         this.point = point;
-        this.social_work_category_id = social_work_category_id;
+        this.socialWorkCategory = socialWorkCategory;
         this.visible = visible;
     }
 }
