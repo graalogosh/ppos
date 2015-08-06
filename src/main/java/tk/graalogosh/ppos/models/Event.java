@@ -26,10 +26,15 @@ public class Event {
     private Date reseptionBegin;
     @Column(name = "reseption_finish")
     private Date reseptionFinish;
+
+    @ManyToOne
     @Column(name = "employee_id")
-    private int employeeID;
-    @Column(name = "section_id")
-    private int sectionID;
+    private Employee employee;
+
+    @ManyToOne
+    @JoinColumn(name = "section_id")
+    private Section section;
+
     @Column(name = "number_of_places")
     private int numberOfPlaces;
     @Column(name = "quotas_percantage")
@@ -37,11 +42,11 @@ public class Event {
     @Column(name = "suitable_category")
     private String suitableCategory;
 
-    public int getEventID() {
+    public Integer getEventID() {
         return eventID;
     }
 
-    public void setEventID(int eventID) {
+    public void setEventID(Integer eventID) {
         this.eventID = eventID;
     }
 
@@ -85,20 +90,20 @@ public class Event {
         this.reseptionFinish = reseptionFinish;
     }
 
-    public int getEmployeeID() {
-        return employeeID;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeID(int employeeID) {
-        this.employeeID = employeeID;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
-    public int getSectionID() {
-        return sectionID;
+    public Section getSection() {
+        return section;
     }
 
-    public void setSectionID(int sectionID) {
-        this.sectionID = sectionID;
+    public void setSection(Section section) {
+        this.section = section;
     }
 
     public int getNumberOfPlaces() {
@@ -125,14 +130,14 @@ public class Event {
         this.suitableCategory = suitableCategory;
     }
 
-    public Event(String title, Date eventDate, int duration, Date reseptionBegin, Date reseptionFinish, int employeeID, int sectionID, int numberOfPlaces, int quotasPercantage, String suitableCategory) {
+    public Event(String title, Date eventDate, int duration, Date reseptionBegin, Date reseptionFinish, Employee employee, Section section, int numberOfPlaces, int quotasPercantage, String suitableCategory) {
         this.title = title;
         this.eventDate = eventDate;
         this.duration = duration;
         this.reseptionBegin = reseptionBegin;
         this.reseptionFinish = reseptionFinish;
-        this.employeeID = employeeID;
-        this.sectionID = sectionID;
+        this.employee = employee;
+        this.section = section;
         this.numberOfPlaces = numberOfPlaces;
         this.quotasPercantage = quotasPercantage;
         this.suitableCategory = suitableCategory;
