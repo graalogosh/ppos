@@ -11,36 +11,74 @@ import java.sql.Date;
 public class Statement {
     public Statement(){}
 
-    //TODO Change field names to JAVA convention
     @Id
     @GeneratedValue
-    private Integer statement_id;
+    @Column(name = "statement_id")
+    private Integer statementID;
+
     private Date date;
-    private String student_id;
-    private int event_id;
-    private int employee_id;
-    private boolean social_grant;
-    private int social_category_id;
-    private int social_work_id;
-    private double money_category;
-    private int course;
-    private int trip_count;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "event_id")
+    private Event event;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
+    private boolean socialGrant;
+
+    @ManyToOne
+    @JoinColumn(name = "social_category_id")
+    private SocialCategory socialCategory;
+
+    @ManyToOne
+    @JoinColumn(name = "social_work_id")
+    private SocialWork socialWork;
+
+    private double moneyCategory;
+
+    @ManyToOne
+    @JoinColumn(name = "course")
+    private Course course;
+
+    @ManyToOne
+    @JoinColumn(name = "trip_count")
+    private TripCount tripCount;
+
+    //TODO averageScore
     private double average_score;
-    private int refusal_count;
-    private int permit_number;
-    private Date refusal_date;
-    private Date cancellation_date;
-    private int list_id;
+
+    @ManyToOne
+    @JoinColumn(name = "refusal_count")
+    private Refusal refusalCount;
+
+    private int permitNumber;
+
+    private Date refusalDate;
+
+    private Date cancellationDate;
+
+    @ManyToOne
+    @JoinColumn(name = "list_id")
+    private int list;
+
     private String comment;
-    private boolean complete_docs;
+
+    private boolean completeDocs;
+
     private boolean reserve;
 
-    public int getStatement_id() {
-        return statement_id;
+    public Integer getStatementID() {
+        return statementID;
     }
 
-    public void setStatement_id(int statement_id) {
-        this.statement_id = statement_id;
+    public void setStatementID(Integer statementID) {
+        this.statementID = statementID;
     }
 
     public Date getDate() {
@@ -51,76 +89,76 @@ public class Statement {
         this.date = date;
     }
 
-    public String getStudent_id() {
-        return student_id;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStudent_id(String student_id) {
-        this.student_id = student_id;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public int getEvent_id() {
-        return event_id;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setEvent_id(int event_id) {
-        this.event_id = event_id;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
-    public int getEmployee_id() {
-        return employee_id;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployee_id(int employee_id) {
-        this.employee_id = employee_id;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
-    public boolean isSocial_grant() {
-        return social_grant;
+    public boolean isSocialGrant() {
+        return socialGrant;
     }
 
-    public void setSocial_grant(boolean social_grant) {
-        this.social_grant = social_grant;
+    public void setSocialGrant(boolean socialGrant) {
+        this.socialGrant = socialGrant;
     }
 
-    public int getSocial_category_id() {
-        return social_category_id;
+    public SocialCategory getSocialCategory() {
+        return socialCategory;
     }
 
-    public void setSocial_category_id(int social_category_id) {
-        this.social_category_id = social_category_id;
+    public void setSocialCategory(SocialCategory socialCategory) {
+        this.socialCategory = socialCategory;
     }
 
-    public int getSocial_work_id() {
-        return social_work_id;
+    public SocialWork getSocialWork() {
+        return socialWork;
     }
 
-    public void setSocial_work_id(int social_work_id) {
-        this.social_work_id = social_work_id;
+    public void setSocialWork(SocialWork socialWork) {
+        this.socialWork = socialWork;
     }
 
-    public double getMoney_category() {
-        return money_category;
+    public double getMoneyCategory() {
+        return moneyCategory;
     }
 
-    public void setMoney_category(double money_category) {
-        this.money_category = money_category;
+    public void setMoneyCategory(double moneyCategory) {
+        this.moneyCategory = moneyCategory;
     }
 
-    public int getCourse() {
+    public Course getCourse() {
         return course;
     }
 
-    public void setCourse(int course) {
+    public void setCourse(Course course) {
         this.course = course;
     }
 
-    public int getTrip_count() {
-        return trip_count;
+    public TripCount getTripCount() {
+        return tripCount;
     }
 
-    public void setTrip_count(int trip_count) {
-        this.trip_count = trip_count;
+    public void setTripCount(TripCount tripCount) {
+        this.tripCount = tripCount;
     }
 
     public double getAverage_score() {
@@ -131,44 +169,44 @@ public class Statement {
         this.average_score = average_score;
     }
 
-    public int getRefusal_count() {
-        return refusal_count;
+    public Refusal getRefusalCount() {
+        return refusalCount;
     }
 
-    public void setRefusal_count(int refusal_count) {
-        this.refusal_count = refusal_count;
+    public void setRefusalCount(Refusal refusalCount) {
+        this.refusalCount = refusalCount;
     }
 
-    public int getPermit_number() {
-        return permit_number;
+    public int getPermitNumber() {
+        return permitNumber;
     }
 
-    public void setPermit_number(int permit_number) {
-        this.permit_number = permit_number;
+    public void setPermitNumber(int permitNumber) {
+        this.permitNumber = permitNumber;
     }
 
-    public Date getRefusal_date() {
-        return refusal_date;
+    public Date getRefusalDate() {
+        return refusalDate;
     }
 
-    public void setRefusal_date(Date refusal_date) {
-        this.refusal_date = refusal_date;
+    public void setRefusalDate(Date refusalDate) {
+        this.refusalDate = refusalDate;
     }
 
-    public Date getCancellation_date() {
-        return cancellation_date;
+    public Date getCancellationDate() {
+        return cancellationDate;
     }
 
-    public void setCancellation_date(Date cancellation_date) {
-        this.cancellation_date = cancellation_date;
+    public void setCancellationDate(Date cancellationDate) {
+        this.cancellationDate = cancellationDate;
     }
 
-    public int getList_id() {
-        return list_id;
+    public int getList() {
+        return list;
     }
 
-    public void setList_id(int list_id) {
-        this.list_id = list_id;
+    public void setList(int list) {
+        this.list = list;
     }
 
     public String getComment() {
@@ -179,12 +217,12 @@ public class Statement {
         this.comment = comment;
     }
 
-    public boolean isComplete_docs() {
-        return complete_docs;
+    public boolean isCompleteDocs() {
+        return completeDocs;
     }
 
-    public void setComplete_docs(boolean complete_docs) {
-        this.complete_docs = complete_docs;
+    public void setCompleteDocs(boolean completeDocs) {
+        this.completeDocs = completeDocs;
     }
 
     public boolean isReserve() {
@@ -195,26 +233,26 @@ public class Statement {
         this.reserve = reserve;
     }
 
-    public Statement(int statement_id, Date date, String student_id, int event_id, int employee_id, boolean social_grant, int social_category_id, int social_work_id, double money_category, int course, int trip_count, double average_score, int refusal_count, int permit_number, Date refusal_date, Date cancellation_date, int list_id, String comment, boolean complete_docs, boolean reserve) {
-        this.statement_id = statement_id;
+    public Statement(Date date, Student student, Event event, Employee employee, boolean socialGrant, SocialCategory socialCategory, SocialWork socialWork, double moneyCategory, Course course, TripCount tripCount, double average_score, Refusal refusalCount, int permitNumber, Date refusalDate, Date cancellationDate, int list, String comment, boolean completeDocs, boolean reserve) {
         this.date = date;
-        this.student_id = student_id;
-        this.event_id = event_id;
-        this.employee_id = employee_id;
-        this.social_grant = social_grant;
-        this.social_category_id = social_category_id;
-        this.social_work_id = social_work_id;
-        this.money_category = money_category;
+        this.student = student;
+        this.event = event;
+        this.employee = employee;
+        this.socialGrant = socialGrant;
+        this.socialCategory = socialCategory;
+        this.socialWork = socialWork;
+        this.moneyCategory = moneyCategory;
         this.course = course;
-        this.trip_count = trip_count;
+        this.tripCount = tripCount;
         this.average_score = average_score;
-        this.refusal_count = refusal_count;
-        this.permit_number = permit_number;
-        this.refusal_date = refusal_date;
-        this.cancellation_date = cancellation_date;
-        this.list_id = list_id;
+        this.refusalCount = refusalCount;
+        this.permitNumber = permitNumber;
+        this.refusalDate = refusalDate;
+        this.cancellationDate = cancellationDate;
+        this.list = list;
         this.comment = comment;
-        this.complete_docs = complete_docs;
+        this.completeDocs = completeDocs;
         this.reserve = reserve;
     }
 }
+
