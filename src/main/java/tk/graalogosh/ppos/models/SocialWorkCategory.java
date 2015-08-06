@@ -11,19 +11,19 @@ public class SocialWorkCategory {
     public SocialWorkCategory() {
     }
 
-    //TODO Change field names to JAVA convention
     @Id
     @GeneratedValue
-    private Integer social_work_category_id;
+    @Column(name = "social_work_category_id")
+    private Integer socialWorkCategoryID;
     private String title;
     private boolean visible;
 
-    public Integer getSocial_work_category_id() {
-        return social_work_category_id;
+    public Integer getSocialWorkCategoryID() {
+        return socialWorkCategoryID;
     }
 
-    public void setSocial_work_category_id(Integer social_work_category_id) {
-        this.social_work_category_id = social_work_category_id;
+    public void setSocialWorkCategoryID(Integer socialWorkCategoryID) {
+        this.socialWorkCategoryID = socialWorkCategoryID;
     }
 
     public String getTitle() {
