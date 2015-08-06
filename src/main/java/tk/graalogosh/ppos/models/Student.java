@@ -1,9 +1,6 @@
 package tk.graalogosh.ppos.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 
 /**
@@ -28,11 +25,14 @@ public class Student {
     @Column(name = "educational_group")
     private String educationalGroup;
 
-    @Column(name = "academic_status")
-    private int academicStatus;
+    @ManyToOne
+    @JoinColumn(name = "academic_status")
+    private Status academicStatus;
 
-    @Column(name = "financial_status")
-    private int financialStatus;
+    @ManyToOne
+    @JoinColumn(name = "financial_status")
+   // @Column(name = "financial_status")
+    private Status financialStatus;
 
     @Column(name = "faculty")
     private String faculty;
@@ -81,19 +81,19 @@ public class Student {
         this.educationalGroup = educationalGroup;
     }
 
-    public int getAcademicStatus() {
+    public Status getAcademicStatus() {
         return academicStatus;
     }
 
-    public void setAcademicStatus(int academicStatus) {
+    public void setAcademicStatus(Status academicStatus) {
         this.academicStatus = academicStatus;
     }
 
-    public int getFinancialStatus() {
+    public Status getFinancialStatus() {
         return financialStatus;
     }
 
-    public void setFinancialStatus(int financialStatus) {
+    public void setFinancialStatus(Status financialStatus) {
         this.financialStatus = financialStatus;
     }
 
@@ -137,7 +137,7 @@ public class Student {
         this.studentMustPay = studentMustPay;
     }
 
-    public Student(String studentID, String name, Date entryDate, String educationalGroup, int academicStatus, int financialStatus, String faculty, String phone, String bankAccountNumber, int studentPaid, int studentMustPay) {
+    public Student(String studentID, String name, Date entryDate, String educationalGroup, Status academicStatus, Status financialStatus, String faculty, String phone, String bankAccountNumber, int studentPaid, int studentMustPay) {
         this.studentID = studentID;
         this.name = name;
         this.entryDate = entryDate;
