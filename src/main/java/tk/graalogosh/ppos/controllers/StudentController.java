@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import tk.graalogosh.ppos.specifications.StudentSpecification;
+
+import java.util.List;
 
 /**
  * Created by graal on 05.08.2015.
@@ -21,8 +24,12 @@ public class StudentController {
 
     @RequestMapping("student")
     public Student getStudent(@RequestParam("studentID") String studentID){
-        Student student = studentRepository.findOne(studentID);
-        System.out.println(student);
-        return student;
+        //Student student = studentRepository.findOne(studentID);
+       // System.out.println(student);
+        Student example = new Student();
+        example.setStudentID(studentID);
+        StudentSpecification specification = new StudentSpecification(example);
+        List<Student> student = studentRepository.findAll(specification);
+        return  student.get(0);
     }
 }

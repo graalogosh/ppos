@@ -1,6 +1,7 @@
 package tk.graalogosh.ppos.repositories;
 
 
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import tk.graalogosh.ppos.models.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,5 +13,5 @@ import javax.persistence.Table;
  */
 @Repository
 @Table(name = "student")
-public interface StudentRepository extends JpaRepository<Student, String>{
+public interface StudentRepository extends JpaRepository<Student, String>, JpaSpecificationExecutor{
 }
