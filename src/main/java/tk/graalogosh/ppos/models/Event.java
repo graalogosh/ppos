@@ -1,7 +1,10 @@
 package tk.graalogosh.ppos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.*;
 
 /**
  * Created by graal on 06.08.2015.
@@ -19,13 +22,19 @@ public class Event {
     @Column(name = "title")
     private String title;
     @Column(name = "event_date")
-    private Date eventDate;
+    @Convert(converter = LocalDatePersistenceConverter.class)
+    @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
+    private LocalDate eventDate;
     @Column(name = "duration")
     private int duration;
     @Column(name = "reseption_begin")
-    private Date reseptionBegin;
+    @Convert(converter = LocalDatePersistenceConverter.class)
+    @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
+    private LocalDate reseptionBegin;
     @Column(name = "reseption_finish")
-    private Date reseptionFinish;
+    @Convert(converter = LocalDatePersistenceConverter.class)
+    @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
+    private LocalDate reseptionFinish;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
@@ -58,11 +67,11 @@ public class Event {
         this.title = title;
     }
 
-    public Date getEventDate() {
+    public LocalDate getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(Date eventDate) {
+    public void setEventDate(LocalDate eventDate) {
         this.eventDate = eventDate;
     }
 
@@ -74,19 +83,19 @@ public class Event {
         this.duration = duration;
     }
 
-    public Date getReseptionBegin() {
+    public LocalDate getReseptionBegin() {
         return reseptionBegin;
     }
 
-    public void setReseptionBegin(Date reseptionBegin) {
+    public void setReseptionBegin(LocalDate reseptionBegin) {
         this.reseptionBegin = reseptionBegin;
     }
 
-    public Date getReseptionFinish() {
+    public LocalDate getReseptionFinish() {
         return reseptionFinish;
     }
 
-    public void setReseptionFinish(Date reseptionFinish) {
+    public void setReseptionFinish(LocalDate reseptionFinish) {
         this.reseptionFinish = reseptionFinish;
     }
 
@@ -130,7 +139,7 @@ public class Event {
         this.suitableCategory = suitableCategory;
     }
 
-    public Event(String title, Date eventDate, int duration, Date reseptionBegin, Date reseptionFinish, Employee employee, Section section, int numberOfPlaces, int quotasPercantage, String suitableCategory) {
+    public Event(String title, LocalDate eventDate, int duration, LocalDate reseptionBegin, LocalDate reseptionFinish, Employee employee, Section section, int numberOfPlaces, int quotasPercantage, String suitableCategory) {
         this.title = title;
         this.eventDate = eventDate;
         this.duration = duration;

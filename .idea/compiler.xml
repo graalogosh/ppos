@@ -21,6 +21,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <processor name="org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor" />
         <processorPath useClasspath="true" />
         <module name="ppos" />
       </profile>

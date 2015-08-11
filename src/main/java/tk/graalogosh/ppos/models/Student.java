@@ -1,7 +1,10 @@
 package tk.graalogosh.ppos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.*;
 
 /**
  * Created by graalogosh on 03.08.2015.
@@ -20,7 +23,9 @@ public class Student {
     private String name;
 
     @Column(name = "entry_date")
-    private Date entryDate;
+    @Convert(converter = LocalDatePersistenceConverter.class)
+    @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
+    private LocalDate entryDate;
 
     @Column(name = "educational_group")
     private String educationalGroup;
@@ -65,11 +70,11 @@ public class Student {
         this.name = name;
     }
 
-    public Date getEntryDate() {
+    public LocalDate getEntryDate() {
         return entryDate;
     }
 
-    public void setEntryDate(Date entryDate) {
+    public void setEntryDate(LocalDate entryDate) {
         this.entryDate = entryDate;
     }
 
@@ -137,7 +142,7 @@ public class Student {
         this.studentMustPay = studentMustPay;
     }
 
-    public Student(String studentID, String name, Date entryDate, String educationalGroup, Status academicStatus, Status financialStatus, String faculty, String phone, String bankAccountNumber, int studentPaid, int studentMustPay) {
+    public Student(String studentID, String name, LocalDate entryDate, String educationalGroup, Status academicStatus, Status financialStatus, String faculty, String phone, String bankAccountNumber, int studentPaid, int studentMustPay) {
         this.studentID = studentID;
         this.name = name;
         this.entryDate = entryDate;

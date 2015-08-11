@@ -1,7 +1,10 @@
 package tk.graalogosh.ppos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.*;
 
 /**
  * Created by graal on 06.08.2015.
@@ -16,7 +19,9 @@ public class Statement {
     @Column(name = "statement_id")
     private Integer statementID;
 
-    private Date fillingDate;
+    @Convert(converter = LocalDatePersistenceConverter.class)
+    @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
+    private LocalDate fillingDate;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
@@ -59,9 +64,13 @@ public class Statement {
 
     private int permitNumber;
 
-    private Date refusalDate;
+    @Convert(converter = LocalDatePersistenceConverter.class)
+    @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
+    private LocalDate refusalDate;
 
-    private Date cancellationDate;
+    @Convert(converter = LocalDatePersistenceConverter.class)
+    @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
+    private LocalDate cancellationDate;
 
     @ManyToOne
     @JoinColumn(name = "list_id")
@@ -81,11 +90,11 @@ public class Statement {
         this.statementID = statementID;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return fillingDate;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.fillingDate = date;
     }
 
@@ -185,19 +194,19 @@ public class Statement {
         this.permitNumber = permitNumber;
     }
 
-    public Date getRefusalDate() {
+    public LocalDate getRefusalDate() {
         return refusalDate;
     }
 
-    public void setRefusalDate(Date refusalDate) {
+    public void setRefusalDate(LocalDate refusalDate) {
         this.refusalDate = refusalDate;
     }
 
-    public Date getCancellationDate() {
+    public LocalDate getCancellationDate() {
         return cancellationDate;
     }
 
-    public void setCancellationDate(Date cancellationDate) {
+    public void setCancellationDate(LocalDate cancellationDate) {
         this.cancellationDate = cancellationDate;
     }
 
@@ -229,11 +238,11 @@ public class Statement {
         return reserve;
     }
 
-    public void setReserve(boolean reserve) {
+    public void setReseLocalrve(boolean reserve) {
         this.reserve = reserve;
     }
 
-    public Statement(Date fillingDate, Student student, Event event, Employee employee, boolean socialGrant, SocialCategory socialCategory, SocialWork socialWork, double moneyCategory, Course course, TripCount tripCount, double average_score, Refusal refusalCount, int permitNumber, Date refusalDate, Date cancellationDate, StatementList list, String comment, boolean completeDocs, boolean reserve) {
+    public Statement(LocalDate fillingDate, Student student, Event event, Employee employee, boolean socialGrant, SocialCategory socialCategory, SocialWork socialWork, double moneyCategory, Course course, TripCount tripCount, double average_score, Refusal refusalCount, int permitNumber, LocalDate refusalDate, LocalDate cancellationDate, StatementList list, String comment, boolean completeDocs, boolean reserve) {
         this.fillingDate = fillingDate;
         this.student = student;
         this.event = event;

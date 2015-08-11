@@ -1,9 +1,11 @@
 package tk.graalogosh.ppos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.*;
 
 /**
  * Created by graal on 05.08.2015.
@@ -33,9 +35,13 @@ public class Employee {
     private String passwordHash;
 
     @Column(name = "registration_date")
-    private Date registrationDate;
+    @Convert(converter = LocalDatePersistenceConverter.class)
+    @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
+    private LocalDate registrationDate;
     @Column(name = "last_login_date")
-    private Date lastLoginDate;
+    @Convert(converter = LocalDatePersistenceConverter.class)
+    @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
+    private LocalDate lastLoginDate;
     @Column(name = "dismissed")
     private boolean dismissed;
     @Column(name = "faculty")
@@ -81,19 +87,19 @@ public class Employee {
         this.passwordHash = passwordHash;
     }
 
-    public Date getRegistrationDate() {
+    public LocalDate getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
+    public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
     }
 
-    public Date getLastLoginDate() {
+    public LocalDate getLastLoginDate() {
         return lastLoginDate;
     }
 
-    public void setLastLoginDate(Date lastLoginDate) {
+    public void setLastLoginDate(LocalDate lastLoginDate) {
         this.lastLoginDate = lastLoginDate;
     }
 
@@ -113,7 +119,7 @@ public class Employee {
         this.faculty = faculty;
     }
 
-    public Employee(String name, int accessLevel, String password, String passwordHash, Date registrationDate, Date lastLoginDate, boolean dismissed, String faculty) {
+    public Employee(String name, int accessLevel, String password, String passwordHash, LocalDate registrationDate, LocalDate lastLoginDate, boolean dismissed, String faculty) {
         this.name = name;
         this.accessLevel = accessLevel;
         this.password = password;

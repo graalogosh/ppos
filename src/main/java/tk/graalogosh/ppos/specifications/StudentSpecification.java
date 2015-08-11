@@ -30,6 +30,34 @@ public class StudentSpecification implements Specification<Student>{
             predicates.add(cb.equal(root.get(Student_.studentID), example.getStudentID()));
         }
 
+        if (StringUtils.isNotBlank(example.getName())){
+            predicates.add(cb.like(root.get(Student_.name), "%"+example.getName()+"%"));
+        }
+
+        if (example.getEntryDate()!=null){
+            predicates.add(cb.equal(root.get(Student_.entryDate), example.getEntryDate()));
+        }
+
+        if (StringUtils.isNotBlank(example.getEducationalGroup())){
+            predicates.add(cb.equal(root.get(Student_.educationalGroup), example.getEducationalGroup()));
+        }
+
+        //TODO status
+
+        if (StringUtils.isNotBlank(example.getFaculty())){
+            predicates.add(cb.equal(root.get(Student_.faculty), example.getFaculty()));
+        }
+
+        if (StringUtils.isNotBlank(example.getPhone())){
+            predicates.add(cb.equal(root.get(Student_.phone), example.getPhone()));
+        }
+
+        if (StringUtils.isNotBlank(example.getBankAccountNumber())){
+            predicates.add(cb.equal(root.get(Student_.bankAccountNumber), example.getBankAccountNumber()));
+        }
+
+        //TODO paid
+
         return andTogether(predicates, cb);
     }
 
