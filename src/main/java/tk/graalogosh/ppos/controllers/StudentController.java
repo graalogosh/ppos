@@ -1,6 +1,7 @@
 package tk.graalogosh.ppos.controllers;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.PathVariable;
 import tk.graalogosh.ppos.models.Status;
 import tk.graalogosh.ppos.models.Student;
 import tk.graalogosh.ppos.repositories.StudentRepository;
@@ -25,15 +26,15 @@ public class StudentController {
         this.studentRepository = studentRepository;
     }
 
-    @RequestMapping("student")
-    public Student getStudent(@RequestParam("studentID") String studentID){
-        //Student student = studentRepository.findOne(studentID);
-       // System.out.println(student);
+    @RequestMapping("/student/{user}")
+    public Student getStudent(
+            @PathVariable(value = "user") String userID)
+    {
         Student example = new Student();
-        example.setStudentID(studentID);
+        example.setStudentID(userID);
         StudentSpecification specification = new StudentSpecification(example);
-        List<Student> student = studentRepository.findAll(specification);
-        return  student.get(0);
+        List<Student> students = studentRepository.findAll(specification);
+        return  students.get(0);
     }
 
     @RequestMapping("students")
