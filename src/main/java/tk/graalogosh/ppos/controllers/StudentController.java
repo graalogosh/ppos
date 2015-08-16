@@ -45,7 +45,7 @@ public class StudentController {
             @RequestParam(value = "faculty", required = false)String faculty,
             @RequestParam(value = "phone", required = false)String phone,
             @RequestParam(value = "bankAccountNumber", required = false)String bankAcountNumber,
-            @RequestParam(value = "student_paid", defaultValue = "0") String studentPaid,
+            @RequestParam(value = "studentPaid", defaultValue = "0") String studentPaid,
             @RequestParam(value = "studentMustPay", defaultValue = "0") String studentMustPay){//TODO fix
 
         Student example = new Student();
