@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/Competition.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+        
+     
+    
+</head>
+<body>
+      <!- Выпадающее "Меню" -->
+      <div class="container">
+          <div class="row">
+              <div class="navbar navbar-inverse">
+                  <div class="conteiner">
+                      <div class="collapse navbar-collapse">
+                          <ul class="nav navbar-nav">
+                              <li class="dropdown">
+                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Меню <b class="caret"></b></a>
+                                  <ul class="dropdown-menu">
+                                      <li><a href="#">Пункт1</a></li>
+                                      <li><a href="#">Пункт2</a></li>
+                                      <li><a href="#">Пункт3</a></li>
+                                      <li><a href="#">Пункт4</a></li>
+                                      <li><a href="#">Пункт5</a></li>
+                                  </ul>
+                              </li>
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Печать <b class="caret"></b></a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Печать без резерва</a></li>
+                                <li><a href="#">Печать с резервом</a></li>
+                              </ul>
+                            </li>
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Сохранить <b class="caret"></b></a>
+                              <ul class="dropdown-menu">
+                                <li><a href="#">Сохранить без резерва</a></li>
+                                <li><a href="#">Сохранить с резервом</a></li>
+                              </ul>
+                            </li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!- Конец выпадающего "Меню" -->
+  
+  
+  
+  
+  
+  <div class="container">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="row">
+          <!- блок Раздела и Мероприятия -->
+          <form class="form-horizontal col-lg-6 col-md-6">
+            <div class="form-group">
+              <label for="section" class="control-label col-lg-2 col-md-2">Раздел:</label>
+              <div class="col-lg-10 col-md-10">
+                <select class="form-control" id="section">
+                  <option value="">1</option>
+                  <option value="">2</option>
+                  <option value="">3</option>
+                  <option value="">4</option>
+                  <option value="">5</option>
+                </select>
+              </div>
+            </div>
+          </form>
+          <form class="form-horizontal col-lg-6 col-md-6">
+              <div class="form-group">
+                <div class="col-lg-3 col-md-3 pull-left">
+                  <label for="event" class="control-label">Мероприятие:</label>
+                </div>
+                <div class="col-lg-9 col-md-9">
+                  <select class="form-control" id="event">
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                  </select>
+                </div>
+              </div>
+          </form>          
+          <!- конец блока Раздела и Мероприятия -->
+        </div>
+        
+        <!- блок Факультет и Номер направления -->
+        <div class="row">
+          <form class="form-horizontal col-lg-6 col-md-6">
+            <div class="form-group">
+              <label for="faculty" class="control-label col-lg-2 col-md-3">Факультет:</label>
+              <div class="col-lg-10 col-md-9">
+                <select class="form-control" id="faculty">
+                  <option value="">Все факультеты</option>
+                  <option value="">Факультет1</option>
+                  <option value="">Факультет2</option>
+                  <option value="">Факультет3</option>
+                  <option value="">Факультет4</option>
+                </select>
+              </div>
+            </div>
+          </form>
+          <form class="form-horizontal col-lg-6 col-md-6">
+            <div class="form-group">
+              <div class="col-lg-4 col-md-5 pull-left">
+                <label for="numberOfVoucher" class="control-label">Номер направления:</label>
+              </div>
+              <div class="col-lg-8 col-md-7 pull-right">
+                <div class="input-group">
+                  <input type="number" class="form-control" id="numberOfVoucher">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Ввод</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!- конец блока Факультет и Номер направления -->
+      </li>
+      
+      <!- Таблица -->
+      <li class="list-group-item">
+        <table class="table table-striped">
+          <thead>
+            <th>Номер заявления</th>
+            <th>Номер студенческого</th>
+            <th>Ф.И.О.</th>
+            <th>Группа</th>
+            <th>Факультет</th>
+            <th>Номер телефона</th>
+            <th>В резерве</th>
+            <th>Дата подачи</th>
+            <th>Сумма баллов</th>
+            <th>Номер направления</th>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Номер заявления1</th>
+              <th>Номер студенческого1</th>
+              <th>Ф.И.О.1</th>
+              <th>Группа1</th>
+              <th>Факультет1</th>
+              <th>Номер телефона1</th>
+              <th>В резерве1</th>
+              <th>Дата подачи1</th>
+              <th>Сумма баллов1</th>
+              <th>Номер направления1</th>
+            </tr>            
+            <tr>
+              <th>Номер заявления2</th>
+              <th>Номер студенческого2</th>
+              <th>Ф.И.О.2</th>
+              <th>Группа2</th>
+              <th>Факультет2</th>
+              <th>Номер телефона2</th>
+              <th>В резерве2</th>
+              <th>Дата подачи2</th>
+              <th>Сумма баллов2</th>
+              <th>Номер направления2</th>
+            </tr>            
+            <tr>
+              <th>Номер заявления3</th>
+              <th>Номер студенческого3</th>
+              <th>Ф.И.О.3</th>
+              <th>Группа3</th>
+              <th>Факультет3</th>
+              <th>Номер телефона3</th>
+              <th>В резерве3</th>
+              <th>Дата подачи3</th>
+              <th>Сумма баллов3</th>
+              <th>Номер направления3</th>
+            </tr>            
+            <tr>
+              <th>Номер заявления4</th>
+              <th>Номер студенческого4</th>
+              <th>Ф.И.О.4</th>
+              <th>Группа4</th>
+              <th>Факультет4</th>
+              <th>Номер телефона4</th>
+              <th>В резерве4</th>
+              <th>Дата подачи4</th>
+              <th>Сумма баллов4</th>
+              <th>Номер направления4</th>
+            </tr>            
+            <tr>
+              <th>Номер заявления5</th>
+              <th>Номер студенческого5</th>
+              <th>Ф.И.О.5</th>
+              <th>Группа5</th>
+              <th>Факультет5</th>
+              <th>Номер телефона5</th>
+              <th>В резерве5</th>
+              <th>Дата подачи5</th>
+              <th>Сумма баллов5</th>
+              <th>Номер направления5</th>
+            </tr>
+        </table>
+      </li>
+    </ul>
+  </div>
+  
+  
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+ </body>
