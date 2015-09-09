@@ -46,12 +46,180 @@
       </div>
       <!- Конец выпадающего "Меню" -->
       
-    <ul class="nav nav-tabs">
-      <li role="presentation" class="active">Home</li>
-      <li role="presentation">Profile</li>
-      <li role="presentation">Messages</li>
+   
+   <div class="container">
+    <ul class="list-group">
+      <li class="list-group-item">
+        
+        <!- блок заголовков вкладок -->
+        <ul id="myTabs" class="nav nav-tabs" role="tablist">       
+          <li role="presentation" class="active">
+            <a href="#students" id="students-tab" role="tab" data-toggle="tab" aria-controls="students" aria-expanded="true">Студенты</a>
+          </li>          
+          <li role="presentation">
+            <a href="#socialWork" id="socialWork-tab" role="tab" data-toggle="tab" aria-controls="socialWork" aria-expanded="true">Общественная работа</a>
+          </li>          
+          <li role="presentation" class>
+            <a href="#socialCategory" id="socialCategory-tab" role="tab" data-toggle="tab" aria-controls="socialCategory" aria-expanded="true">Социальная категория</a>
+          </li>          
+          <li role="presentation" class>
+            <a href="#faculty" id="faculty-tab" role="tab" data-toggle="tab" aria-controls="faculty" aria-expanded="true">Факультеты</a>
+          </li>          
+          <li role="presentation" class>
+            <a href="#employees" id="employees-tab" role="tab" data-toggle="tab" aria-controls="employees" aria-expanded="true">Сотрудники</a>
+          </li>          
+          <li role="presentation" class>
+            <a href="#section" id="section-tab" role="tab" data-toggle="tab" aria-controls="section" aria-expanded="true">Разделы</a>
+          </li>          
+          <li role="presentation" class>
+            <a href="#event" id="event-tab" role="tab" data-toggle="tab" aria-controls="event" aria-expanded="true">Мероприятия</a>
+          </li>
+          <li role="presentation" class>
+            <a href="#reference" id="reference-tab" role="tab" data-toggle="tab" aria-controls="reference" aria-expanded="true">Справочники</a>
+          </li>   
+        </ul>
+        <!- конец блока заголовков вкладок -->
+        
+        <!- блок содержимого вкладок -->
+        </br>
+        <div id="myTabContent" class="tab-content">
+          <div role="tabpanel" class="tab-pane fade in active" id="students" aria-labelledBy="students-tab">
+            <!- блок Студент -->
+            <div class="row">
+              <form class="form-horizontal col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label for="studentNumber" class="control-label col-lg-3 col-md-3">Номер студенческого:</label>
+                  <div class="col-lg-9 col-md-9">
+                    <input class="form-control" type="text" id="studentNumber">
+                  </div>
+                </div>                
+                <div class="form-group">
+                  <label for="fio" class="control-label col-lg-3 col-md-3">Ф.И.О.:</label>
+                  <div class="col-lg-9 col-md-9">
+                    <input class="form-control" type="text" id="fio">
+                  </div>
+                </div>                
+                <div class="form-group">
+                  <label for="faculty" class="control-label col-lg-3 col-md-3">Факультет:</label>
+                  <div class="col-lg-9 col-md-9">
+                    <input class="form-control" type="text" id="faculty" disabled>
+                  </div>
+                </div>                
+                <div class="form-group">
+                  <label for="group" class="control-label col-lg-3 col-md-3">Группа:</label>
+                  <div class="col-lg-9 col-md-9">
+                    <input class="form-control" type="text" id="group" disabled>
+                  </div>
+                </div>
+              </form>
+              <form class="form-horizontal col-lg-6 col-md-6">
+                <div class="form-group">
+                  <label for="dateOfEntry" class="control-label col-lg-4 col-md-4">Дата вступления:</label>
+                  <div class="col-lg-8 col-md-8">
+                    <input class="form-control" type="date" id="dateOfEntry">
+                  </div>
+                </div>                
+                <div class="form-group">
+                  <label for="financialStatus" class="control-label col-lg-4 col-md-4">Финансовый статус:</label>
+                  <div class="col-lg-8 col-md-8">
+                    <input class="form-control" type="text" id="financialStatus" disabled>
+                  </div>
+                </div>                
+                <div class="form-group">
+                  <label for="academicStatus" class="control-label col-lg-4 col-md-4">Академический статус:</label>
+                  <div class="col-lg-8 col-md-8">
+                    <input class="form-control" type="text" id="academicStatus" disabled>
+                  </div>
+                </div>
+                
+                <!- блок кнопок "Найти", "Сброс", "Загрузить" -->
+                <div class="btn-group pull-right" role="group">
+                  <button type="button" class="btn btn-success">Найти</button>
+                  <button type="button" class="btn btn-primary">Сброс</button>
+                  <button type="button" class="btn btn-danger">Загрузить</button>
+                </div>
+                <!- конец блока кнопок "Найти", "Сброс", "Загрузить" -->
+              </form>
+            </div>
+            
+            <!- Таблица -->
+            </br>
+            <table class="table table-striped">
+              <thead>
+                <th>Номер студенческого</th>
+                <th>Ф.И.О.</th>
+                <th>Группа</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>Номер студенческого1</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого1</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого1</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого1</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого1</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                </tr>
+              </tbody>
+            </table>
+            <!- конец Таблицы -->
+            
+            <!- конец блока Студент -->
+          </div>
+          
+          
+          
+          
+          
+          
+          <div role="tabpanel" class="tab-pane fade" id="socialWork" aria-labelledBy="socialWork-tab">
+            
+          </div>        
+          <div role="tabpanel" class="tab-pane fade" id="socialCategory" aria-labelledBy="socialCategory-tab">
+            
+          </div>          
+          <div role="tabpanel" class="tab-pane fade" id="faculty" aria-labelledBy="faculty-tab">
+            
+          </div>          
+            <div role="tabpanel" class="tab-pane fade in active" id="employees" aria-labelledBy="employees-tab">
+            
+          </div>          
+          <div role="tabpanel" class="tab-pane fade" id="section" aria-labelledBy="section-tab">
+            
+          </div>        
+          <div role="tabpanel" class="tab-pane fade" id="event" aria-labelledBy="event-tab">
+            
+          </div>          
+          <div role="tabpanel" class="tab-pane fade" id="reference" aria-labelledBy="reference-tab">
+            
+          </div>
+        </div>
+        <!- конец блока содержимого вкладок -->
+        
+        
+        
+        
+        
+      </li> 
     </ul>
-
+   </div>
+   
     
     
     
