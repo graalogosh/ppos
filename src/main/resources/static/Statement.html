@@ -9,6 +9,7 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/Statement.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -50,28 +51,28 @@
       <li class="list-group-item">
         <div class="row">
           <!- блок Номер студенческого, Телефон, Группа, Учебный статус -->
-          <form class="form-horizontal col-lg-4">
+          <form class="form-horizontal col-lg-4 col-md-4">
             <div class="form-group">
-              <label for="studentNumber" class="control-label col-lg-5">№ студенческого:</label>
-              <div class="col-lg-7">
+              <label for="studentNumber" class="control-label col-lg-5 col-md-5">№ студенческого:</label>
+              <div class="col-lg-7 col-md-7">
                 <input class="form-control" type="text" id="studentNumber" disabled>
               </div>
             </div>            
             <div class="form-group">
-              <label for="phone" class="control-label col-lg-5">Телефон:</label>
-              <div class="col-lg-7">
+              <label for="phone" class="control-label col-lg-5 col-md-5">Телефон:</label>
+              <div class="col-lg-7 col-md-7">
                 <input class="form-control" type="text" id="phone" disabled>
               </div>
             </div>            
             <div class="form-group">
-              <label for="group" class="control-label col-lg-5">Группа:</label>
-              <div class="col-lg-7">
+              <label for="group" class="control-label col-lg-5 col-md-5">Группа:</label>
+              <div class="col-lg-7 col-md-7">
                 <input class="form-control" type="text" id="group" disabled>
               </div>
             </div>            
             <div class="form-group">
-              <label for="educationStatus" class="control-label col-lg-5">Учебный статус:</label>
-              <div class="col-lg-7">
+              <label for="educationStatus" class="control-label col-lg-5 col-md-5">Учебный статус:</label>
+              <div class="col-lg-7 col-md-7">
                 <input class="form-control" type="text" id="educationStatus" disabled>
               </div>
             </div>
@@ -79,42 +80,153 @@
           <!- конец блока Номер студенческого, Телефон, Группа, Учебный статус -->
           
           <!- блок Ф.И.О., Банковский счёт, Дата вступления, Финансовый статус -->
-          <form class="form-horizontal col-lg-6">
+          <form class="form-horizontal col-lg-6 col-md-6">
             <div class="form-group">
-              <label for="fio" class="control-label col-lg-4">Ф.И.О.:</label>
-              <div class="col-lg-8">
+              <label for="fio" class="control-label col-lg-4 col-md-4">Ф.И.О.:</label>
+              <div class="col-lg-8 col-md-8">
                 <input class="form-control" type="text" id="fio" disabled>
               </div>
             </div>            
             <div class="form-group">
-              <label for="bankAccountNumber" class="control-label col-lg-4">Банк. счёт:</label>
-              <div class="col-lg-8">
+              <label for="bankAccountNumber" class="control-label col-lg-4 col-md-4">Банк. счёт:</label>
+              <div class="col-lg-8 col-md-8">
                 <input class="form-control" type="text" id="bankAccountNumber" disabled>
               </div>
             </div>            
             <div class="form-group">
-              <label for="dateOfEntry" class="control-label col-lg-4">Дата вступления:</label>
-              <div class="col-lg-8">
+              <label for="dateOfEntry" class="control-label col-lg-4 col-md-4">Дата вступления:</label>
+              <div class="col-lg-8 col-md-8">
                 <input class="form-control" type="text" id="dateOfEntry" disabled>
               </div>
             </div>            
             <div class="form-group">
-              <label for="financialStatus" class="control-label col-lg-4">Фин. статус:</label>
-              <div class="col-lg-8">
+              <label for="financialStatus" class="control-label col-lg-4 col-md-4">Фин. статус:</label>
+              <div class="col-lg-8 col-md-8">
                 <input class="form-control" type="text" id="financialStatus" disabled>
               </div>
             </div>
           </form>
           <!- конец блока Ф.И.О., Банковский счёт, Дата вступления, Финансовый статус -->
+          
+          <!- блок выбора Всех заявлений, Отказов, Отмен -->
+          <form class="form-horizontal col-lg-2 col-md-2">
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                Все заявления
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                Отказы
+              </label>
+            </div>              
+            <div class="radio">
+              <label>
+                <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                Отмены
+              </label>
+            </div>              
+          </form>
+          <!- конец блока выбора Всех заявлений, Отказов, Отмен -->
+        </div>
+        <div class="row">
+          <!- блок Раздел и Мероприятие -->
+          <div class="form-horizontal">
+            <div class="form-group col-lg-6 col-md-6">
+              <label for="section" class="control-label col-lg-2 col-md-2">Раздел:</label>
+              <div class="col-lg-10 col-md-10">
+                <select class="form-control" id="section">
+                  <option value="">1</option>
+                  <option value="">2</option>
+                  <option value="">3</option>
+                  <option value="">4</option>
+                  <option value="">5</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group col-lg-6 col-md-6">
+              <label for="event" class="control-label col-lg-3 col-md-3">Мероприятие:</label>
+              <div class="col-lg-9 col-md-9">
+                <select class="form-control" id="event">
+                  <option value="">1</option>
+                  <option value="">2</option>
+                  <option value="">3</option>
+                  <option value="">4</option>
+                  <option value="">5</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!- конец блока Раздел и Мероприятие -->
         </div>
       </li>
+      
+      <!- Таблица -->
+        <li class="list-group-item">
+          <table class="table table-striped">
+            <thead>
+              <th>Номер заявления</th>
+              <th>Дата подачи заявления</th>
+              <th>Раздел</th>
+              <th>Мероприятие</th>
+              <th>Сумма баллов</th>
+              <th>Принял(а)</th>
+              <th>Комментарий</th>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Номер заявления</th>
+                <th>Дата подачи заявления</th>
+                <th>Раздел</th>
+                <th>Мероприятие</th>
+                <th>Сумма баллов</th>
+                <th>Принял(а)</th>
+                <th>Комментарий</th>
+              </tr>                
+              <tr>
+                <th>Номер заявления</th>
+                <th>Дата подачи заявления</th>
+                <th>Раздел</th>
+                <th>Мероприятие</th>
+                <th>Сумма баллов</th>
+                <th>Принял(а)</th>
+                <th>Комментарий</th>
+              </tr>               
+              <tr>
+                <th>Номер заявления</th>
+                <th>Дата подачи заявления</th>
+                <th>Раздел</th>
+                <th>Мероприятие</th>
+                <th>Сумма баллов</th>
+                <th>Принял(а)</th>
+                <th>Комментарий</th>
+              </tr>                
+              <tr>
+                <th>Номер заявления</th>
+                <th>Дата подачи заявления</th>
+                <th>Раздел</th>
+                <th>Мероприятие</th>
+                <th>Сумма баллов</th>
+                <th>Принял(а)</th>
+                <th>Комментарий</th>
+              </tr>               
+              <tr>
+                <th>Номер заявления</th>
+                <th>Дата подачи заявления</th>
+                <th>Раздел</th>
+                <th>Мероприятие</th>
+                <th>Сумма баллов</th>
+                <th>Принял(а)</th>
+                <th>Комментарий</th>
+              </tr>                
+            </tbody>
+          </table>
+      <!- конец таблицы -->
     </ul>
-  </div>
-  
-  
-  
-  
-  
+  </div>  
+
   
   
   
