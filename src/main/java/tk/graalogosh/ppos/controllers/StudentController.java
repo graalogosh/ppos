@@ -51,15 +51,15 @@ public class StudentController {
         Student example = new Student();
         example.setStudentID(studentID);
         example.setName(name);
-        example.setEntryDate(entryDate);//TODO parse entryDate to date
+        example.setEntryDate(entryDate);
         example.setEducationalGroup(educationalGroup);
         example.setAcademicStatus(new Status());//TODO fix
         example.setFinancialStatus(new Status());//TODO fix
         example.setFaculty(faculty);
         example.setPhone(phone);
         example.setBankAccountNumber(bankAcountNumber);
-        example.setStudentPaid(Integer.parseInt(studentPaid));
-        example.setStudentMustPay(Integer.parseInt(studentMustPay));
+        example.setStudentPaid(Integer.parseInt(studentPaid));//TODO fix to integer Oo
+        example.setStudentMustPay(Integer.parseInt(studentMustPay));//TODO fix to integer Oo
 
         StudentSpecification specification = new StudentSpecification(example);
         List<Student> students = studentRepository.findAll(specification);
