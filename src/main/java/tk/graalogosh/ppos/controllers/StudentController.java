@@ -1,15 +1,15 @@
 package tk.graalogosh.ppos.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import tk.graalogosh.ppos.models.Status;
 import tk.graalogosh.ppos.models.Student;
 import tk.graalogosh.ppos.repositories.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import tk.graalogosh.ppos.specifications.StudentSpecification;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.time.*;
 
 /**
  * Created by graal on 05.08.2015.
@@ -67,8 +67,10 @@ public class StudentController {
     }
 
     @RequestMapping(value = "students", method = RequestMethod.POST)
-    public /*Student*/ void postStudent(
-            @RequestBody String payload){
+    public Student postStudent(
+            @RequestBody Student payload){
         System.out.println(payload);
+        studentRepository.saveAndFlush(payload);//try-catch
+        return payload;
     }
 }
