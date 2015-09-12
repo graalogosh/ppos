@@ -49,6 +49,9 @@ public class StatementController {
             @RequestParam(value = "completeDocs", required = false) boolean completeDocs,
             @RequestParam(value = "reserve", required = false) boolean reserve){
         Statement example = new Statement();
-        
+        example.setStatementID(statementID);
+        example.setFillingDate(fillingDate);
+       // example.setStudent(); //TODO student
+        throw new NotImplementedException();
     }
 }

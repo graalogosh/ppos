@@ -95,12 +95,12 @@ public class Statement {
         this.statementID = statementID;
     }
 
-    public LocalDate getDate() {
+    public LocalDate getFillingDate() {
         return fillingDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.fillingDate = date;
+    public void setFillingDate(LocalDate fillingDate) {
+        this.fillingDate = fillingDate;
     }
 
     public Student getStudent() {
@@ -243,7 +243,7 @@ public class Statement {
         return reserve;
     }
 
-    public void setReseLocalrve(boolean reserve) {
+    public void setReserve(boolean reserve) {
         this.reserve = reserve;
     }
 
