@@ -61,6 +61,8 @@ public class StudentController {
         example.setStudentPaid(Integer.parseInt(studentPaid));//TODO fix to integer Oo
         example.setStudentMustPay(Integer.parseInt(studentMustPay));//TODO fix to integer Oo
 
+        System.out.println("GROUP="+educationalGroup);
+
         StudentSpecification specification = new StudentSpecification(example);
         List<Student> students = studentRepository.findAll(specification);
         return  students;
