@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tk.graalogosh.ppos.models.Employee;
 import tk.graalogosh.ppos.repositories.EmployeeRepository;
+import tk.graalogosh.ppos.specifications.EmployeeSpecification;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +25,7 @@ public class EmployeeController {
     }
 
     @RequestMapping("employee")
-    public Employee getEmployees(
+    public List<Employee> getEmployees(
             @RequestParam(value = "employeeID", defaultValue = "0") Integer employeeID,
             @RequestParam(value = "name", required = false)String name,
             @RequestParam(value = "accessLevel", required = false)int accessLevel,
@@ -34,5 +35,16 @@ public class EmployeeController {
             @RequestParam(value = "faculty", required = false) String faculty) {
 
         Employee example = new Employee();
+        example.setEmployeeID(employeeID);
+        example.setName(name);
+        example.setAccessLevel(accessLevel);
+        example.setRegistrationDate(registrationDate);
+        example.setLastLoginDate(lastTimeLoginDate);
+        example.setDismissed(dismissed);
+        example.setFaculty(faculty);
+
+        EmployeeSpecification specification = new EmployeeSpecification(example);
+        List<Employee> employees = employeeRepository.findAll(specification);
+        return  employees;
     }
 }
