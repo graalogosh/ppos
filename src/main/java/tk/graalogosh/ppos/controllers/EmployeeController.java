@@ -24,7 +24,7 @@ public class EmployeeController {
         this.employeeRepository = employeeRepository;
     }
 
-    @RequestMapping("employee")
+    @RequestMapping("employees")
     public List<Employee> getEmployees(
             @RequestParam(value = "employeeID", defaultValue = "0") Integer employeeID,
             @RequestParam(value = "name", required = false)String name,
