@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import tk.graalogosh.ppos.models.Event;
 import tk.graalogosh.ppos.models.Statement;
 import tk.graalogosh.ppos.models.Student;
 import tk.graalogosh.ppos.repositories.StatementRepository;
@@ -22,10 +23,12 @@ import java.util.List;
 @RestController
 public class StatementController {
     private StatementRepository statementRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
-    public StatementController(StatementRepository statementRepository){
+    public StatementController(StatementRepository statementRepository, StudentRepository studentRepository){
         this.statementRepository = statementRepository;
+        this.studentRepository = studentRepository;
     }
 
     @RequestMapping("statement")
@@ -53,7 +56,15 @@ public class StatementController {
         Statement example = new Statement();
         example.setStatementID(statementID);
         example.setFillingDate(fillingDate);
-       // example.setStudent(); //TODO student
+        Student student=studentRepository.findOne(studentID);
+        if (student!=null) {
+            example.setStudent(student);
+        }
+        else{
+            example.setStudent(new Student());//null
+        }
+//        Event event =
+//        example.setEvent();
         throw new NotImplementedException();
     }
 }
