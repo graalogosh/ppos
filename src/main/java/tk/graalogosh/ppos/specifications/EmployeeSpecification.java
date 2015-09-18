@@ -43,7 +43,7 @@ public class EmployeeSpecification implements Specification<Employee> {
         }
 
         if (example.getLastLoginDate()!=null){
-            predicates.add(cb.equal(root.get(Employee_.lastTimeLoginDate), example.getLastLoginDate()));
+            predicates.add(cb.equal(root.get(Employee_.lastLoginDate), example.getLastLoginDate()));
         }
 
         //TODO dismissed
