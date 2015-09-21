@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import tk.graalogosh.ppos.models.Status;
 import tk.graalogosh.ppos.models.Student;
+import tk.graalogosh.ppos.repositories.StatusRepository;
 import tk.graalogosh.ppos.repositories.StudentRepository;
 import tk.graalogosh.ppos.specifications.StudentSpecification;
 
@@ -17,10 +18,13 @@ import java.util.List;
 @RestController
 public class StudentController {
     private StudentRepository studentRepository;
+    private StatusRepository statusRepository;
 
     @Autowired
-    public StudentController(StudentRepository studentRepository){
+    public StudentController(StudentRepository studentRepository,
+                             StatusRepository statusRepository){
         this.studentRepository = studentRepository;
+        this.statusRepository = statusRepository;
     }
 
     @RequestMapping("/student/{user}")
@@ -40,8 +44,8 @@ public class StudentController {
             @RequestParam(value = "name", required = false)String name,
             @RequestParam(value = "entryDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate entryDate,
             @RequestParam(value = "educationalGroup", required = false)String educationalGroup,
-            @RequestParam(value = "academicStatus", required = false)String academicStatus,
-            @RequestParam(value = "financialStatus", required = false)String financialStatus,
+            @RequestParam(value = "academicStatus", required = false)Integer academicStatus,
+            @RequestParam(value = "financialStatus", required = false)Integer financialStatus,
             @RequestParam(value = "faculty", required = false)String faculty,
             @RequestParam(value = "phone", required = false)String phone,
             @RequestParam(value = "bankAccountNumber", required = false)String bankAcountNumber,
@@ -53,7 +57,10 @@ public class StudentController {
         example.setName(name);
         example.setEntryDate(entryDate);
         example.setEducationalGroup(educationalGroup);
-        example.setAcademicStatus(new Status());//TODO fix
+
+        Status acadStat = statusRepository.findOne(academicStatus);
+        example.setAcademicStatus(acadStat);//TODO fix
+
         example.setFinancialStatus(new Status());//TODO fix
         example.setFaculty(faculty);
         example.setPhone(phone);
