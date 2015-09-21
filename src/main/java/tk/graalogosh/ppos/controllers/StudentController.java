@@ -49,24 +49,21 @@ public class StudentController {
             @RequestParam(value = "faculty", required = false)String faculty,
             @RequestParam(value = "phone", required = false)String phone,
             @RequestParam(value = "bankAccountNumber", required = false)String bankAcountNumber,
-            @RequestParam(value = "studentPaid", defaultValue = "0") String studentPaid,
-            @RequestParam(value = "studentMustPay", defaultValue = "0") String studentMustPay){//TODO fix
+            @RequestParam(value = "studentPaid", defaultValue = "-1") Integer studentPaid,
+            @RequestParam(value = "studentMustPay", defaultValue = "-1") Integer studentMustPay){//TODO fix
 
         Student example = new Student();
         example.setStudentID(studentID);
         example.setName(name);
         example.setEntryDate(entryDate);
         example.setEducationalGroup(educationalGroup);
-
-        Status acadStat = statusRepository.findOne(academicStatus);
-        example.setAcademicStatus(acadStat);//TODO fix
-
-        example.setFinancialStatus(new Status());//TODO fix
+        example.setAcademicStatus(statusRepository.findOne(academicStatus));
+        example.setFinancialStatus(statusRepository.findOne(financialStatus));
         example.setFaculty(faculty);
         example.setPhone(phone);
         example.setBankAccountNumber(bankAcountNumber);
-        example.setStudentPaid(Integer.parseInt(studentPaid));//TODO fix to integer Oo
-        example.setStudentMustPay(Integer.parseInt(studentMustPay));//TODO fix to integer Oo
+        example.setStudentPaid(studentPaid);//TODO fix to integer Oo
+        example.setStudentMustPay(studentMustPay);//TODO fix to integer Oo
 
         StudentSpecification specification = new StudentSpecification(example);
         List<Student> students = studentRepository.findAll(specification);

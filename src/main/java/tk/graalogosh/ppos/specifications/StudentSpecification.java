@@ -62,7 +62,13 @@ public class StudentSpecification implements Specification<Student>{
             predicates.add(cb.equal(root.get(Student_.bankAccountNumber), example.getBankAccountNumber()));
         }
 
-        //TODO paid
+        if(example.getStudentPaid()!=-1){
+            predicates.add(cb.equal(root.get(Student_.studentPaid), example.getStudentPaid()));
+        }
+
+        if(example.getStudentMustPay()!=-1){
+            predicates.add(cb.equal(root.get(Student_.studentMustPay), example.getStudentMustPay()));
+        }
 
         return andTogether(predicates, cb);
     }
