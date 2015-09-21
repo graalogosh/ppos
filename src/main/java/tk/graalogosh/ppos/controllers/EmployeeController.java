@@ -26,9 +26,9 @@ public class EmployeeController {
 
     @RequestMapping("employees")
     public List<Employee> getEmployees(
-            @RequestParam(value = "employeeID", defaultValue = "0") Integer employeeID,
+            @RequestParam(value = "employeeID", required = false) Integer employeeID,
             @RequestParam(value = "name", required = false)String name,
-            @RequestParam(value = "accessLevel", required = false)int accessLevel,
+            @RequestParam(value = "accessLevel", required = false)Integer accessLevel,
             @RequestParam(value = "registrationDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate registrationDate,
             @RequestParam(value = "lastTimeLoginDate", required = false)@DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastTimeLoginDate,
             @RequestParam(value = "dismissed", required = false) boolean dismissed,
