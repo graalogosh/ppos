@@ -2,12 +2,11 @@ package tk.graalogosh.ppos.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tk.graalogosh.ppos.models.Event;
 import tk.graalogosh.ppos.models.Statement;
 import tk.graalogosh.ppos.models.Student;
+import tk.graalogosh.ppos.repositories.CourseRepository;
 import tk.graalogosh.ppos.repositories.StatementRepository;
 import tk.graalogosh.ppos.repositories.StudentRepository;
 
@@ -24,11 +23,15 @@ import java.util.List;
 public class StatementController {
     private StatementRepository statementRepository;
     private StudentRepository studentRepository;
+    private CourseRepository courseRepository;
 
     @Autowired
-    public StatementController(StatementRepository statementRepository, StudentRepository studentRepository){
+    public StatementController(StatementRepository statementRepository,
+                               StudentRepository studentRepository,
+                               CourseRepository courseRepository){
         this.statementRepository = statementRepository;
         this.studentRepository = studentRepository;
+        this.courseRepository = courseRepository;
     }
 
     @RequestMapping("statement")
@@ -66,5 +69,19 @@ public class StatementController {
 //        Event event =
 //        example.setEvent();
         throw new NotImplementedException();
+    }
+
+    @RequestMapping(value = "statement", method = RequestMethod.POST)
+    public boolean postStatement(
+         @RequestBody Statement payload){
+        //TODO get course from student.group
+        //TODO get fillingdate from system date
+
+
+
+        System.out.println(payload.getStatementID());
+        System.out.println(payload.getFillingDate());
+        System.out.println(payload.getAverage_score());//TODO change name
+        return true;
     }
 }
