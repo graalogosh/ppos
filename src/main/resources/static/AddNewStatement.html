@@ -60,18 +60,18 @@
                       <form class="form-horizontal col-md-4 col-lg-4">
                          <!- номер студенческого -->
                           <div class="form-group">
-                              <label class="control-label col-md-6 col-lg-6" for="studentNumber">№ студенческого:</label>
+                              <label class="control-label col-md-6 col-lg-6" for="student">№ студенческого:</label>
                               <div class="col-md-6 col-lg-6">
-                                  <input type="text" class="form-control" id="studentNumber">
+                                  <input type="text" class="form-control" id="student">
                               </div>
                           </div>
                           <!- конец номера студенческого -->
                           
                           <!- группа -->
                           <div class="form-group">
-                              <label class="control-label col-md-6 col-lg-6" for="studentGroup">Группа:</label>
+                              <label class="control-label col-md-6 col-lg-6" for="educationalGroup">Группа:</label>
                               <div class="col-md-6 col-lg-6">
-                                  <input type="text" class="form-control" id="studentGroup" disabled>
+                                  <input type="text" class="form-control" id="educationalGroup" disabled>
                               </div>
                           </div>
                           <!- конец руппы -->
@@ -82,18 +82,18 @@
                       <form class="form-horizontal col-md-5 col-lg-5">
                           <!- номер телефона -->
                           <div class="form-group">
-                              <label class="control-label col-md-4 col-lg-3" for="phoneNumber">Телефон:</label>
+                              <label class="control-label col-md-4 col-lg-3" for="phone">Телефон:</label>
                               <div class="col-md-8 col-lg-9">
-                                  <input type="tel" class="form-control" id="phoneNumber" disabled>
+                                  <input type="tel" class="form-control" id="phone" disabled>
                               </div>
                           </div>
                           <!- конец номера телефона -->
                           
                           <!- банковский счёт -->
                           <div class="form-group">
-                              <label class="control-label col-md-4 col-lg-3" for="bankNumber">Банк. счёт:</label>
+                              <label class="control-label col-md-4 col-lg-3" for="bankAccountNumber">Банк. счёт:</label>
                               <div class="col-md-8 col-lg-9">
-                                  <input type="text" class="form-control" id="bankNumber">
+                                  <input type="text" class="form-control" id="bankAccountNumber">
                               </div>
                           </div>
                           <!- конец банковского счёта -->
@@ -121,9 +121,9 @@
                        <form class="form-horizontal col-md-6 col-lg-6">
                            <!- раздел -->
                            <div class="form-group">
-                               <label class="control-label col-lg-2" for="section">Раздел:</label>
+                               <label class="control-label col-lg-2" for="sectionID">Раздел:</label>
                                   <div class="col-lg-10">
-                                   <select class="form-control" id="section">
+                                   <select class="form-control" id="sectionID">
                                      <option value=""></option>
                                      <option value="">Студенческий спортивно-оздоровительный лагерь</option>
                                      <option value="">Пункт2</option>
@@ -163,9 +163,9 @@
                        <form class="form-horizontal col-md-6 col-lg-6">                           
                            <!- категория -->
                            <div class="form-group">
-                               <label class="control-label col-lg-3" for="section">Категория:</label>
+                               <label class="control-label col-lg-3" for="socialWorkCategory">Категория:</label>
                                   <div class="col-lg-9">
-                                     <select class="form-control" id="section">
+                                     <select class="form-control" id="socialWorkCategory">
                                      <option value=""></option>
                                      <option value="">Студенческий спортивно-оздоровительный лагерь</option>
                                      <option value="">Пункт2</option>
@@ -180,9 +180,9 @@
                         <form class="form-horizontal col-md-6 col-lg-6">
                            <!- общественная работа -->
                            <div class="form-group">
-                               <label class="control-label col-lg-3" for="event">Общ. работа:</label>
+                               <label class="control-label col-lg-3" for="socialWork">Общ. работа:</label>
                                <div class="col-lg-9">
-                                 <select class="form-control" id="event">
+                                 <select class="form-control" id="socialWork">
                                      <option value=""></option>
                                      <option value="">Студенческий спортивно-оздоровительный лагерь</option>
                                      <option value="">Пункт2</option>
@@ -215,8 +215,8 @@
                                  </select>
                                </div>
                            </div>
-                           <label class="checkbox-inline"><input type="checkbox" value="">Все документы в наличии</label>
-                           <label class="checkbox-inline"><input type="checkbox" value="">Социальная стипендия</label>
+                           <label class="checkbox-inline"><input type="checkbox" id="completeDocs" value="">Все документы в наличии</label>
+                           <label class="checkbox-inline"><input type="checkbox" id="socialGrant" value="">Социальная стипендия</label>
                        </form>
                        <div class="form-horizontal col-md-6 col-lg-6">
                            <div class="form-group col-sm-4 col-md-6 col-lg-6">
@@ -239,10 +239,10 @@
                    <div class="row">
                          <form class="form-horizontal col-md-4 col-lg-4">
                              <div class="form-group">
-                                 <label class="control-label col-lg-3" for="estimates">Оценки:</label>
+                                 <label class="control-label col-lg-3" for="score">Оценки:</label>
                                  <div class="col-lg-9">
                                    <div class="input-group">
-                                       <input type="number" class="form-control" id="estimates">
+                                       <input type="number" class="form-control" id="score">
                                        <span class="input-group-btn">
                                        <button class="btn btn-default" type="button">Рассчитать</button>
                                        </span>
@@ -252,17 +252,17 @@
                          </form>
                              <form class="form-horizontal col-md-4 col-lg-3">
                                <div class="form-group">
-                                   <label class="control-label col-lg-6" for="averageScore">Средний балл:</label>
+                                   <label class="control-label col-lg-6" for="average_score">Средний балл:</label>
                                    <div class="col-lg-6">
-                                     <input type="text" class="form-control" id="averageScore" disabled>
+                                     <input type="text" class="form-control" id="average_score" disabled>
                                    </div>                      
                                </div>
                              </form>
                              <form class="form-horizontal col-md-4 col-lg-2">
                                <div class="form-group">
-                                   <label class="control-label col-lg-4" for="sum">Сумма:</label>
+                                   <label class="control-label col-lg-4" for="moneyCategory">Сумма:</label>
                                    <div class="col-lg-8">
-                                     <input type="text" class="form-control" id="sum" disabled>
+                                     <input type="text" class="form-control" id="moneyCategory" disabled>
                                    </div>
                                </div>
                              </form>
