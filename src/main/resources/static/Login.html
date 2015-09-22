@@ -41,8 +41,16 @@
             var str = 'http://ppos/test1.html';
             $.get(str, function () { alert('qwerty'); });
             */
-
-            
+          
+          
+          
+          $.getJSON("F:\statement.json", function(data) {
+            $.each(data, function(key, val) {
+              alert(key + ' : ' + val);
+            });
+          });
+          
+          alert("fhgjdj");
         }
         
     </script> 
