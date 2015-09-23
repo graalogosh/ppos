@@ -12,6 +12,7 @@
     <link href="css/Main.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="js/jquery.dynatable.js"></script>
+    <script type="text/javascript" src="js/function_sendInform.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <link href="css/jquery.dynatable.css" rel="stylesheet">
@@ -24,20 +25,20 @@
         
     <script>
       $(document).ready(function(){
-        $('#accountingFees').dynatable();
+        
       });
     </script>
     
     <script>
       function onClickFind(){
+        var q = $('#accountingFees').dynatable().data();
+
         $.getJSON ("http://graalogosh.tk:8080/student/120930", function(data){
-          $('#accountingFees').dynatable({
-            dataset: {
-              records: data
-            }
-          });
+          q.dynatable.settings.dataset.records = data;
         });
       }
+
+
     </script>
     
 </head>
@@ -166,15 +167,15 @@
           <li class="list-group-item">
             <table class="table table-striped" id="accountingFees">
               <thead>
-                <th>Номер студенческого</th>
-                <th>Ф.И.О.</th>
-                <th>Группа</th>
-                <th>Учебный статус</th>
-                <th>Финансовый статус</th>
-                <th>Факультет</th>
-                <th>Телефон</th>
-                <th>Оплатил</th>
-                <th>Должен оплатить</th>
+                <th data-dynatable-column="name1">Номер студенческого</th>
+                <th data-dynatable-column="name2">Ф.И.О.</th>
+                <th data-dynatable-column="name3">Группа</th>
+                <th data-dynatable-column="name4">Учебный статус</th>
+                <th data-dynatable-column="name5">Финансовый статус</th>
+                <th data-dynatable-column="name6">Факультет</th>
+                <th data-dynatable-column="name7">Телефон</th>
+                <th data-dynatable-column="name8">Оплатил</th>
+                <th data-dynatable-column="name9">Должен оплатить</th>
               </thead>
               <tbody>
                 <tr>
@@ -189,7 +190,7 @@
                   <th>Должен оплатить1</th>
                 </tr>                
                 <tr>
-                  <th>Номер студенческого1</th>
+                  <th>Номер студенческого2</th>
                   <th>Ф.И.О.1</th>
                   <th>Группа1</th>
                   <th>Учебный статус1</th>
@@ -200,7 +201,7 @@
                   <th>Должен оплатить1</th>
                 </tr>                
                 <tr>
-                  <th>Номер студенческого1</th>
+                  <th>Номер студенческого3</th>
                   <th>Ф.И.О.1</th>
                   <th>Группа1</th>
                   <th>Учебный статус1</th>
@@ -211,7 +212,7 @@
                   <th>Должен оплатить1</th>
                 </tr>                
                 <tr>
-                  <th>Номер студенческого1</th>
+                  <th>Номер студенческого4</th>
                   <th>Ф.И.О.1</th>
                   <th>Группа1</th>
                   <th>Учебный статус1</th>
@@ -222,7 +223,172 @@
                   <th>Должен оплатить1</th>
                 </tr>                
                 <tr>
-                  <th>Номер студенческого1</th>
+                  <th>Номер студенческого5</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>
+                <tr>
+                  <th>Номер студенческого6</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого7</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого8</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого9</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого10</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>
+                <tr>
+                  <th>Номер студенческого11</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого12</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого13</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого14</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого15</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>
+                <tr>
+                  <th>Номер студенческого16</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого17</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого18</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого19</th>
+                  <th>Ф.И.О.1</th>
+                  <th>Группа1</th>
+                  <th>Учебный статус1</th>
+                  <th>Финансовый статус1</th>
+                  <th>Факультет1</th>
+                  <th>Телефон1</th>
+                  <th>Оплатил1</th>
+                  <th>Должен оплатить1</th>
+                </tr>                
+                <tr>
+                  <th>Номер студенческого20</th>
                   <th>Ф.И.О.1</th>
                   <th>Группа1</th>
                   <th>Учебный статус1</th>
