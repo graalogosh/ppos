@@ -31,7 +31,7 @@ public class EmployeeController {
             @RequestParam(value = "accessLevel", required = false)Integer accessLevel,
             @RequestParam(value = "registrationDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate registrationDate,
             @RequestParam(value = "lastTimeLoginDate", required = false)@DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastTimeLoginDate,
-            @RequestParam(value = "dismissed", required = false) boolean dismissed,
+            @RequestParam(value = "dismissed", required = false) Boolean dismissed,
             @RequestParam(value = "faculty", required = false) String faculty) {
 
         Employee example = new Employee();
