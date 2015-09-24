@@ -11,5 +11,5 @@ import javax.persistence.Table;
  */
 @Repository
 @Table(name = "refusal")
-public interface RefusalRepository extends JpaRepository<Course, Integer>{
+public interface RefusalRepository extends JpaRepository<Refusal, Integer>{
 }
