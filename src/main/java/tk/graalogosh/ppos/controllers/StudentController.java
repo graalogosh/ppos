@@ -22,43 +22,42 @@ public class StudentController {
 
     @Autowired
     public StudentController(StudentRepository studentRepository,
-                             StatusRepository statusRepository){
+                             StatusRepository statusRepository) {
         this.studentRepository = studentRepository;
         this.statusRepository = statusRepository;
     }
 
     @RequestMapping("/student/{user}")
     public Student getStudent(
-            @PathVariable(value = "user") String userID)
-    {
+            @PathVariable(value = "user") String userID) {
         Student example = new Student();
         example.setStudentID(userID);
         StudentSpecification specification = new StudentSpecification(example);
         List<Student> students = studentRepository.findAll(specification);
-        return  students.get(0);
+        return students.get(0);
     }
 
     @RequestMapping(value = "students", method = RequestMethod.GET)
     public List<Student> getStudents(
-            @RequestParam(value = "studentID", required = false)String studentID,
-            @RequestParam(value = "name", required = false)String name,
+            @RequestParam(value = "studentID", required = false) String studentID,
+            @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "entryDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate entryDate,
-            @RequestParam(value = "educationalGroup", required = false)String educationalGroup,
-            @RequestParam(value = "academicStatus", required = false)Integer academicStatus,
-            @RequestParam(value = "financialStatus", required = false)Integer financialStatus,
-            @RequestParam(value = "faculty", required = false)String faculty,
-            @RequestParam(value = "phone", required = false)String phone,
-            @RequestParam(value = "bankAccountNumber", required = false)String bankAcountNumber,
+            @RequestParam(value = "educationalGroup", required = false) String educationalGroup,
+            @RequestParam(value = "academicStatus", required = false) Integer academicStatus,
+            @RequestParam(value = "financialStatus", required = false) Integer financialStatus,
+            @RequestParam(value = "faculty", required = false) String faculty,
+            @RequestParam(value = "phone", required = false) String phone,
+            @RequestParam(value = "bankAccountNumber", required = false) String bankAcountNumber,
             @RequestParam(value = "studentPaid", defaultValue = "-1") Integer studentPaid,
-            @RequestParam(value = "studentMustPay", defaultValue = "-1") Integer studentMustPay){//TODO fix
+            @RequestParam(value = "studentMustPay", defaultValue = "-1") Integer studentMustPay) {//TODO fix
 
         Student example = new Student();
         example.setStudentID(studentID);
         example.setName(name);
         example.setEntryDate(entryDate);
         example.setEducationalGroup(educationalGroup);
-        example.setAcademicStatus(statusRepository.findOne(academicStatus));
-        example.setFinancialStatus(statusRepository.findOne(financialStatus));
+        example.setAcademicStatus(academicStatus != null ? statusRepository.findOne(academicStatus) : null);
+        example.setFinancialStatus(financialStatus != null ? statusRepository.findOne(financialStatus) : null);
         example.setFaculty(faculty);
         example.setPhone(phone);
         example.setBankAccountNumber(bankAcountNumber);
@@ -67,12 +66,12 @@ public class StudentController {
 
         StudentSpecification specification = new StudentSpecification(example);
         List<Student> students = studentRepository.findAll(specification);
-        return  students;
+        return students;
     }
 
     @RequestMapping(value = "students", method = RequestMethod.POST)
     public Student postStudent(
-            @RequestBody Student payload){
+            @RequestBody Student payload) {
         System.out.println(payload);
         studentRepository.saveAndFlush(payload);//try-catch
         return payload;
