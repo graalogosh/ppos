@@ -39,7 +39,7 @@ public class StatementController {
                                SocialWorkRepository socialWorkRepository,
                                TripCountRepository tripCountRepository,
                                RefusalRepository refusalRepository,
-                               StatementListRepository statementListRepository){
+                               StatementListRepository statementListRepository) {
         this.statementRepository = statementRepository;
         this.studentRepository = studentRepository;
         this.courseRepository = courseRepository;
@@ -52,7 +52,7 @@ public class StatementController {
         this.statementListRepository = statementListRepository;
     }
 
-    @RequestMapping("statement")
+    @RequestMapping(value = "statements", method = RequestMethod.GET)
     public List<Statement> getStatements(
             @RequestParam(value = "statementID", required = false) Integer statementID,
             @RequestParam(value = "fillingDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate fillingDate,
@@ -73,25 +73,25 @@ public class StatementController {
             @RequestParam(value = "listID", required = false) Integer listID,
             @RequestParam(value = "comment", required = false) String comment,
             @RequestParam(value = "completeDocs", required = false) Boolean completeDocs,
-            @RequestParam(value = "reserve", required = false) Boolean reserve){
+            @RequestParam(value = "reserve", required = false) Boolean reserve) {
         Statement example = new Statement();
         example.setStatementID(statementID);
         example.setFillingDate(fillingDate);
-        example.setStudent(studentRepository.findOne(studentID));
-        example.setEvent(eventRepository.findOne(eventID));
-        example.setEmployee(employeeRepository.findOne(employeeID));
+        example.setStudent(studentID != null ? studentRepository.findOne(studentID) : null);
+        example.setEvent(eventID != null ? eventRepository.findOne(eventID) : null);
+        example.setEmployee(employeeID != null ? employeeRepository.findOne(employeeID) : null);
         example.setSocialGrant(socialGrant);
-        example.setSocialCategory(socialCategoryRepository.findOne(socialCategoryID));
-        example.setSocialWork(socialWorkRepository.findOne(socialWorkID));
+        example.setSocialCategory(socialCategoryID != null ? socialCategoryRepository.findOne(socialCategoryID) : null);
+        example.setSocialWork(socialWorkID != null ? socialWorkRepository.findOne(socialWorkID) : null);
         example.setMoneyCategory(moneyCategory);
-        example.setCourse(courseRepository.findOne(cource));
-        example.setTripCount(tripCountRepository.findOne(tripCount));
+        example.setCourse(cource != null ? courseRepository.findOne(cource) : null);
+        example.setTripCount(tripCount != null ? tripCountRepository.findOne(tripCount) : null);
         example.setAverage_score(averageScore);
-        example.setRefusalCount(refusalRepository.findOne(refusalCount));
+        example.setRefusalCount(refusalCount != null ? refusalRepository.findOne(refusalCount) : null);
         example.setPermitNumber(permitNumber);
         example.setRefusalDate(refusalDate);
         example.setCancellationDate(cancellationDate);
-        example.setList(statementListRepository.findOne(listID));
+        example.setList(listID != null ? statementListRepository.findOne(listID) : null);
         example.setComment(comment);
         example.setCompleteDocs(completeDocs);
         example.setReserve(reserve);
@@ -103,10 +103,9 @@ public class StatementController {
 
     @RequestMapping(value = "statement", method = RequestMethod.POST)
     public boolean postStatement(
-         @RequestBody Statement payload){
+            @RequestBody Statement payload) {
         //TODO get course from student.group
         //TODO get fillingdate from system date
-
 
 
         System.out.println(payload.getStatementID());
