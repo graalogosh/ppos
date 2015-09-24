@@ -47,7 +47,7 @@ public class StudentSpecification implements Specification<Student>{
         }
 
         if (example.getFinancialStatus()!=null){
-            predicates.add((cb.equal(root.get(Student_.financialStatus), example.getFinancialStatus())));
+            predicates.add(cb.equal(root.get(Student_.financialStatus), example.getFinancialStatus()));
         }
 
         if (StringUtils.isNotBlank(example.getFaculty())){
