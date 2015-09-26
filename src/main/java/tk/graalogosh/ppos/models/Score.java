@@ -12,7 +12,7 @@ public class Score {
     }
 
     @Id
-@GeneratedValue
+    @GeneratedValue
     private Integer id;
 
     private double minScore;

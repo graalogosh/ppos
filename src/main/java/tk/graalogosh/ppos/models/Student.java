@@ -1,6 +1,8 @@
 package tk.graalogosh.ppos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import tk.graalogosh.ppos.utils.LocalDateDeserializer;
 import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
 
 import javax.persistence.*;
@@ -25,6 +27,7 @@ public class Student {
     @Column(name = "entry_date")
     @Convert(converter = LocalDatePersistenceConverter.class)
     @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate entryDate;
 
     @Column(name = "educational_group")

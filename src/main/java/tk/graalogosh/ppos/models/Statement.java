@@ -1,6 +1,8 @@
 package tk.graalogosh.ppos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import tk.graalogosh.ppos.utils.LocalDateDeserializer;
 import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
 
 import javax.persistence.*;
@@ -21,6 +23,7 @@ public class Statement {
 
     @Convert(converter = LocalDatePersistenceConverter.class)
     @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate fillingDate;
 
     @ManyToOne
@@ -66,10 +69,12 @@ public class Statement {
 
     @Convert(converter = LocalDatePersistenceConverter.class)
     @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate refusalDate;
 
     @Convert(converter = LocalDatePersistenceConverter.class)
     @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate cancellationDate;
 
     @ManyToOne
@@ -90,12 +95,12 @@ public class Statement {
         this.statementID = statementID;
     }
 
-    public LocalDate getDate() {
+    public LocalDate getFillingDate() {
         return fillingDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.fillingDate = date;
+    public void setFillingDate(LocalDate fillingDate) {
+        this.fillingDate = fillingDate;
     }
 
     public Student getStudent() {
@@ -238,7 +243,7 @@ public class Statement {
         return reserve;
     }
 
-    public void setReseLocalrve(boolean reserve) {
+    public void setReserve(boolean reserve) {
         this.reserve = reserve;
     }
 
