@@ -25,16 +25,29 @@
         
     <script>
       $(document).ready(function(){
-        
+
       });
     </script>
     
     <script>
       function onClickFind(){
-        var q = $('#accountingFees').dynatable().data();
-
-        $.getJSON ("http://graalogosh.tk:8080/student/120930", function(data){
-          q.dynatable.settings.dataset.records = data;
+        $("#accountingFees").dataTable( {
+          "searching": false,
+          "paging": false,
+          "info": false,
+          "processing": true,
+          "ajax": "C:/Users/yakun/Documents/GitHub/ppos/src/main/resources/static/students.json",
+          "columns": [
+            {"data": "studentID"},
+            {"data": "educationalGroup"},
+            {"data": "name"},
+            {"data": "academicStatus.title"},
+            {"data": "financialStatus.title"},
+            {"data": "entryDate.dayOfMonth"},
+            {"data": "entryDate.monthValue"},
+            {"data": "entryDate.year"},
+            {"data": "faculty"}
+          ]
         });
       }
 
@@ -166,15 +179,15 @@
           <li class="list-group-item">
             <table class="table table-striped" id="accountingFees">
               <thead>
-                <th data-dynatable-column="name1">Номер студенческого</th>
-                <th data-dynatable-column="name2">Ф.И.О.</th>
-                <th data-dynatable-column="name3">Группа</th>
-                <th data-dynatable-column="name4">Учебный статус</th>
-                <th data-dynatable-column="name5">Финансовый статус</th>
-                <th data-dynatable-column="name6">Факультет</th>
-                <th data-dynatable-column="name7">Телефон</th>
-                <th data-dynatable-column="name8">Оплатил</th>
-                <th data-dynatable-column="name9">Должен оплатить</th>
+                <th>Номер студенческого</th>
+                <th>Ф.И.О.</th>
+                <th>Группа</th>
+                <th>Учебный статус</th>
+                <th>Финансовый статус</th>
+                <th>Факультет</th>
+                <th>Телефон</th>
+                <th>Оплатил</th>
+                <th>Должен оплатить</th>
               </thead>
               <tbody>
                 <tr>
