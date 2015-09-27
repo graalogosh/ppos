@@ -11,25 +11,30 @@ public class SocialWork {
     public SocialWork() {
     }
 
-    //TODO Change field names to JAVA convention
     @Id
     @GeneratedValue
-    private Integer social_work_id;
+    @Column(name = "social_work_id")
+    private Integer socialWorkID;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "point")
     private int point;
 
     @ManyToOne
     @JoinColumn(name = "social_work_category_id")
     private SocialWorkCategory socialWorkCategory;
 
+    @Column(name = "visible")
     private boolean visible;
 
-    public Integer getSocial_work_id() {
-        return social_work_id;
+    public Integer getSocialWorkID() {
+        return socialWorkID;
     }
 
-    public void setSocial_work_id(Integer social_work_id) {
-        this.social_work_id = social_work_id;
+    public void setSocialWorkID(Integer socialWorkID) {
+        this.socialWorkID = socialWorkID;
     }
 
     public String getTitle() {
@@ -52,11 +57,11 @@ public class SocialWork {
         return socialWorkCategory;
     }
 
-    public void setSocial_work_category_id(SocialWorkCategory socialWorkCategory) {
+    public void setSocialWorkCategory(SocialWorkCategory socialWorkCategory) {
         this.socialWorkCategory = socialWorkCategory;
     }
 
-    public boolean getVisible() {
+    public boolean isVisible() {
         return visible;
     }
 
