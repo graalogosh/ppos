@@ -26,7 +26,7 @@ public class Event {
     @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
     private LocalDate eventDate;
     @Column(name = "duration")
-    private int duration;
+    private Integer duration;
     @Column(name = "reseption_begin")
     @Convert(converter = LocalDatePersistenceConverter.class)
     @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
@@ -45,9 +45,9 @@ public class Event {
     private Section section;
 
     @Column(name = "number_of_places")
-    private int numberOfPlaces;
+    private Integer numberOfPlaces;
     @Column(name = "quotas_percantage")
-    private int quotasPercantage;
+    private Integer quotasPercantage;
     @Column(name = "suitable_category")
     private String suitableCategory;
 
@@ -75,11 +75,11 @@ public class Event {
         this.eventDate = eventDate;
     }
 
-    public int getDuration() {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
@@ -115,19 +115,19 @@ public class Event {
         this.section = section;
     }
 
-    public int getNumberOfPlaces() {
+    public Integer getNumberOfPlaces() {
         return numberOfPlaces;
     }
 
-    public void setNumberOfPlaces(int numberOfPlaces) {
+    public void setNumberOfPlaces(Integer numberOfPlaces) {
         this.numberOfPlaces = numberOfPlaces;
     }
 
-    public int getQuotasPercantage() {
+    public Integer getQuotasPercantage() {
         return quotasPercantage;
     }
 
-    public void setQuotasPercantage(int quotasPercantage) {
+    public void setQuotasPercantage(Integer quotasPercantage) {
         this.quotasPercantage = quotasPercantage;
     }
 
@@ -139,7 +139,7 @@ public class Event {
         this.suitableCategory = suitableCategory;
     }
 
-    public Event(String title, LocalDate eventDate, int duration, LocalDate reseptionBegin, LocalDate reseptionFinish, Employee employee, Section section, int numberOfPlaces, int quotasPercantage, String suitableCategory) {
+    public Event(String title, LocalDate eventDate, Integer duration, LocalDate reseptionBegin, LocalDate reseptionFinish, Employee employee, Section section, Integer numberOfPlaces, Integer quotasPercantage, String suitableCategory) {
         this.title = title;
         this.eventDate = eventDate;
         this.duration = duration;

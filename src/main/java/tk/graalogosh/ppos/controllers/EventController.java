@@ -1,14 +1,16 @@
 package tk.graalogosh.ppos.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import tk.graalogosh.ppos.models.Event;
+import tk.graalogosh.ppos.repositories.EmployeeRepository;
 import tk.graalogosh.ppos.repositories.EventRepository;
+import tk.graalogosh.ppos.repositories.SectionRepository;
+import tk.graalogosh.ppos.specifications.EventSpecification;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -17,16 +19,50 @@ import java.util.List;
 @RestController
 public class EventController {
     private EventRepository eventRepository;
+    private EmployeeRepository employeeRepository;
+    private SectionRepository sectionRepository;
 
     @Autowired
-    public EventController(EventRepository eventRepository) {
+    public EventController(EventRepository eventRepository,
+                           EmployeeRepository employeeRepository,
+                           SectionRepository sectionRepository) {
         this.eventRepository = eventRepository;
+        this.employeeRepository = employeeRepository;
+        this.sectionRepository = sectionRepository;
     }
 
     @RequestMapping(value = "events", method = RequestMethod.GET)
-    public List<Event> getEvents(){
-        //TODO make search
-        return eventRepository.findAll();
+    public List<Event> getEvents(
+           @RequestParam(value = "eventID", required = false) Integer eventID,
+           @RequestParam(value = "title", required = false) String title,
+           @RequestParam(value = "eventDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate eventDate,
+           @RequestParam(value = "duration", required = false) Integer duration,
+           @RequestParam(value = "reseptionBegin", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate receptionBegin,
+           @RequestParam(value = "reseptionFinish", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate reseptionFinish,
+           @RequestParam(value = "employeeID", required = false) Integer employeeID,
+           //TODO change ID to plain
+           @RequestParam(value = "sectionID", required = false) Integer sectionID,
+           @RequestParam(value = "numberOfPlaces", required = false) Integer numberOfPlaces,
+           @RequestParam(value = "quotasPercentage", required = false) Integer quotasPercentage,
+           //TODO suitableCategory
+           @RequestParam(value = "suitableCategory", required = false) String suitableCategory    ){
+
+        Event example = new Event();
+        example.setEventID(eventID);
+        example.setTitle(title);
+        example.setEventDate(eventDate);
+        example.setDuration(duration);
+        example.setReseptionBegin(receptionBegin);
+        example.setReseptionFinish(reseptionFinish);
+        example.setEmployee(employeeID!=null? employeeRepository.findOne(employeeID):null);
+        example.setSection(sectionID!=null?sectionRepository.findOne(sectionID):null);
+        example.setNumberOfPlaces(numberOfPlaces);
+        example.setQuotasPercantage(quotasPercentage);
+        example.setSuitableCategory(suitableCategory);
+
+        EventSpecification specification = new EventSpecification(example);
+        List<Event> events = eventRepository.findAll(specification);
+        return events;
     }
 
     @RequestMapping(value = "events", method = RequestMethod.POST)

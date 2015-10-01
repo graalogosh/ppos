@@ -1,6 +1,7 @@
 package tk.graalogosh.ppos.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import tk.graalogosh.ppos.models.Event;
 
@@ -11,5 +12,5 @@ import javax.persistence.Table;
  */
 @Repository
 @Table(name="event")
-public interface EventRepository extends JpaRepository<Event, Integer> {
+public interface EventRepository extends JpaRepository<Event, Integer>, JpaSpecificationExecutor {
 }
