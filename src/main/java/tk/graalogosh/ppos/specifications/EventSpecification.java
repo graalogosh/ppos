@@ -34,7 +34,7 @@ public class EventSpecification implements Specification<Event> {
         }
 
         if (example.getEventDate()!=null){
-            predicates.add(cb.equal(root.get(Event_.eventDate),example.getEventID()));
+            predicates.add(cb.equal(root.get(Event_.eventDate),example.getEventDate()));
         }
 
         if (example.getDuration()!=null){
