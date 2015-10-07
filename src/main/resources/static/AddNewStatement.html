@@ -10,11 +10,6 @@
     <!--- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/AddNewStatement.css" rel="stylesheet">
-    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="js/jquery.dataTables.js"></script>
-    <!--- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/function_sendInform.js"></script>
     <link href="css/jquery.dataTables.css" rel="stylesheet">
 
     <!--- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -66,9 +61,9 @@
                       <form class="form-horizontal col-md-4 col-lg-4">
                          <!-- номер студенческого -->
                           <div class="form-group">
-                              <label class="control-label col-md-6 col-lg-6" for="student">№ студенческого:</label>
+                              <label class="control-label col-md-6 col-lg-6" for="studentID">№ студенческого:</label>
                               <div class="col-md-6 col-lg-6">
-                                  <input type="text" class="form-control" id="student">
+                                  <input type="text" class="form-control" id="studentID">
                               </div>
                           </div>
                           <!-- конец номера студенческого -->
@@ -138,12 +133,8 @@
                                <label class="control-label col-lg-2" for="sectionID">Раздел:</label>
                                   <div class="col-lg-10">
                                    <select class="form-control" id="sectionID">
-                                     <option value="1"></option>
-                                     <option value="2">Студенческий спортивно-оздоровительный лагерь</option>
-                                     <option value="3">Пункт2</option>
-                                     <option value="4">Пункт3</option>
-                                     <option value="5">Пункт4</option>
-                                 </select>
+                                    <option value="0" disabled selected style="display:none;">Выберите раздел</option>
+                                   </select>
                                  </div>
                            </div>
                            <!-- конец раздела -->
@@ -155,11 +146,7 @@
                                <label class="control-label col-lg-3" for="event">Мероприятие:</label>
                                <div class="col-lg-9">
                                  <select class="form-control" id="event">
-                                     <option value=""></option>
-                                     <option value="">Студенческий спортивно-оздоровительный лагерь</option>
-                                     <option value="">Пункт2</option>
-                                     <option value="">Пункт3</option>
-                                     <option value="">Пункт4</option>
+                                  <option value="0" disabled selected style="display:none;">Выберите мероприятие</option>
                                  </select>
                                </div>
                            </div>
@@ -180,13 +167,9 @@
                                <label class="control-label col-lg-3" for="socialWorkCategory">Категория:</label>
                                   <div class="col-lg-9">
                                      <select class="form-control" id="socialWorkCategory">
-                                     <option value=""></option>
-                                     <option value="">Студенческий спортивно-оздоровительный лагерь</option>
-                                     <option value="">Пункт2</option>
-                                     <option value="">Пункт3</option>
-                                     <option value="">Пункт4</option>
-                                 </select>
-                               </div>
+                                        <option value="0" disabled selected style="display:none;">Выберите категорию</option>
+                                      </select>
+                                  </div>
                            </div>
                            <!-- конец категории -->
                            </form>
@@ -197,11 +180,7 @@
                                <label class="control-label col-lg-3" for="socialWork">Общ. работа:</label>
                                <div class="col-lg-9">
                                  <select class="form-control" id="socialWork">
-                                     <option value=""></option>
-                                     <option value="">Студенческий спортивно-оздоровительный лагерь</option>
-                                     <option value="">Пункт2</option>
-                                     <option value="">Пункт3</option>
-                                     <option value="">Пункт4</option>
+                                    <option value="0" disabled selected style="display:none;">Выберите общественную работу</option>
                                  </select>
                                </div>
                            </div>
@@ -221,11 +200,7 @@
                                <label class="control-label col-lg-5" for="socialCategory">Социальная категория:</label>
                                <div class="col-lg-7">
                                  <select class="form-control" id="socialCategory">
-                                     <option value=""></option>
-                                     <option value="">Студенческий спортивно-оздоровительный лагерь</option>
-                                     <option value="">Пункт2</option>
-                                     <option value="">Пункт3</option>
-                                     <option value="">Пункт4</option>
+                                    <option value="0" disabled selected style="display:none;">Выберите социальную категорию</option>
                                  </select>
                                </div>
                            </div>
@@ -256,9 +231,9 @@
                                  <label class="control-label col-lg-3" for="score">Оценки:</label>
                                  <div class="col-lg-9">
                                    <div class="input-group">
-                                       <input type="number" class="form-control" id="score">
+                                       <input type="text" class="form-control" id="score">
                                        <span class="input-group-btn">
-                                       <button class="btn btn-default" type="button">Рассчитать</button>
+                                       <button class="btn btn-default" type="button" onclick="onClickСalculate()" id="calculateButton" value="">Рассчитать</button>
                                        </span>
                                    </div> 
                                  </div>                                  
@@ -293,5 +268,79 @@
        </div>
    </div>
     
+
+
+
+
+    <!-- Когда документ загрузится - запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID -->
+    <script>
+      $(document).ready(function() {
+        $.getJSON('https://graalogosh.tk/sections', function(data) {
+            $.each(data, function(index, el) {
+              $('<option value="' + el.sectionID + '">' + el.title + '</option>').appendTo("#sectionID");
+            });
+        });
+      });
+    </script>
+
+
+<!-- ____________________________________________________________________________________________________ -->
+
+
+    <!-- Поиск студента по номеру студенческого при нажатии на кнопку "Найти" и вывод информации о нём -->
+    <script>
+      function onClickFind () {
+        var query_data = sendInform("studentID");
+
+        <!-- Если воле номера студенческого не заполнили, то выводим об этом сообщение с предупреждением и завершаем скрипт -->
+        if (query_data["studentID"] == "") {
+          alert ("Не введён номер студенческого.");
+          return;
+        }
+
+        $.getJSON('https://graalogosh.tk/students', query_data, function(data) {
+            $.each(data, function(index, el) {
+              $("#educationalGroup").val(el.educationalGroup);
+              $("#phone").val(el.phone);
+              $("#bankAccountNumber").val(el.bankAccountNumber);
+              $("#fio").val(el.name);
+            });
+        });
+      }
+    </script> 
+
+
+<!-- ____________________________________________________________________________________________________ -->
+
+
+    <!-- Проверка нажимаемых клавиш при вводе оценок в элементе score. Разрешаются только цифры 2, 3, 4, 5 и клавиши Delete и Backspace,
+         а также стрелок вправо и влево (для навига) -->
+    <script>
+      score.onkeydown = function(event) {
+        if (event.keyCode != "50" && event.keyCode != "51" && event.keyCode != "52" && event.keyCode != "53" && event.keyCode != "46" && event.keyCode != "8" && event.keyCode != "37" && event.keyCode != "39") {
+          return false;
+        }
+      }
+    </script>
+
+
+<!-- ____________________________________________________________________________________________________ -->
+
+
+    <!-- Рассчитывание средней оценки студента и запись в value кнопки c id=calculateButton -->
+    <script>
+    function onClickСalculate() {
+      $("#calculateButton").val(averageEstimates("score"));
+    }
+    </script>
+
+  <!-- Подключаемые скрипты -->
+  <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="js/jquery.dataTables.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/function_sendInform.js"></script>
+  <script type="text/javascript" src="js/function_averageEstimates.js"></script>
+
+
   </body>
 </html>
