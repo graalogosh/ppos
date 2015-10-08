@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import tk.graalogosh.ppos.models.SocialWork;
+import tk.graalogosh.ppos.models.SocialWorkCategory;
+import tk.graalogosh.ppos.repositories.SocialWorkCategoryRepository;
 import tk.graalogosh.ppos.repositories.SocialWorkRepository;
 
 import java.util.List;
@@ -14,24 +16,24 @@ import java.util.List;
  * Created by graal on 27.09.2015.
  */
 @RestController
-@RequestMapping(value = "socialWork")
-public class SocialWorkController {
-    private SocialWorkRepository socialWorkRepository;
+@RequestMapping(value = "socialWorkCategory")
+public class SocialWorkCategoryController {
+    private SocialWorkCategoryRepository socialWorkCategoryRepository;
 
     @Autowired
-    public SocialWorkController(SocialWorkRepository socialWorkRepository) {
-        this.socialWorkRepository = socialWorkRepository;
+    public SocialWorkCategoryController(SocialWorkCategoryRepository socialWorkCategoryRepository) {
+        this.socialWorkCategoryRepository = socialWorkCategoryRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    List<SocialWork> getSocialWorks() {
+    List<SocialWorkCategory> getSocialWorkCategories() {
         //TODO make search
-        return socialWorkRepository.findAll();
+        return socialWorkCategoryRepository.findAll();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Boolean postSocialWork(
-            @RequestBody SocialWork payload) {
+    public Boolean postSocialWorkCategory(
+            @RequestBody SocialWorkCategory payload) {
           throw new UnsupportedOperationException();
     }
 }

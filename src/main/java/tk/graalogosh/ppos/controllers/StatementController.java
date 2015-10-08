@@ -17,6 +17,7 @@ import java.util.List;
  * Created by graal on 05.08.2015.
  */
 @RestController
+@RequestMapping(value = "statement")
 public class StatementController {
     private StatementRepository statementRepository;
     private StudentRepository studentRepository;
@@ -52,7 +53,7 @@ public class StatementController {
         this.statementListRepository = statementListRepository;
     }
 
-    @RequestMapping(value = "statements", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<Statement> getStatements(
             @RequestParam(value = "statementID", required = false) Integer statementID,
             @RequestParam(value = "fillingDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate fillingDate,
@@ -101,7 +102,7 @@ public class StatementController {
         return statements;
     }
 
-    @RequestMapping(value = "statement", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public boolean postStatement(
             @RequestBody Statement payload) {
         //TODO get course from student.group

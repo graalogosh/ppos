@@ -5,35 +5,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import tk.graalogosh.ppos.models.Section;
-import tk.graalogosh.ppos.repositories.SectionRepository;
+import tk.graalogosh.ppos.models.Course;
+import tk.graalogosh.ppos.repositories.CourseRepository;
 
 import java.util.List;
 
 /**
- * Created by graal on 27.09.2015.
+ * Created by graal on 09.10.2015.
  */
 @RestController
-@RequestMapping(value = "section")
-public class SectionController {
-    private SectionRepository sectionRepository;
+@RequestMapping(value = "course")
+public class CourseControler {
+    private CourseRepository courseRepository;
 
     @Autowired
-    public SectionController(SectionRepository sectionRepository) {
-        this.sectionRepository = sectionRepository;
+    public CourseControler(CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Section> getSections(
-
-    ){
-        //TODO make search
-        return sectionRepository.findAll();
+    public List<Course> getCourses(){
+        return courseRepository.findAll();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Boolean postSection(
-            @RequestBody Section payload){
+    public Boolean postCourse(
+            @RequestBody Course payload){
         throw new UnsupportedOperationException();
     }
 }

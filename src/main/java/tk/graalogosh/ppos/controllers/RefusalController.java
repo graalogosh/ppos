@@ -5,35 +5,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import tk.graalogosh.ppos.models.Section;
-import tk.graalogosh.ppos.repositories.SectionRepository;
+import tk.graalogosh.ppos.models.Refusal;
+import tk.graalogosh.ppos.repositories.RefusalRepository;
 
 import java.util.List;
 
 /**
- * Created by graal on 27.09.2015.
+ * Created by graal on 08.10.2015.
  */
 @RestController
-@RequestMapping(value = "section")
-public class SectionController {
-    private SectionRepository sectionRepository;
+@RequestMapping(value = "refusal")
+public class RefusalController {
+    private RefusalRepository refusalRepository;
 
     @Autowired
-    public SectionController(SectionRepository sectionRepository) {
-        this.sectionRepository = sectionRepository;
+    public RefusalController(RefusalRepository refusalRepository) {
+        this.refusalRepository = refusalRepository;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Section> getSections(
-
-    ){
-        //TODO make search
-        return sectionRepository.findAll();
+    public List<Refusal> getRefusals(){
+        return refusalRepository.findAll();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Boolean postSection(
-            @RequestBody Section payload){
+    public Boolean postRefusal(
+            @RequestBody Refusal payload){
         throw new UnsupportedOperationException();
     }
 }
