@@ -101,7 +101,7 @@ public class StatementController {
         return statements;
     }
 
-    @RequestMapping(value = "statement", method = RequestMethod.POST)
+    @RequestMapping(value = "statements", method = RequestMethod.POST)
     public boolean postStatement(
             @RequestBody Statement payload) {
         //TODO get course from student.group

@@ -29,7 +29,7 @@ public class SocialWorkController {
         return socialWorkRepository.findAll();
     }
 
-    @RequestMapping(value = "socialWork", method = RequestMethod.POST)
+    @RequestMapping(value = "socialWorks", method = RequestMethod.POST)
     public Boolean postSocialWork(
             @RequestBody SocialWork payload) {
           throw new NotImplementedException();
