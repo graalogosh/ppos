@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import tk.graalogosh.ppos.models.Faculty;
 import tk.graalogosh.ppos.repositories.FacultyRepository;
 
@@ -32,6 +31,6 @@ public class FacultyController {
     @RequestMapping(method = RequestMethod.POST)
     public Boolean postFaculty(
             @RequestBody Faculty payload){
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 }

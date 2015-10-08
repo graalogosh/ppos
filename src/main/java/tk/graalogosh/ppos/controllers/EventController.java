@@ -3,7 +3,6 @@ package tk.graalogosh.ppos.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import tk.graalogosh.ppos.models.Event;
 import tk.graalogosh.ppos.repositories.EmployeeRepository;
 import tk.graalogosh.ppos.repositories.EventRepository;
@@ -69,6 +68,6 @@ public class EventController {
     @RequestMapping(method = RequestMethod.POST)
     public Boolean postEvent(
             @RequestBody Event payload){
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 }
