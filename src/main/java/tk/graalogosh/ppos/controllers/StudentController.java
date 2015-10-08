@@ -16,6 +16,7 @@ import java.util.List;
  * Created by graal on 05.08.2015.
  */
 @RestController
+@RequestMapping(value = "student")
 public class StudentController {
     private StudentRepository studentRepository;
     private StatusRepository statusRepository;
@@ -27,17 +28,17 @@ public class StudentController {
         this.statusRepository = statusRepository;
     }
 
-    @RequestMapping("/student/{user}")
-    public Student getStudent(
-            @PathVariable(value = "user") String userID) {
-        Student example = new Student();
-        example.setStudentID(userID);
-        StudentSpecification specification = new StudentSpecification(example);
-        List<Student> students = studentRepository.findAll(specification);
-        return students.get(0);
-    }
+//    @RequestMapping("/student/{user}")
+//    public Student getStudent(
+//            @PathVariable(value = "user") String userID) {
+//        Student example = new Student();
+//        example.setStudentID(userID);
+//        StudentSpecification specification = new StudentSpecification(example);
+//        List<Student> students = studentRepository.findAll(specification);
+//        return students.get(0);
+//    }
 
-    @RequestMapping(value = "students", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<Student> getStudents(
             @RequestParam(value = "studentID", required = false) String studentID,
             @RequestParam(value = "name", required = false) String name,
@@ -69,7 +70,7 @@ public class StudentController {
         return students;
     }
 
-    @RequestMapping(value = "students", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public Student postStudent(
             @RequestBody Student payload) {
         System.out.println(payload);

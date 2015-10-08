@@ -15,6 +15,7 @@ import java.util.List;
  * Created by graal on 27.09.2015.
  */
 @RestController
+@RequestMapping(value = "socialWork")
 public class SocialWorkController {
     private SocialWorkRepository socialWorkRepository;
 
@@ -23,13 +24,13 @@ public class SocialWorkController {
         this.socialWorkRepository = socialWorkRepository;
     }
 
-    @RequestMapping(value = "socialWorks", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     List<SocialWork> getSocialWorks() {
         //TODO make search
         return socialWorkRepository.findAll();
     }
 
-    @RequestMapping(value = "socialWorks", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public Boolean postSocialWork(
             @RequestBody SocialWork payload) {
           throw new NotImplementedException();

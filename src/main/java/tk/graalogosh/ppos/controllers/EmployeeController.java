@@ -3,6 +3,7 @@ package tk.graalogosh.ppos.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tk.graalogosh.ppos.models.Employee;
@@ -16,6 +17,7 @@ import java.util.List;
  * Created by graal on 05.08.2015.
  */
 @RestController
+@RequestMapping("employee")
 public class EmployeeController {
     private EmployeeRepository employeeRepository;
 
@@ -24,7 +26,7 @@ public class EmployeeController {
         this.employeeRepository = employeeRepository;
     }
 
-    @RequestMapping("employees")
+    @RequestMapping(method = RequestMethod.GET)
     public List<Employee> getEmployees(
             @RequestParam(value = "employeeID", required = false) Integer employeeID,
             @RequestParam(value = "name", required = false)String name,

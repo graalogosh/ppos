@@ -15,6 +15,7 @@ import java.util.List;
  * Created by graal on 27.09.2015.
  */
 @RestController
+@RequestMapping(value = "section")
 public class SectionController {
     private SectionRepository sectionRepository;
 
@@ -23,7 +24,7 @@ public class SectionController {
         this.sectionRepository = sectionRepository;
     }
 
-    @RequestMapping(value = "/sections", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<Section> getSections(
 
     ){
@@ -31,7 +32,7 @@ public class SectionController {
         return sectionRepository.findAll();
     }
 
-    @RequestMapping(value = "/sections", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public Boolean postSection(
             @RequestBody Section payload){
         throw new NotImplementedException();

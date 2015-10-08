@@ -17,6 +17,7 @@ import java.util.List;
  * Created by graal on 27.09.2015.
  */
 @RestController
+@RequestMapping(value = "event")
 public class EventController {
     private EventRepository eventRepository;
     private EmployeeRepository employeeRepository;
@@ -31,7 +32,7 @@ public class EventController {
         this.sectionRepository = sectionRepository;
     }
 
-    @RequestMapping(value = "events", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public List<Event> getEvents(
            @RequestParam(value = "eventID", required = false) Integer eventID,
            @RequestParam(value = "title", required = false) String title,
@@ -65,7 +66,7 @@ public class EventController {
         return events;
     }
 
-    @RequestMapping(value = "events", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public Boolean postEvent(
             @RequestBody Event payload){
         throw new NotImplementedException();

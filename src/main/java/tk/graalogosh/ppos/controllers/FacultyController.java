@@ -15,7 +15,7 @@ import java.util.List;
  * Created by graal on 08.10.2015.
  */
 @RestController
-@RequestMapping(value = "faculties")
+@RequestMapping(value = "faculty")
 public class FacultyController {
     private FacultyRepository facultyRepository;
 
