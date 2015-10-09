@@ -20,14 +20,14 @@ public class SocialWork {
     private String title;
 
     @Column(name = "point")
-    private int point;
+    private Integer point;
 
     @ManyToOne
     @JoinColumn(name = "social_work_category_id")
     private SocialWorkCategory socialWorkCategory;
 
     @Column(name = "visible")
-    private boolean visible;
+    private Boolean visible;
 
     public Integer getSocialWorkID() {
         return socialWorkID;
@@ -45,11 +45,11 @@ public class SocialWork {
         this.title = title;
     }
 
-    public int getPoint() {
+    public Integer getPoint() {
         return point;
     }
 
-    public void setPoint(int point) {
+    public void setPoint(Integer point) {
         this.point = point;
     }
 
@@ -61,15 +61,15 @@ public class SocialWork {
         this.socialWorkCategory = socialWorkCategory;
     }
 
-    public boolean isVisible() {
+    public Boolean getVisible() {
         return visible;
     }
 
-    public void setVisible(boolean visible) {
+    public void setVisible(Boolean visible) {
         this.visible = visible;
     }
 
-    public SocialWork(String title, int point, SocialWorkCategory socialWorkCategory, boolean visible) {
+    public SocialWork(String title, Integer point, SocialWorkCategory socialWorkCategory, Boolean visible) {
         this.title = title;
         this.point = point;
         this.socialWorkCategory = socialWorkCategory;
