@@ -46,7 +46,9 @@ public class EmployeeSpecification implements Specification<Employee> {
             predicates.add(cb.equal(root.get(Employee_.lastLoginDate), example.getLastLoginDate()));
         }
 
-        //TODO dismissed
+        if (example.getDismissed()!=null){
+            predicates.add(cb.equal(root.get(Employee_.dismissed), example.getDismissed()));
+        }
 
         if (StringUtils.isNotBlank(example.getFaculty())){
             predicates.add(cb.like(root.get(Employee_.faculty), example.getFaculty()));
