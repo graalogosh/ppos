@@ -16,7 +16,7 @@ public class SocialWorkCategory {
     @Column(name = "social_work_category_id")
     private Integer socialWorkCategoryID;
     private String title;
-    private boolean visible;
+    private Boolean visible;
 
     public Integer getSocialWorkCategoryID() {
         return socialWorkCategoryID;
@@ -34,15 +34,15 @@ public class SocialWorkCategory {
         this.title = title;
     }
 
-    public boolean isVisible() {
+    public Boolean getVisible() {
         return visible;
     }
 
-    public void setVisible(boolean visible) {
+    public void setVisible(Boolean visible) {
         this.visible = visible;
     }
 
-    public SocialWorkCategory(String title, boolean visible) {
+    public SocialWorkCategory(String title, Boolean visible) {
         this.title = title;
         this.visible = visible;
     }

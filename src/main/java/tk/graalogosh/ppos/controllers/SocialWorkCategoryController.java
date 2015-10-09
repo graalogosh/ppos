@@ -1,14 +1,10 @@
 package tk.graalogosh.ppos.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import tk.graalogosh.ppos.models.SocialWork;
+import org.springframework.web.bind.annotation.*;
 import tk.graalogosh.ppos.models.SocialWorkCategory;
 import tk.graalogosh.ppos.repositories.SocialWorkCategoryRepository;
-import tk.graalogosh.ppos.repositories.SocialWorkRepository;
+import tk.graalogosh.ppos.specifications.SocialWorkCategorySpecification;
 
 import java.util.List;
 
@@ -26,9 +22,19 @@ public class SocialWorkCategoryController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    List<SocialWorkCategory> getSocialWorkCategories() {
-        //TODO make search
-        return socialWorkCategoryRepository.findAll();
+    List<SocialWorkCategory> getSocialWorkCategories(
+            @RequestParam(value = "socialWorkCategoryID", required = false) Integer socialWorkCategoryID,
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "visible", required = false)Boolean visible) {
+
+        SocialWorkCategory example = new SocialWorkCategory();
+        example.setSocialWorkCategoryID(socialWorkCategoryID);
+        example.setTitle(title);
+        example.setVisible(visible);
+
+        SocialWorkCategorySpecification specification = new SocialWorkCategorySpecification(example);
+        List<SocialWorkCategory> categories = socialWorkCategoryRepository.findAll(specification);
+        return categories;
     }
 
     @RequestMapping(method = RequestMethod.POST)
