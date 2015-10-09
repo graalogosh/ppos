@@ -24,7 +24,7 @@ public class Employee {
     @Column(name = "name")
     private String name;
     @Column(name = "access_level")
-    private int accessLevel;
+    private Integer accessLevel;
 
     @Column(name = "password")
     @JsonIgnore
@@ -43,15 +43,15 @@ public class Employee {
     @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
     private LocalDate lastLoginDate;
     @Column(name = "dismissed")
-    private boolean dismissed;
+    private Boolean dismissed;
     @Column(name = "faculty")
     private String faculty;
 
-    public int getEmployeeID() {
+    public Integer getEmployeeID() {
         return employeeID;
     }
 
-    public void setEmployeeID(int employeeID) {
+    public void setEmployeeID(Integer employeeID) {
         this.employeeID = employeeID;
     }
 
@@ -63,11 +63,11 @@ public class Employee {
         this.name = name;
     }
 
-    public int getAccessLevel() {
+    public Integer getAccessLevel() {
         return accessLevel;
     }
 
-    public void setAccessLevel(int accessLevel) {
+    public void setAccessLevel(Integer accessLevel) {
         this.accessLevel = accessLevel;
     }
 
@@ -103,11 +103,11 @@ public class Employee {
         this.lastLoginDate = lastLoginDate;
     }
 
-    public boolean isDismissed() {
+    public Boolean getDismissed() {
         return dismissed;
     }
 
-    public void setDismissed(boolean dismissed) {
+    public void setDismissed(Boolean dismissed) {
         this.dismissed = dismissed;
     }
 

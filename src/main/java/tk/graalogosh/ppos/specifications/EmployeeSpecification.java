@@ -26,7 +26,7 @@ public class EmployeeSpecification implements Specification<Employee> {
     public Predicate toPredicate(Root<Employee> root, CriteriaQuery<?> cq, CriteriaBuilder cb){
         List<Predicate> predicates = new ArrayList<>();
 
-        if (example.getEmployeeID()!=0){
+        if (example.getEmployeeID()!=null){
             predicates.add(cb.equal(root.get(Employee_.employeeID), example.getEmployeeID()));
         }
 
@@ -34,7 +34,7 @@ public class EmployeeSpecification implements Specification<Employee> {
             predicates.add(cb.like(root.get(Employee_.name), "%" + example.getName() + "%"));
         }
 
-        if (example.getAccessLevel()!=-1){
+        if (example.getAccessLevel()!=null){
             predicates.add(cb.equal(root.get(Employee_.accessLevel), example.getAccessLevel()));
         }
 
