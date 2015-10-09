@@ -61,12 +61,12 @@ public class StudentSpecification implements Specification<Student>{
         if (StringUtils.isNotBlank(example.getBankAccountNumber())){
             predicates.add(cb.equal(root.get(Student_.bankAccountNumber), example.getBankAccountNumber()));
         }
-        //TODO fix to !=null
-        if(example.getStudentPaid()!=-1){
+
+        if(example.getStudentPaid()!=null){
             predicates.add(cb.equal(root.get(Student_.studentPaid), example.getStudentPaid()));
         }
 
-        if(example.getStudentMustPay()!=-1){
+        if(example.getStudentMustPay()!=null){
             predicates.add(cb.equal(root.get(Student_.studentMustPay), example.getStudentMustPay()));
         }
 

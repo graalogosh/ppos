@@ -39,7 +39,6 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name = "financial_status")
-   // @Column(name = "financial_status")
     private Status financialStatus;
 
     @Column(name = "faculty")
@@ -52,10 +51,10 @@ public class Student {
     private String bankAccountNumber;
 
     @Column(name = "student_paid")
-    private int studentPaid;
+    private Integer studentPaid;
 
     @Column(name = "student_must_pay")
-    private int studentMustPay;
+    private Integer studentMustPay;
 
     public String getStudentID() {
         return studentID;
@@ -129,19 +128,19 @@ public class Student {
         this.bankAccountNumber = bankAccountNumber;
     }
 
-    public int getStudentPaid() {
+    public Integer getStudentPaid() {
         return studentPaid;
     }
 
-    public void setStudentPaid(int studentPaid) {
+    public void setStudentPaid(Integer studentPaid) {
         this.studentPaid = studentPaid;
     }
 
-    public int getStudentMustPay() {
+    public Integer getStudentMustPay() {
         return studentMustPay;
     }
 
-    public void setStudentMustPay(int studentMustPay) {
+    public void setStudentMustPay(Integer studentMustPay) {
         this.studentMustPay = studentMustPay;
     }
 

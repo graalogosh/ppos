@@ -49,8 +49,8 @@ public class StudentController {
             @RequestParam(value = "faculty", required = false) String faculty,
             @RequestParam(value = "phone", required = false) String phone,
             @RequestParam(value = "bankAccountNumber", required = false) String bankAcountNumber,
-            @RequestParam(value = "studentPaid", defaultValue = "-1") Integer studentPaid,
-            @RequestParam(value = "studentMustPay", defaultValue = "-1") Integer studentMustPay) {//TODO fix
+            @RequestParam(value = "studentPaid", required = false) Integer studentPaid,
+            @RequestParam(value = "studentMustPay", required = false) Integer studentMustPay) {
 
         Student example = new Student();
         example.setStudentID(studentID);
@@ -62,8 +62,8 @@ public class StudentController {
         example.setFaculty(faculty);
         example.setPhone(phone);
         example.setBankAccountNumber(bankAcountNumber);
-        example.setStudentPaid(studentPaid);//TODO fix to integer Oo
-        example.setStudentMustPay(studentMustPay);//TODO fix to integer Oo
+        example.setStudentPaid(studentPaid);
+        example.setStudentMustPay(studentMustPay);
 
         StudentSpecification specification = new StudentSpecification(example);
         List<Student> students = studentRepository.findAll(specification);

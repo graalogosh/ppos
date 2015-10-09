@@ -14,7 +14,7 @@ public class TripCount {
     @Id
     @Column(name = "trip_count")
     private Integer tripCount;
-    private int point;
+    private Integer point;
 
     public Integer getTripCount() {
         return tripCount;
@@ -24,15 +24,15 @@ public class TripCount {
         this.tripCount = tripCount;
     }
 
-    public int getPoint() {
+    public Integer getPoint() {
         return point;
     }
 
-    public void setPoint(int point) {
+    public void setPoint(Integer point) {
         this.point = point;
     }
 
-    public TripCount(Integer tripCount, int point) {
+    public TripCount(Integer tripCount, Integer point) {
         this.tripCount = tripCount;
         this.point = point;
     }
