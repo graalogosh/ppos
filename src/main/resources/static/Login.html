@@ -10,8 +10,6 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/Login.css" rel="stylesheet">
-    <link href="css/jquery.dataTables.css" rel="stylesheet">
-    <link href="css/jquery.dynatable.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,9 +26,11 @@
    <div class="container">
        <form class="form-horizontal">
            <div class="form-group">
-               <label for="name" class=" control-label col-md-2 col-sm-2 control-label">Имя</label>
+               <label for="employeeID" class=" control-label col-md-2 col-sm-2 control-label">Пользователь</label>
                <div class="col-md-5 col-sm-5">
-                   <input type="text" class="form-control" id="name" placeholder="Введите ваше имя">
+                   <select class="form-control" id="employeeID">
+                     <option value="0" disabled selected style="display:none;">Выберите пользователя</option>
+                   </select>
                </div>
            </div>
            <div class="form-group">
@@ -46,17 +46,29 @@
            </div>           
        </form>
    </div>
-   
 
 
-   <!-- Отправка введённых логина и пароля на сервер -->
+
+   <!-- Подключение скриптов -->
+   <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="js/function_sendInform.js"></script>
 
 
-    <!-- Подключение скриптов -->
-    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="js/jquery.dataTables.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/function_sendInform.js"></script>
+<!-- ____________________________________________________________________________________________________ -->
+
+
+   <!-- Заполнение employeeID не уволенными сотрудниками после окончания загрузки страницы -->
+   <script>
+      $(document).ready(function() {
+        $.getJSON('https://graalogosh.tk/employee', {dismissed: 'false'}, function(data) {
+            $.each(data, function(index, el) {
+               $('<option value="' + el.employeeID + '">' + el.name + '</option>').appendTo('#employeeID');
+            });
+        });
+    });
+   </script>
+
 
   </body>
 </html>

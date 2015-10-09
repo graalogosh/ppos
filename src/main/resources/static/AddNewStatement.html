@@ -273,12 +273,21 @@
     
 
 
+    <!-- Подключаемые скрипты -->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/function_sendInform.js"></script>
+    <script type="text/javascript" src="js/function_averageEstimates.js"></script>
+
+
+<!-- ____________________________________________________________________________________________________ -->
 
 
     <!-- Когда документ загрузится - запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID -->
     <script>
       $(document).ready(function() {
-        $.getJSON('https://graalogosh.tk/sections', function(data) {
+        $.getJSON('https://graalogosh.tk/section', function(data) {
             $.each(data, function(index, el) {
               $('<option value="' + el.sectionID + '">' + el.title + '</option>').appendTo("#sectionID");
             });
@@ -301,7 +310,7 @@
           return;
         }
 
-        $.getJSON('https://graalogosh.tk/students', query_data, function(data) {
+        $.getJSON('https://graalogosh.tk/student', query_data, function(data) {
             $.each(data, function(index, el) {
               $("#educationalGroup").val(el.educationalGroup);
               $("#phone").val(el.phone);
@@ -346,7 +355,7 @@
 		<script>
 			function onChangeSelect() {
 				var query_data = sendInform("sectionID");
-				$.getJSON('https://graalogosh.tk/events', query_data, function(data) {
+				$.getJSON('https://graalogosh.tk/event', query_data, function(data) {
 						$.each(data, function(index, el) {
 							 $('<option value="' + el.eventID + '">' + el.title + '</option>').appendTo('#eventID');
 						});
@@ -354,12 +363,6 @@
 			}
 		</script>
 
-  <!-- Подключаемые скрипты -->
-  <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript" src="js/jquery.dataTables.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="js/function_sendInform.js"></script>
-  <script type="text/javascript" src="js/function_averageEstimates.js"></script>
 
 
   </body>
