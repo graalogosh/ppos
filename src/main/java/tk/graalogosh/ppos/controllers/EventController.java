@@ -49,6 +49,8 @@ public class EventController {
             @RequestParam(value = "firstDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate firstDate,
             @RequestParam(value = "lastDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastDate) {
 
+        firstDate = firstDate != null ? firstDate : LocalDate.MIN;
+        lastDate = lastDate != null ? lastDate : LocalDate.MAX;
 
         Event example = new Event();
         example.setEventID(eventID);
@@ -64,20 +66,17 @@ public class EventController {
         example.setSuitableCategory(suitableCategory);
 
         EventSpecification specification = new EventSpecification(example);
-        List<Event> events = eventRepository.findAll(specification);
+        List<Event> events1 = eventRepository.findAll(specification);
 
-        if (firstDate != null && lastDate != null) {
-            List<Event> events2 = eventRepository.findByEventDateBetween(firstDate, lastDate);
-            List<Event> resultEvents = new ArrayList<>();
-            for (Event event:events){
-                if (events2.contains(event)){
-                    resultEvents.add(event);
-                }
+        List<Event> events2 = eventRepository.findByEventDateBetween(firstDate, lastDate);
+        List<Event> resultEvents = new ArrayList<>();
+        for (Event event : events1) {
+            if (events2.contains(event)) {
+                resultEvents.add(event);
             }
-            return resultEvents;
         }
+        return resultEvents;
 
-        return events;
 
     }
 
