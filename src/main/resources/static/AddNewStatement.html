@@ -97,7 +97,7 @@
                           <div class="form-group">
                               <label class="control-label col-md-4 col-lg-3" for="bankAccountNumber">Банк. счёт:</label>
                               <div class="col-md-8 col-lg-9">
-                                  <input type="text" class="form-control" id="bankAccountNumber">
+                                  <input type="text" class="form-control" id="bankAccountNumber" disabled>
                               </div>
                           </div>
                           <!-- конец банковского счёта -->
@@ -236,7 +236,7 @@
                                    <div class="input-group">
                                        <input type="text" class="form-control" id="score">
                                        <span class="input-group-btn">
-                                       <button class="btn btn-default" type="button" onclick="onClickСalculate()">Рассчитать</button>
+                                       <button class="btn btn-default" type="button" id="calculateButton" onclick="onClickСalculate()">Рассчитать</button>
                                        </span>
                                    </div> 
                                  </div>                                  
@@ -400,8 +400,7 @@
 <!-- ____________________________________________________________________________________________________ -->
 
 
-		<!-- Заполняем поле eventID мероприятиями по выбранному разделу мероприятий -->
-		<!-- Надо дописать выделение нужных и ненужных блоков для выбранного раздела -->
+		<!-- Заполняем поле eventID мероприятиями по выбранному разделу мероприятий и активирование нужных для данного раздела элементов-->
 		<script>
 			function onChangeSection() {
 				var query_data = sendInform("sectionID");
@@ -412,14 +411,17 @@
 						});
 				});
 
+        //активирование нужных и деактивирование ненужных для выбранного раздела элементов
         $.getJSON('https://graalogosh.tk/section', query_data, function(data) {
             $.each(data, function(index, el) {
-               $('#socialGrant').attr('disabled', el.socialGrant);
-               $('#socialCategory').attr('disabled', el.socialCategory);
-               $('#socialWorkCategory').attr('disabled', el.socialWork);
-               $('#socialWork').attr('disabled', el.socialWork);
-               $('#score').attr('disabled', el.averageScore);
-               $('#bankAccountNumber').attr('disabled', el.bankAccountNumber);
+               $('#socialGrant').prop('disabled', !el.socialGrant);
+               $('#socialCategory').prop('disabled', !el.socialCategory);
+               $('#socialWorkCategory').prop('disabled', !el.socialWork);
+               $('#socialWork').prop('disabled', !el.socialWork);
+               $('#score').prop('disabled', !el.averageScore);
+               $('#calculateButton').prop('disabled', !el.averageScore);
+               $('#bankAccountNumber').prop('disabled', !el.bankAccountNumber);
+
             });
         });
 			}
