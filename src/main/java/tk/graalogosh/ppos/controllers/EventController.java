@@ -49,8 +49,12 @@ public class EventController {
             @RequestParam(value = "firstDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate firstDate,
             @RequestParam(value = "lastDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastDate) {
 
-        firstDate = firstDate != null ? firstDate : LocalDate.MIN;
-        lastDate = lastDate != null ? lastDate : LocalDate.MAX;
+        //Minimum and maximum DATE, which MySQL can operate
+        LocalDate MINDATE = LocalDate.of(1000,1,1);
+        LocalDate MAXDATE = LocalDate.of(9999,12,31);
+
+        firstDate = firstDate != null ? firstDate : MINDATE;
+        lastDate = lastDate != null ? lastDate : MAXDATE;
 
         Event example = new Event();
         example.setEventID(eventID);
