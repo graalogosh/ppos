@@ -10,7 +10,8 @@ import tk.graalogosh.ppos.specifications.SectionSpecification;
 import java.util.List;
 
 /**
- * Created by graal on 27.09.2015.
+ * Контроллер для обработки видов мероприятий
+ * Created by GraaLoGosh (graalogosh@gmail.com)) on 27.09.2015.
  */
 @RestController
 @RequestMapping(value = "section")
@@ -22,6 +23,24 @@ public class SectionController {
         this.sectionRepository = sectionRepository;
     }
 
+    /**
+     *
+     * @param sectionID идентификатор вида мероприятия
+     * @param title название мероприятия
+     * @param socialGrant требуется ли социальная стимендия
+     * @param socialCategory требуется ли социальная категория
+     * @param socialWork требуется ли социальная работа
+     * @param averageScore учитывается ли средний академический балл
+     * @param tripCount учитывается ли общее число поездок
+     * @param refusualCount учитывается ли число отказов
+     * @param course учитывается ли курс
+     * @param pointSum учитывается ли сумма баллов
+     * @param bankAccountNumber проверяется ли наличие в базе номера бансковского счета
+     * @param list требуется ли отправка ведомости по мероприятию
+     * @param reTrip проверяется ли повторная поездка
+     * @param moneyCategory выдаются ли деньги
+     * @return List(Section) - список видов мероприятий, подходящих под описание
+     */
     @RequestMapping(method = RequestMethod.GET)
     public List<Section> getSections(
             @RequestParam(value = "sectionID", required = false) Integer sectionID,
@@ -36,7 +55,7 @@ public class SectionController {
             @RequestParam(value = "pointSum", required = false) Boolean pointSum,
             @RequestParam(value = "bankAccountNumber", required = false) Boolean bankAccountNumber,
             @RequestParam(value = "list", required = false) Boolean list,
-            @RequestParam(value = "retrip", required = false) Boolean retrip,
+            @RequestParam(value = "reTrip", required = false) Boolean reTrip,
             @RequestParam(value = "moneyCategory", required = false) Boolean moneyCategory){
 
         Section example = new Section();
@@ -52,7 +71,7 @@ public class SectionController {
         example.setPointSum(pointSum);
         example.setBankAccountNumber(bankAccountNumber);
         example.setList(list);
-        example.setRetrip(retrip);
+        example.setRetrip(reTrip);
         example.setMoneyCategory(moneyCategory);
 
         SectionSpecification specification = new SectionSpecification(example);

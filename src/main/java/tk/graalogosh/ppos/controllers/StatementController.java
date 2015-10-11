@@ -14,7 +14,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Created by graal on 05.08.2015.
+ * Контроллер для обработки заявлений
+ * Created by GraaLoGosh (graalogosh@gmail.com)) on 05.08.2015.
  */
 @RestController
 @RequestMapping(value = "statement")
@@ -53,6 +54,30 @@ public class StatementController {
         this.statementListRepository = statementListRepository;
     }
 
+    /**
+     *
+     * @param statementID идентификатор заявления
+     * @param fillingDate дата заполнения заявления
+     * @param studentID идентификатор студента
+     * @param eventID идентификатор события
+     * @param employeeID идентификатор сотрудника
+     * @param socialGrant наличие социальной стипендии
+     * @param socialCategoryID идентификатор социальной категории
+     * @param socialWorkID идентификатор социальной работы
+     * @param moneyCategory выплата денег
+     * @param course курс
+     * @param tripCount количество поездок
+     * @param averageScore средний балл
+     * @param refusalCount число отказов
+     * @param permitNumber номер направления
+     * @param refusalDate дата отказа
+     * @param cancellationDate дата отмены
+     * @param listID номер ведомости, в которой участвует заявление
+     * @param comment комментарий
+     * @param completeDocs все ли документы поданы
+     * @param reserve находится ли заявление в резерве
+     * @return List(Statement) - список заявлений, подходящий под описание
+     */
     @RequestMapping(method = RequestMethod.GET)
     public List<Statement> getStatements(
             @RequestParam(value = "statementID", required = false) Integer statementID,
@@ -64,7 +89,7 @@ public class StatementController {
             @RequestParam(value = "socialCategoryID", required = false) Integer socialCategoryID,
             @RequestParam(value = "socialWorkID", required = false) Integer socialWorkID,
             @RequestParam(value = "moneyCategory", required = false) Double moneyCategory,
-            @RequestParam(value = "cource", required = false) Integer cource,
+            @RequestParam(value = "course", required = false) Integer course,
             @RequestParam(value = "tripCount", required = false) Integer tripCount,
             @RequestParam(value = "averageScore", required = false) Double averageScore,
             @RequestParam(value = "refusalCount", required = false) Integer refusalCount,
@@ -85,7 +110,7 @@ public class StatementController {
         example.setSocialCategory(socialCategoryID != null ? socialCategoryRepository.findOne(socialCategoryID) : null);
         example.setSocialWork(socialWorkID != null ? socialWorkRepository.findOne(socialWorkID) : null);
         example.setMoneyCategory(moneyCategory);
-        example.setCourse(cource != null ? courseRepository.findOne(cource) : null);
+        example.setCourse(course != null ? courseRepository.findOne(course) : null);
         example.setTripCount(tripCount != null ? tripCountRepository.findOne(tripCount) : null);
         example.setAverage_score(averageScore);
         example.setRefusalCount(refusalCount != null ? refusalRepository.findOne(refusalCount) : null);

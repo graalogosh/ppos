@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Created by graal on 05.08.2015.
+ * Created by GraaLoGosh (graalogosh@gmail.com)) on 05.08.2015.
  */
 @RestController
 @RequestMapping(value = "student")
@@ -38,12 +38,29 @@ public class StudentController {
 //        return students.get(0);
 //    }
 
+    /**
+     *
+     * @param studentID идентификатор студента
+     * @param name ФИО студента
+     * @param entryDate дата зачисления
+     * @param educationalGroup учебная группа
+     * @param academicStatus академический статус
+     * @param financialStatus финансовый статус
+     * @param faculty факультет
+     * @param phone телефон
+     * @param bankAcountNumber номер банковского счета
+     * @param studentPaid студент оплатил взносов
+     * @param studentMustPay студент должен оплатить взносов
+     * @return List(Student) - список студентов, подходящих под описание
+     */
+
     @RequestMapping(method = RequestMethod.GET)
     public List<Student> getStudents(
             @RequestParam(value = "studentID", required = false) String studentID,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "entryDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate entryDate,
             @RequestParam(value = "educationalGroup", required = false) String educationalGroup,
+            //TODO change to *statusID
             @RequestParam(value = "academicStatus", required = false) Integer academicStatus,
             @RequestParam(value = "financialStatus", required = false) Integer financialStatus,
             @RequestParam(value = "faculty", required = false) String faculty,

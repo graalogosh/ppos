@@ -26,6 +26,17 @@ public class EmployeeController {
         this.employeeRepository = employeeRepository;
     }
 
+    /**
+     *
+     * @param employeeID идентификатор сотрудника
+     * @param name ФИО сотрудника
+     * @param accessLevel уровень доступа
+     * @param registrationDate дата регистрации
+     * @param lastTimeLoginDate дата последнего использования программы
+     * @param dismissed уволен ли сотрудник
+     * @param faculty факультет сотрудника
+     * @return List(Employee) список сотрудников, подходящих под описание
+     */
     @RequestMapping(method = RequestMethod.GET)
     public List<Employee> getEmployees(
             @RequestParam(value = "employeeID", required = false) Integer employeeID,

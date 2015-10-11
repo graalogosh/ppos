@@ -11,7 +11,7 @@ import tk.graalogosh.ppos.repositories.StatusRepository;
 import java.util.List;
 
 /**
- * Created by graal on 09.10.2015.
+ * Created by GraaLoGosh (graalogosh@gmail.com)) on 09.10.2015.
  */
 @RestController
 @RequestMapping(value = "status")
