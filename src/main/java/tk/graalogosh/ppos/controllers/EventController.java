@@ -8,6 +8,7 @@ import tk.graalogosh.ppos.repositories.EmployeeRepository;
 import tk.graalogosh.ppos.repositories.EventRepository;
 import tk.graalogosh.ppos.repositories.SectionRepository;
 import tk.graalogosh.ppos.specifications.EventSpecification;
+import tk.graalogosh.ppos.utils.Dates;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -49,12 +50,8 @@ public class EventController {
             @RequestParam(value = "firstDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate firstDate,
             @RequestParam(value = "lastDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastDate) {
 
-        //Minimum and maximum DATE, which MySQL can operate
-        LocalDate MINDATE = LocalDate.of(1000,1,1);
-        LocalDate MAXDATE = LocalDate.of(9999,12,31);
-
-        firstDate = firstDate != null ? firstDate : MINDATE;
-        lastDate = lastDate != null ? lastDate : MAXDATE;
+        firstDate = firstDate != null ? firstDate : Dates.MINDATE;
+        lastDate = lastDate != null ? lastDate : Dates.MAXDATE;
 
         Event example = new Event();
         example.setEventID(eventID);
