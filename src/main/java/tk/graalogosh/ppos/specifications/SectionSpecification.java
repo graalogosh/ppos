@@ -27,9 +27,63 @@ public class SectionSpecification implements Specification<Section>{
     public Predicate toPredicate(Root<Section> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
 
-        throw new NotImplementedException();
+        if (example.getSectionID()!=null){
+            predicates.add(cb.equal(root.get(Section_.sectionID),example.getSectionID()));
+        }
 
-        //return andTogether(predicates, cb);
+        if (example.getTitle()!=null){
+            predicates.add(cb.equal(root.get(Section_.title),example.getTitle()));
+        }
+
+        if (example.getSocialGrant()!=null){
+            predicates.add(cb.equal(root.get(Section_.socialGrant),example.getSocialGrant()));
+        }
+
+        if (example.getSocialCategory()!=null){
+            predicates.add(cb.equal(root.get(Section_.socialCategory),example.getSocialCategory()));
+        }
+
+        if (example.getSocialWork()!=null){
+            predicates.add(cb.equal(root.get(Section_.socialWork),example.getSocialWork()));
+        }
+
+        if (example.getAverageScore()!=null){
+            predicates.add(cb.equal(root.get(Section_.averageScore),example.getAverageScore()));
+        }
+
+        if (example.getTripCount()!=null){
+            predicates.add(cb.equal(root.get(Section_.tripCount),example.getTripCount()));
+        }
+
+        if (example.getRefusualCount()!=null){
+            predicates.add(cb.equal(root.get(Section_.refusualCount),example.getRefusualCount()));
+        }
+
+        if (example.getCourse()!=null){
+            predicates.add(cb.equal(root.get(Section_.course),example.getCourse()));
+        }
+
+        if (example.getPointSum()!=null){
+            predicates.add(cb.equal(root.get(Section_.pointSum),example.getPointSum()));
+        }
+
+        if (example.getBankAccountNumber()!=null){
+            predicates.add(cb.equal(root.get(Section_.bankAccountNumber),example.getBankAccountNumber()));
+        }
+
+        if (example.getList()!=null){
+            predicates.add(cb.equal(root.get(Section_.list),example.getList()));
+        }
+
+        if (example.getRetrip()!=null){
+            predicates.add(cb.equal(root.get(Section_.retrip),example.getRetrip()));
+        }
+
+        if (example.getMoneyCategory()!=null){
+            predicates.add(cb.equal(root.get(Section_.moneyCategory),example.getMoneyCategory()));
+        }
+
+        return andTogether(predicates, cb);
     }
 
     private Predicate andTogether(List<Predicate> predicates, CriteriaBuilder cb) {
