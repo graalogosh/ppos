@@ -108,11 +108,11 @@
                       <form class="form-horizontal col-md-3 col-lg-3 pull-right">
                           <div class="btn-group-vertical visible-md visible-lg" role="group">
                               <button type="button" class="btn btn-success" onclick="onClickFind()">Найти</button>
-                              <button type="button" class="btn btn-primary">Открыть карточку студента</button>
+                              <button type="button" class="btn btn-primary" onclick="onClickOpenStudent()">Открыть карточку студента</button>
                           </div>
                           <div class="btn-group visible-sm visible-xs" role="group">
                               <button type="button" class="btn btn-success" onclick="onClickFind()">Найти</button>
-                              <button type="button" class="btn btn-primary">Открыть карточку студента</button>
+                              <button type="button" class="btn btn-primary" onclick="onClickOpenStudent()">Открыть карточку студента</button>
                           </div>   
                       </form>
                       <!-- конец блока с кнопками "Найти" и "Открыть карточку студента" -->
@@ -227,7 +227,7 @@
                Дополнительные параметры
            </div>
            <ul class="list-group">
-               <li class="list-group-item">
+               <li class="list-group-item" disabled>
                    <div class="row">
                          <form class="form-horizontal col-md-4 col-lg-4">
                              <div class="form-group">
@@ -275,8 +275,9 @@
 
     <!-- Подключаемые скрипты -->
     <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mask.min.js"></script>
     <script type="text/javascript" src="js/function_sendInform.js"></script>
     <script type="text/javascript" src="js/function_averageEstimates.js"></script>
 
@@ -284,16 +285,72 @@
 <!-- ____________________________________________________________________________________________________ -->
 
 
-    <!-- Когда документ загрузится - запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID -->
+    <!-- Когда документ загрузится - запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID,
+         задаём маски ввода, определяем границы текущего семестра -->
     <script>
       $(document).ready(function() {
+        //маска для ввода оценок студента
+        $('#score').mask('0000000000', {'translation': {0: {pattern: /[2-5]/}}});
+        //маска для номера студенческого
+        $('#studentNumber').mask('00000000', {'translation': {0: {pattern: /[0-9Ии-]/}}});
+
+        //запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID
         $.getJSON('https://graalogosh.tk/section', function(data) {
             $.each(data, function(index, el) {
               $('<option value="' + el.sectionID + '">' + el.title + '</option>').appendTo("#sectionID");
             });
         });
+
+        //определяем границы текущего семестра
+        var startOfSem = new Date();
+        var endOfSem = new Date();
+
+        //определение дат начала и конца текущего семестра
+        if (startOfSem.getMonth() == 0 || startOfSem.getMonth() >= 6) {
+          //если сейчас первый семестр и текущий месяц - январь, то дату начала семестра пишем с текущим годом -1
+          if (startOfSem.getMonth() == 0) {
+            startOfSem = new Date(startOfSem.getFullYear() - 1, 6, 1);
+            endOfSem = new Date(endOfSem.getFullYear(), 1, 31, 23, 59, 59);
+          }
+          //если сейчас первый семестр и текущий месяц - не январь, то дату окончания семестра пишем с годом +1
+          else {
+            startOfSem = new Date(startOfSem.getFullYear(), 6, 1, 0, 0, 0, 0);
+            endOfSem = new Date(endOfSem.getFullYear() + 1, 0, 31, 23, 59, 59, 0);
+          }
+        }
+        //если сейчас второй семестр
+        else {
+          startOfSem = new Date(startOfSem.getFullYear(), 1, 1, 0, 0, 0, 0);
+          endOfSem = new Date(endOfSem.getFullYear(), 5, 30, 23, 59, 59, 0);
+        }
+
       });
     </script>
+
+    <!--
+            //определение дат начала и конца текущего семестра (для определния, был студент в этом семестре на данном мероприятии или нет)
+            if (DateTime.Now.Month == 1 || DateTime.Now.Month >= 7)
+            {
+                //если сейчас первый семестр и текущий месяц - январь, то дату начала семестра пишем с текущим годом -1
+                if (DateTime.Now.Month == 1)
+                {
+                    startOfSem = new DateTime(DateTime.Now.Year - 1, 7, 1, 0, 0, 0, 0);
+                    endOfSem = new DateTime(DateTime.Now.Year, 1, 31, 23, 59, 59, 0);
+                }
+                //если сейчас первый семестр и текущий месяц - не январь, то дату окончания семестра пишем с годом +1
+                else
+                {
+                    startOfSem = new DateTime(DateTime.Now.Year, 7, 1, 0, 0, 0, 0);
+                    endOfSem = new DateTime(DateTime.Now.Year + 1, 1, 31, 23, 59, 59, 0);
+                }
+            }
+            //если сейчас второй семестр
+            else
+            {
+                startOfSem = new DateTime(DateTime.Now.Year, 2, 1, 0, 0, 0, 0);
+                endOfSem = new DateTime(DateTime.Now.Year, 6, 30, 23, 59, 59, 0);
+            }
+-->
 
 
 <!-- ____________________________________________________________________________________________________ -->
@@ -302,13 +359,14 @@
     <!-- Поиск студента по номеру студенческого при нажатии на кнопку "Найти" и вывод информации о нём -->
     <script>
       function onClickFind () {
-        var query_data = sendInform("studentID");
 
-        <!-- Если воле номера студенческого не заполнили, то выводим об этом сообщение с предупреждением и завершаем скрипт -->
-        if (query_data["studentID"] == "") {
+        //Если воле номера студенческого не заполнили, то выводим об этом сообщение с предупреждением и завершаем скрипт
+        if ($('#studentID').val() == "") {
           alert ("Не введён номер студенческого.");
           return;
         }
+
+        var query_data = sendInform("studentID");
 
         $.getJSON('https://graalogosh.tk/student', query_data, function(data) {
             $.each(data, function(index, el) {
@@ -325,24 +383,16 @@
 <!-- ____________________________________________________________________________________________________ -->
 
 
-    <!-- Проверка нажимаемых клавиш при вводе оценок в элементе score. Разрешаются только цифры 2, 3, 4, 5 и клавиши Delete и Backspace,
-         а также стрелок вправо и влево (для навигации) -->
-    <script>
-      score.onkeydown = function(event) {
-        if (event.keyCode != "50" && event.keyCode != "51" && event.keyCode != "52" && event.keyCode != "53" && event.keyCode != "46" && event.keyCode != "8" && event.keyCode != "37" && event.keyCode != "39") {
-          return false;
-        }
-      }
-    </script>
-
-
-<!-- ____________________________________________________________________________________________________ -->
-
-
     <!-- Рассчитывание средней оценки студента и запись в value элемента c id=calculateButton -->
     <script>
 	    function onClickСalculate() {
-	      $("#average_score").val(averageEstimates("score"));
+        //сли не было введено ни одно число - выводим об этом сообщение и прекращаем вычисление среднего значения
+        if ($('#score').val() == '') {
+          alert('Не введена ни одна оценка.');
+        }
+        else {
+          $("#average_score").val(averageEstimates("score"));
+        }
 	    }
     </script>
 
@@ -353,16 +403,38 @@
 		<!-- Заполняем поле eventID мероприятиями по выбранному разделу мероприятий -->
 		<!-- Надо дописать выделение нужных и ненужных блоков для выбранного раздела -->
 		<script>
-			function onChangeSelect() {
+			function onChangeSection() {
 				var query_data = sendInform("sectionID");
+        //Заполняем поле eventID мероприятиями по выбранному разделу мероприятий
 				$.getJSON('https://graalogosh.tk/event', query_data, function(data) {
 						$.each(data, function(index, el) {
 							 $('<option value="' + el.eventID + '">' + el.title + '</option>').appendTo('#eventID');
 						});
 				});
+
+        $.getJSON('https://graalogosh.tk/section', query_data, function(data) {
+            $.each(data, function(index, el) {
+               $('#socialGrant').attr('disabled', el.socialGrant);
+               $('#socialCategory').attr('disabled', el.socialCategory);
+               $('#socialWorkCategory').attr('disabled', el.socialWork);
+               $('#socialWork').attr('disabled', el.socialWork);
+               $('#score').attr('disabled', el.averageScore);
+               $('#bankAccountNumber').attr('disabled', el.bankAccountNumber);
+            });
+        });
 			}
 		</script>
 
+
+<!-- ____________________________________________________________________________________________________ -->
+
+
+    <!-- Перенаправление не страницу с карточкой студента при нажатии кнопки "Открыть карточку студента" -->
+    <script>
+      function onClickOpenStudent(){
+        window.location.href = "https://graalogosh.tk/statements?statementID=" + $('#studentID').val();
+      }
+    </script>
 
 
   </body>

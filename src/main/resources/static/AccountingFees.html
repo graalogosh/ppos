@@ -18,35 +18,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
         
-    <script>
-      $(document).ready(function(){
-
-      });
-    </script>
-    
-    <script>
-      function onClickFind(){
-        $("#accountingFees").dataTable( {
-          "searching": false,
-          "paging": false,
-          "info": false,
-          "processing": true,
-          "ajax": "https://graalogosh.tk/students",
-          "columns": [
-            {"data": "studentID"},
-            {"data": "educationalGroup"},
-            {"data": "name"},
-            {"data": "academicStatus.title"},
-            {"data": "financialStatus.title"},
-            {"data": "entryDate.dayOfMonth"},
-            {"data": "entryDate.monthValue"},
-            {"data": "entryDate.year"},
-            {"data": "faculty"}
-          ]
-        });
-      }
-
-    </script>
     
 </head>
 <body>
@@ -85,15 +56,15 @@
               <!- блок Номер Студенческого и Номер Телефона -->
               <form class="form-horizontal col-lg-4 col-md-4">
                 <div class="form-group">
-                  <label for="studentNumber" class="control-label col-lg-6 col-md-6">Номер студенческого:</label>
+                  <label for="studentID" class="control-label col-lg-6 col-md-6">Номер студенческого:</label>
                   <div class="col-lg-6 col-md-6">
-                    <input class="form-control" type="text" id="studentNumber">
+                    <input class="form-control" type="text" id="studentID">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="phoneNumber" class="control-label col-lg-6 col-md-6">Номер телефона:</label>
+                  <label for="phone" class="control-label col-lg-6 col-md-6">Номер телефона:</label>
                   <div class="col-lg-6 col-md-6">
-                    <input class="form-control" type="text" id="phoneNumber">
+                    <input class="form-control" type="text" id="phone" pattern="8\(\d\d\d\) \d\d\d\-\d\d\d\d">
                   </div>
                 </div>
               </form>
@@ -104,9 +75,9 @@
                 <div class="row">
                   <form class="form-horizontal col-sm-12">
                     <div class="form-group">
-                      <label for="fio" class="control-label col-lg-2 col-md-2">Ф.И.О.:</label>
+                      <label for="name" class="control-label col-lg-2 col-md-2">Ф.И.О.:</label>
                       <div class="col-lg-10 col-md-10">
-                        <input class="form-control" type="text" id="fio">
+                        <input class="form-control" type="text" id="name">
                       </div>
                     </div>
                   </form>
@@ -114,9 +85,9 @@
                 <div class="row">
                   <form class="form-horizontal col-lg-6 col-md-6">
                     <div class="form-group">
-                      <label for="group" class="control-label col-lg-4 col-md-4">Группа:</label>
+                      <label for="educationalGroup" class="control-label col-lg-4 col-md-4">Группа:</label>
                       <div class="col-lg-8 col-md-8">
-                        <input class="form-control" type="text" id="group">
+                        <input class="form-control" type="text" id="educationalGroup">
                       </div>
                     </div>
                   </form>
@@ -125,11 +96,7 @@
                       <label for="faculty" class="control-label col-lg-4 col-md-5">Факультет:</label>
                       <div class="col-lg-8 col-md-7">
                         <select class="form-control" id="faculty">
-                          <option value="">1</option>
-                          <option value="">2</option>
-                          <option value="">3</option>
-                          <option value="">4</option>
-                          <option value="">5</option>
+                          <option value="0" disabled selected style="display:none;">Факультет</option>
                         </select>
                       </div>
                     </div>  
@@ -166,7 +133,7 @@
               <form class="form-horizontal col-lg-4 pull-right">
                 <div class="btn-group" role="group">
                   <button type="button" class="btn btn-success" onclick="onClickFind()">Найти</button>
-                  <button type="button" class="btn btn-primary">Сбросить</button>
+                  <button type="button" class="btn btn-primary" onclick="onClickClear()">Сбросить</button>
                 </div>
               </form>
               <!- конец блока с кнопками "Найти" и "Сбросить" -->
@@ -188,226 +155,6 @@
                 <th>Должен оплатить</th>
               </thead>
               <tbody>
-                <tr>
-                  <th>Номер студенческого1</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого2</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого3</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого4</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого5</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>
-                <tr>
-                  <th>Номер студенческого6</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого7</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого8</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого9</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого10</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>
-                <tr>
-                  <th>Номер студенческого11</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого12</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого13</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого14</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого15</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>
-                <tr>
-                  <th>Номер студенческого16</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого17</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого18</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого19</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>                
-                <tr>
-                  <th>Номер студенческого20</th>
-                  <th>Ф.И.О.1</th>
-                  <th>Группа1</th>
-                  <th>Учебный статус1</th>
-                  <th>Финансовый статус1</th>
-                  <th>Факультет1</th>
-                  <th>Телефон1</th>
-                  <th>Оплатил1</th>
-                  <th>Должен оплатить1</th>
-                </tr>
               </tbody>
             </table>
           </li>
@@ -419,8 +166,82 @@
 
     <!-- Подключение скриптов -->
     <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery.mask.min.js"></script>
     <script type="text/javascript" src="js/function_sendInform.js"></script>
+
+
+<!-- ____________________________________________________________________________________________________ -->
+
+
+		<!-- Загружаем названия факультетов после окончания загрузки страницы и задаём маски ввода -->
+    <script>
+      $(document).ready(function(){
+      	//маска для номера телефона
+      	$('#phone').mask('8(000) 000-00-00');
+      	//маска для номера студенческого
+      	$('#studentID').mask('00000000', {'translation': {0: {pattern: /[0-9Ии-]/}}});
+
+      	$.getJSON('https://graalogosh.tk/faculty', function(data) {
+      		$.each(data, function(index, el) {
+      			 $('<option value="' + el.faculty + '">' + el.faculty + '</option>').appendTo('#faculty');
+      		});
+      	});
+      });
+    </script>
+
+
+<!-- ____________________________________________________________________________________________________ -->
+
+
+		<!-- Очищаем поля ввода при нажатии на кнопку "Сбросить" -->
+		<script>
+			function onClickClear(){
+				$('#studentID').val('');
+				$('#name').val('');
+				$('#phone').val('');
+				$('#educationalGroup').val('');
+				$('#faculty').val(0);
+			}
+		</script>
+
+
+		<!--  -->    
+    <script>
+      function onClickFind(){
+      	var query_data;
+
+      	if ($('#faculty').val() == null) {
+      		query_data = sendInform('studentID', 'name', 'phone','educationalGroup');
+      	}
+      	else {
+      		query_data = sendInform('studentID', 'name', 'phone','educationalGroup','faculty');
+      	}
+
+        $("#accountingFees").dataTable( {
+          "searching": false,
+          "info": false,
+          "processing": true,
+          "ajax": {
+          	"url": "https://graalogosh.tk/student",
+          	"data": query_data,
+          	"dataSrc": ''
+          },
+          "columns": [
+            {"data": "studentID"},
+            {"data": "educationalGroup"},
+            {"data": "name"},
+            {"data": "academicStatus.title"},
+            {"data": "financialStatus.title"},
+            {"data": "entryDate.dayOfMonth"},
+            {"data": "entryDate.monthValue"},
+            {"data": "entryDate.year"},
+            {"data": "faculty"}
+          ]
+        });
+      }
+
+    </script>
 
  </body>

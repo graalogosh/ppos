@@ -9,7 +9,10 @@ function sendInform () {
 		//проверяет, не является ли элемент checkbox'ом. Если не является, то записываем value выбранного элемента
 		if ($("#" + arguments[i]).attr("type") != "checkbox")
 		{
-			object[arguments[i]] = $("#" + arguments[i]).val();
+			//проверяем, не является ли поле пустым. Если пустое, то не записываем его в объект
+			if ($("#" + arguments[i]).val() != '') {
+				object[arguments[i]] = $("#" + arguments[i]).val();
+			}
 		}
 		//если элемент является checkbox'ом, то записываем в содержимое поля, нажат он или нет
 		else {
