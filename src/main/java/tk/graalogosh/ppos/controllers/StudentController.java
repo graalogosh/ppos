@@ -3,7 +3,6 @@ package tk.graalogosh.ppos.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import tk.graalogosh.ppos.models.Status;
 import tk.graalogosh.ppos.models.Student;
 import tk.graalogosh.ppos.repositories.StatusRepository;
 import tk.graalogosh.ppos.repositories.StudentRepository;
@@ -16,7 +15,7 @@ import java.util.List;
  * Created by GraaLoGosh (graalogosh@gmail.com)) on 05.08.2015.
  */
 @RestController
-@RequestMapping(value = "student")
+@RequestMapping(value = "/api/student")
 public class StudentController {
     private StudentRepository studentRepository;
     private StatusRepository statusRepository;
@@ -28,15 +27,16 @@ public class StudentController {
         this.statusRepository = statusRepository;
     }
 
-//    @RequestMapping("/student/{user}")
-//    public Student getStudent(
-//            @PathVariable(value = "user") String userID) {
-//        Student example = new Student();
-//        example.setStudentID(userID);
-//        StudentSpecification specification = new StudentSpecification(example);
-//        List<Student> students = studentRepository.findAll(specification);
-//        return students.get(0);
-//    }
+    /**
+     *
+     * @param studentID идентификатор студента
+     * @return Student - студент с указанным идентификатором
+     */
+    @RequestMapping(value = "/{student}", method = RequestMethod.GET)
+    public Student getStudent(
+            @PathVariable(value = "student") String studentID) {
+        return studentRepository.findOne(studentID);
+    }
 
     /**
      *
