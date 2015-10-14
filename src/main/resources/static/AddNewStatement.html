@@ -404,6 +404,10 @@
 		<script>
 			function onChangeSection() {
 				var query_data = sendInform("sectionID");
+
+        //удаляем уже записанные в комбобокс мероприятия
+        $('#eventID').html('<option value="0" disabled selected style="display:none;">Выберите мероприятие</option>');
+        
         //Заполняем поле eventID мероприятиями по выбранному разделу мероприятий
 				$.getJSON('https://graalogosh.tk/event', query_data, function(data) {
 						$.each(data, function(index, el) {
