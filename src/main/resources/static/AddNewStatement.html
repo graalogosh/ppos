@@ -135,7 +135,7 @@
                            <div class="form-group">
                                <label class="control-label col-lg-2" for="sectionID">Раздел:</label>
                                   <div class="col-lg-10">
-                                   <select class="form-control" id="sectionID" onchange="onChangeSection()">
+                                   <select class="form-control" id="sectionID" onchange="onChangeSection()" disabled>
                                     <option value="0" disabled selected style="display:none;">Выберите раздел</option>
                                    </select>
                                  </div>
@@ -148,7 +148,7 @@
                            <div class="form-group">
                                <label class="control-label col-lg-3" for="eventID">Мероприятие:</label>
                                <div class="col-lg-9">
-                                 <select class="form-control" id="eventID">
+                                 <select class="form-control" id="eventID" disabled>
                                   <option value="0" disabled selected style="display:none;">Выберите мероприятие</option>
                                  </select>
                                </div>
@@ -169,7 +169,7 @@
                            <div class="form-group">
                                <label class="control-label col-lg-3" for="socialWorkCategory">Категория:</label>
                                   <div class="col-lg-9">
-                                     <select class="form-control" id="socialWorkCategory">
+                                     <select class="form-control" id="socialWorkCategory" disabled>
                                         <option value="0" disabled selected style="display:none;">Выберите категорию</option>
                                       </select>
                                   </div>
@@ -182,7 +182,7 @@
                            <div class="form-group">
                                <label class="control-label col-lg-3" for="socialWork">Общ. работа:</label>
                                <div class="col-lg-9">
-                                 <select class="form-control" id="socialWork">
+                                 <select class="form-control" id="socialWork" disabled>
                                     <option value="0" disabled selected style="display:none;">Выберите общественную работу</option>
                                  </select>
                                </div>
@@ -202,13 +202,13 @@
                            <div class="form-group">
                                <label class="control-label col-lg-5" for="socialCategory">Социальная категория:</label>
                                <div class="col-lg-7">
-                                 <select class="form-control" id="socialCategory">
+                                 <select class="form-control" id="socialCategory" disabled>
                                     <option value="0" disabled selected style="display:none;">Выберите социальную категорию</option>
                                  </select>
                                </div>
                            </div>
-                           <label class="checkbox-inline"><input type="checkbox" id="completeDocs">Все документы в наличии</label>
-                           <label class="checkbox-inline"><input type="checkbox" id="socialGrant">Социальная стипендия</label>
+                           <label class="checkbox-inline"><input type="checkbox" id="completeDocs" disabled>Все документы в наличии</label>
+                           <label class="checkbox-inline"><input type="checkbox" id="socialGrant" disabled>Социальная стипендия</label>
                        </form>
                        <div class="form-horizontal col-md-6 col-lg-6">
                            <div class="form-group col-sm-4 col-md-6 col-lg-6">
@@ -217,7 +217,7 @@
                            </div>
                            <div class="form-group col-sm-4 col-md-6 col-lg-6">
                                <label for="comment">Комментарий:</label>
-                               <p><textarea id="comment"></textarea></p>
+                               <p><textarea id="comment" disabled></textarea></p>
                            </div>
                        </div>
                    </div>
@@ -234,9 +234,9 @@
                                  <label class="control-label col-lg-3" for="score">Оценки:</label>
                                  <div class="col-lg-9">
                                    <div class="input-group">
-                                       <input type="text" class="form-control" id="score">
+                                       <input type="text" class="form-control" id="score" disabled>
                                        <span class="input-group-btn">
-                                       <button class="btn btn-default" type="button" id="calculateButton" onclick="onClickСalculate()">Рассчитать</button>
+                                       <button class="btn btn-default" type="button" id="calculateButton" onclick="onClickСalculate()" disabled>Рассчитать</button>
                                        </span>
                                    </div> 
                                  </div>                                  
@@ -285,8 +285,7 @@
 <!-- ____________________________________________________________________________________________________ -->
 
 
-    <!-- Когда документ загрузится - запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID,
-         задаём маски ввода, определяем границы текущего семестра -->
+    <!-- Когда документ загрузится - запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID -->
     <script>
       $(document).ready(function() {
         //маска для ввода оценок студента
@@ -300,63 +299,15 @@
               $('<option value="' + el.sectionID + '">' + el.title + '</option>').appendTo("#sectionID");
             });
         });
-
-        //определяем границы текущего семестра
-        var startOfSem = new Date();
-        var endOfSem = new Date();
-
-        //определение дат начала и конца текущего семестра
-        if (startOfSem.getMonth() == 0 || startOfSem.getMonth() >= 6) {
-          //если сейчас первый семестр и текущий месяц - январь, то дату начала семестра пишем с текущим годом -1
-          if (startOfSem.getMonth() == 0) {
-            startOfSem = new Date(startOfSem.getFullYear() - 1, 6, 1);
-            endOfSem = new Date(endOfSem.getFullYear(), 1, 31, 23, 59, 59);
-          }
-          //если сейчас первый семестр и текущий месяц - не январь, то дату окончания семестра пишем с годом +1
-          else {
-            startOfSem = new Date(startOfSem.getFullYear(), 6, 1, 0, 0, 0, 0);
-            endOfSem = new Date(endOfSem.getFullYear() + 1, 0, 31, 23, 59, 59, 0);
-          }
-        }
-        //если сейчас второй семестр
-        else {
-          startOfSem = new Date(startOfSem.getFullYear(), 1, 1, 0, 0, 0, 0);
-          endOfSem = new Date(endOfSem.getFullYear(), 5, 30, 23, 59, 59, 0);
-        }
-
       });
     </script>
-
-    <!--
-            //определение дат начала и конца текущего семестра (для определния, был студент в этом семестре на данном мероприятии или нет)
-            if (DateTime.Now.Month == 1 || DateTime.Now.Month >= 7)
-            {
-                //если сейчас первый семестр и текущий месяц - январь, то дату начала семестра пишем с текущим годом -1
-                if (DateTime.Now.Month == 1)
-                {
-                    startOfSem = new DateTime(DateTime.Now.Year - 1, 7, 1, 0, 0, 0, 0);
-                    endOfSem = new DateTime(DateTime.Now.Year, 1, 31, 23, 59, 59, 0);
-                }
-                //если сейчас первый семестр и текущий месяц - не январь, то дату окончания семестра пишем с годом +1
-                else
-                {
-                    startOfSem = new DateTime(DateTime.Now.Year, 7, 1, 0, 0, 0, 0);
-                    endOfSem = new DateTime(DateTime.Now.Year + 1, 1, 31, 23, 59, 59, 0);
-                }
-            }
-            //если сейчас второй семестр
-            else
-            {
-                startOfSem = new DateTime(DateTime.Now.Year, 2, 1, 0, 0, 0, 0);
-                endOfSem = new DateTime(DateTime.Now.Year, 6, 30, 23, 59, 59, 0);
-            }
--->
 
 
 <!-- ____________________________________________________________________________________________________ -->
 
 
-    <!-- Поиск студента по номеру студенческого при нажатии на кнопку "Найти" и вывод информации о нём -->
+    <!-- Поиск студента по номеру студенческого при нажатии на кнопку "Найти" и вывод информации о нём,
+         активация комбобокса раздела мероприятия и checkbox "Все документы в наличии" -->
     <script>
       function onClickFind () {
 
@@ -376,6 +327,10 @@
               $("#fio").val(el.name);
             });
         });
+
+        //активация комбобокса раздела мероприятия и checkbox "Все документы в наличии"
+        $('#sectionID').prop('disabled', false);
+        $('#completeDocs').prop('disabled', false)
       }
     </script> 
 
@@ -408,6 +363,10 @@
         //удаляем уже записанные в комбобокс мероприятия
         $('#eventID').html('<option value="0" disabled selected style="display:none;">Выберите мероприятие</option>');
         
+        //активация комбобокса мероприятий и раздела с комментарием
+        $('#eventID').prop('disabled', false);
+        $('#comment').prop('disabled', false);
+
         //Заполняем поле eventID мероприятиями по выбранному разделу мероприятий
 				$.getJSON('https://graalogosh.tk/event', query_data, function(data) {
 						$.each(data, function(index, el) {
@@ -425,8 +384,18 @@
                $('#score').prop('disabled', !el.averageScore);
                $('#calculateButton').prop('disabled', !el.averageScore);
                $('#bankAccountNumber').prop('disabled', !el.bankAccountNumber);
-
             });
+        });
+
+        //проверяем, не подавал ли студент в этом семестре доументы по выбранному разделу
+        query_data = sendInform("studentID", "sectionID");
+
+        $.getJSON('https://graalogosh.tk/statement', query_data, function(data) {
+            //если длина полученного массива не 0, то студент уже подавал документы по выбранному направлению в текущем семестре
+            //выводим об этом сообщение
+            if (data.length == 0) {
+              alert('Студент уже подавал заявление по данному разделу. При подаче ещё одного заявления оно автоматически попадёт в резерв.');
+            }
         });
 			}
 		</script>
