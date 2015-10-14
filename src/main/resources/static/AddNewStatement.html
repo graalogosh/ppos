@@ -148,7 +148,7 @@
                            <div class="form-group">
                                <label class="control-label col-lg-3" for="eventID">Мероприятие:</label>
                                <div class="col-lg-9">
-                                 <select class="form-control" id="eventID" disabled>
+                                 <select class="form-control" id="eventID" onchange="onChangeEvent()" disabled>
                                   <option value="0" disabled selected style="display:none;">Выберите мероприятие</option>
                                  </select>
                                </div>
@@ -260,7 +260,7 @@
                              </form>
                              <form class="form-horizontal col-lg-3">
                                <div class="btn-group pull-right">
-                                   <button type="submit" class="btn btn-success">Добавить</button>
+                                   <button type="submit" class="btn btn-success" id="addButton" disabled>Добавить</button>
                                    <button type="submit" class="btn btn-primary">Отмена</button>
                                </div>
                              </form>
@@ -404,9 +404,41 @@
 <!-- ____________________________________________________________________________________________________ -->
 
 
+    <!-- при выборе мероприятия проверяем, не подавал ли студент заявление на него в этом семестре и не подавал ли на него вообще за всё время обучения,
+         активируем кнопку добавления заявления -->
+    <script>
+        function onChangeEvent() {
+          //проверяем, подавал ли студент заявление на данное мероприяти в текущем семестре. Если да, то блокируем кнопку "Добавить"
+          var query_data = sendInform("eventID");
+          $.getJSON('https://graalogosh.tk/statement', query_data, function(data) {
+
+              //возможно, надо будет дописать дополнительный параметр, обозначающий, что мы ищем по заявлениям за текущий семестр
+              //если нашлись заявления, удовлетворяющие условиям - блокируем добавление и сообщеам, что документы уже были добавлены
+              if (data.length != 0) {
+                //деактивируем кнопку "Добавить""
+                $('#addButton').prop('disabled', true);
+
+                //выводим сообщение о том, что студент уже подавал документы на данное мероприятие в текущем семестре
+                alert('Нельзя принять документы. Студент уже подавал заявление на выбранное мероприятие в текущем семестре.');
+              }
+              //если заявлений, удовлетворяющих условиям нет - разблокируем кнопку "Добавить"
+              else {
+                $('#addButton').prop('disabled', false);
+              }
+          });
+
+          //автивируем кнопку добавления заявления
+          $('#addButton').prop('disabled', false);
+        }
+    </script>
+
+
+<!-- ____________________________________________________________________________________________________ -->
+
+  
     <!-- Перенаправление не страницу с карточкой студента при нажатии кнопки "Открыть карточку студента" -->
     <script>
-      function onClickOpenStudent(){
+      function onClickOpenStudent() {
         window.location.href = "https://graalogosh.tk/statements?statementID=" + $('#studentID').val();
       }
     </script>
