@@ -84,6 +84,7 @@ public class Statement {
     private Refusal refusalCount;
 
 //    @Getter @Setter
+    @Column(name = "permit_number")
     private Integer permitNumber;
 
     @Convert(converter = LocalDatePersistenceConverter.class)

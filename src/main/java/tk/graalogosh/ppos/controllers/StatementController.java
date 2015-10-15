@@ -55,27 +55,26 @@ public class StatementController {
     }
 
     /**
-     *
-     * @param statementID идентификатор заявления
-     * @param fillingDate дата заполнения заявления
-     * @param studentID идентификатор студента
-     * @param eventID идентификатор события
-     * @param employeeID идентификатор сотрудника
-     * @param socialGrant наличие социальной стипендии
+     * @param statementID      идентификатор заявления
+     * @param fillingDate      дата заполнения заявления
+     * @param studentID        идентификатор студента
+     * @param eventID          идентификатор события
+     * @param employeeID       идентификатор сотрудника
+     * @param socialGrant      наличие социальной стипендии
      * @param socialCategoryID идентификатор социальной категории
-     * @param socialWorkID идентификатор социальной работы
-     * @param moneyCategory выплата денег
-     * @param course курс
-     * @param tripCount количество поездок
-     * @param averageScore средний балл
-     * @param refusalCount число отказов
-     * @param permitNumber номер направления
-     * @param refusalDate дата отказа
+     * @param socialWorkID     идентификатор социальной работы
+     * @param moneyCategory    выплата денег
+     * @param course           курс
+     * @param tripCount        количество поездок
+     * @param averageScore     средний балл
+     * @param refusalCount     число отказов
+     * @param permitNumber     номер направления
+     * @param refusalDate      дата отказа
      * @param cancellationDate дата отмены
-     * @param listID номер ведомости, в которой участвует заявление
-     * @param comment комментарий
-     * @param completeDocs все ли документы поданы
-     * @param reserve находится ли заявление в резерве
+     * @param listID           номер ведомости, в которой участвует заявление
+     * @param comment          комментарий
+     * @param completeDocs     все ли документы поданы
+     * @param reserve          находится ли заявление в резерве
      * @return List(Statement) - список заявлений, подходящий под описание
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -99,7 +98,11 @@ public class StatementController {
             @RequestParam(value = "listID", required = false) Integer listID,
             @RequestParam(value = "comment", required = false) String comment,
             @RequestParam(value = "completeDocs", required = false) Boolean completeDocs,
-            @RequestParam(value = "reserve", required = false) Boolean reserve) {
+            @RequestParam(value = "reserve", required = false) Boolean reserve,
+            @RequestParam(value = "showSuccesses", required = false) Boolean showSuccesses) {
+
+        showSuccesses = showSuccesses != null ? showSuccesses : false;
+
         Statement example = new Statement();
         example.setStatementID(statementID);
         example.setFillingDate(fillingDate);
@@ -124,6 +127,16 @@ public class StatementController {
 
         StatementSpecification specification = new StatementSpecification(example);
         List<Statement> statements = statementRepository.findAll(specification);
+        List<Statement> statements2 = statementRepository.findByPermitNumberIsNotNull();
+
+        if (showSuccesses){
+            for (Statement statement:statements2){
+                if (!statements.contains(statement)){
+                    statements.remove(statement);
+                }
+            }
+        }
+
         return statements;
     }
 
