@@ -48,10 +48,12 @@ public class EventController {
             //TODO suitableCategory
             @RequestParam(value = "suitableCategory", required = false) String suitableCategory,
             @RequestParam(value = "firstDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate firstDate,
-            @RequestParam(value = "lastDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastDate) {
+            @RequestParam(value = "lastDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastDate,
+            @RequestParam(value = "curTerm", required = false) Boolean curTerm) {
 
         firstDate = firstDate != null ? firstDate : Dates.MINDATE;
         lastDate = lastDate != null ? lastDate : Dates.MAXDATE;
+        curTerm = curTerm != null ? curTerm : true;
 
         Event example = new Event();
         example.setEventID(eventID);
@@ -70,15 +72,15 @@ public class EventController {
         List<Event> events1 = eventRepository.findAll(specification);
 
         List<Event> events2 = eventRepository.findByEventDateBetween(firstDate, lastDate);
+        List<Event> events3 = eventRepository.findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate.now());
         List<Event> resultEvents = new ArrayList<>();
         for (Event event : events1) {
-            if (events2.contains(event)) {
+            //пересечение event, event2 и event3 (только если curTerm=true)
+            if (events2.contains(event) && (events3.contains(event) || !curTerm)) {
                 resultEvents.add(event);
             }
         }
         return resultEvents;
-
-
     }
 
     @RequestMapping(method = RequestMethod.POST)

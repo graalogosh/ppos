@@ -14,7 +14,11 @@ import java.util.List;
  */
 @Repository
 @Table(name="event")
-public interface EventRepository extends JpaRepository<Event, Integer>, JpaSpecificationExecutor {
+public interface EventRepository extends JpaRepository<Event, Integer>, JpaSpecificationExecutor, EventRepositoryCustom {
 
     List<Event> findByEventDateBetween(LocalDate startDate, LocalDate finishDate);
+
+    List<Event> findByReseptionBeginBefore(LocalDate date);
+
+    List<Event> findByReseptionFinishAfter(LocalDate date);
 }
