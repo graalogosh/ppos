@@ -25,14 +25,16 @@ public class StatementList {
     @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
     private LocalDate date;
 
-    @Column(name = "type")
-    private Integer type;
+    @ManyToOne
+    @JoinColumn(name = "type")
+    private TypeList type;
 
     @Column(name = "count_statement")
     private Integer countStatement;
 
-    @Column(name = "faculty")
-    private String faculty;
+    @ManyToOne
+    @JoinColumn(name = "faculty")
+    private Faculty faculty;
 
     public Integer getListID() {
         return listID;
@@ -50,11 +52,11 @@ public class StatementList {
         this.date = date;
     }
 
-    public Integer getType() {
+    public TypeList getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(TypeList type) {
         this.type = type;
     }
 
@@ -66,15 +68,15 @@ public class StatementList {
         this.countStatement = countStatement;
     }
 
-    public String getFaculty() {
+    public Faculty getFaculty() {
         return faculty;
     }
 
-    public void setFaculty(String faculty) {
+    public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }
 
-    public StatementList(LocalDate date, Integer type, Integer countStatement, String faculty) {
+    public StatementList(LocalDate date, TypeList type, Integer countStatement, Faculty faculty) {
         this.date = date;
         this.type = type;
         this.countStatement = countStatement;
