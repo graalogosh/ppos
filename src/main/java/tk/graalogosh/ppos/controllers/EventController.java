@@ -7,11 +7,8 @@ import tk.graalogosh.ppos.models.Event;
 import tk.graalogosh.ppos.repositories.EmployeeRepository;
 import tk.graalogosh.ppos.repositories.EventRepository;
 import tk.graalogosh.ppos.repositories.SectionRepository;
-import tk.graalogosh.ppos.specifications.EventSpecification;
-import tk.graalogosh.ppos.utils.Dates;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,33 +47,35 @@ public class EventController {
             @RequestParam(value = "firstDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate firstDate,
             @RequestParam(value = "lastDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastDate) {
 
-        firstDate = firstDate != null ? firstDate : Dates.MINDATE;
-        lastDate = lastDate != null ? lastDate : Dates.MAXDATE;
+//        firstDate = firstDate != null ? firstDate : Dates.MINDATE;
+//        lastDate = lastDate != null ? lastDate : Dates.MAXDATE;
+//
+//        Event example = new Event();
+//        example.setEventID(eventID);
+//        example.setTitle(title);
+//        example.setEventDate(eventDate);
+//        example.setDuration(duration);
+//        example.setReseptionBegin(receptionBegin);
+//        example.setReseptionFinish(reseptionFinish);
+//        example.setEmployee(employeeID != null ? employeeRepository.findOne(employeeID) : null);
+//        example.setSection(sectionID != null ? sectionRepository.findOne(sectionID) : null);
+//        example.setNumberOfPlaces(numberOfPlaces);
+//        example.setQuotasPercantage(quotasPercentage);
+//        example.setSuitableCategory(suitableCategory);
+//
+//        EventSpecification specification = new EventSpecification(example);
+//        List<Event> events1 = eventRepository.findAll(specification);
+//
+//        List<Event> events2 = eventRepository.findByEventDateBetween(firstDate, lastDate);
+//        List<Event> resultEvents = new ArrayList<>();
+//        for (Event event : events1) {
+//            if (events2.contains(event)) {
+//                resultEvents.add(event);
+//            }
+//        }
+//        return resultEvents;
 
-        Event example = new Event();
-        example.setEventID(eventID);
-        example.setTitle(title);
-        example.setEventDate(eventDate);
-        example.setDuration(duration);
-        example.setReseptionBegin(receptionBegin);
-        example.setReseptionFinish(reseptionFinish);
-        example.setEmployee(employeeID != null ? employeeRepository.findOne(employeeID) : null);
-        example.setSection(sectionID != null ? sectionRepository.findOne(sectionID) : null);
-        example.setNumberOfPlaces(numberOfPlaces);
-        example.setQuotasPercantage(quotasPercentage);
-        example.setSuitableCategory(suitableCategory);
-
-        EventSpecification specification = new EventSpecification(example);
-        List<Event> events1 = eventRepository.findAll(specification);
-
-        List<Event> events2 = eventRepository.findByEventDateBetween(firstDate, lastDate);
-        List<Event> resultEvents = new ArrayList<>();
-        for (Event event : events1) {
-            if (events2.contains(event)) {
-                resultEvents.add(event);
-            }
-        }
-        return resultEvents;
+        return eventRepository.findByReceptionBeginBeforeAndReceptionFinishAfter(LocalDate.now());
 
 
     }
