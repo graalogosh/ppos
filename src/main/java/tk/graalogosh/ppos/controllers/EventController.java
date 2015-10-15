@@ -7,8 +7,11 @@ import tk.graalogosh.ppos.models.Event;
 import tk.graalogosh.ppos.repositories.EmployeeRepository;
 import tk.graalogosh.ppos.repositories.EventRepository;
 import tk.graalogosh.ppos.repositories.SectionRepository;
+import tk.graalogosh.ppos.specifications.EventSpecification;
+import tk.graalogosh.ppos.utils.Dates;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,39 +48,39 @@ public class EventController {
             //TODO suitableCategory
             @RequestParam(value = "suitableCategory", required = false) String suitableCategory,
             @RequestParam(value = "firstDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate firstDate,
-            @RequestParam(value = "lastDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastDate) {
+            @RequestParam(value = "lastDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastDate,
+            @RequestParam(value = "curTerm", required = false) Boolean curTerm) {
 
-//        firstDate = firstDate != null ? firstDate : Dates.MINDATE;
-//        lastDate = lastDate != null ? lastDate : Dates.MAXDATE;
-//
-//        Event example = new Event();
-//        example.setEventID(eventID);
-//        example.setTitle(title);
-//        example.setEventDate(eventDate);
-//        example.setDuration(duration);
-//        example.setReseptionBegin(receptionBegin);
-//        example.setReseptionFinish(reseptionFinish);
-//        example.setEmployee(employeeID != null ? employeeRepository.findOne(employeeID) : null);
-//        example.setSection(sectionID != null ? sectionRepository.findOne(sectionID) : null);
-//        example.setNumberOfPlaces(numberOfPlaces);
-//        example.setQuotasPercantage(quotasPercentage);
-//        example.setSuitableCategory(suitableCategory);
-//
-//        EventSpecification specification = new EventSpecification(example);
-//        List<Event> events1 = eventRepository.findAll(specification);
-//
-//        List<Event> events2 = eventRepository.findByEventDateBetween(firstDate, lastDate);
-//        List<Event> resultEvents = new ArrayList<>();
-//        for (Event event : events1) {
-//            if (events2.contains(event)) {
-//                resultEvents.add(event);
-//            }
-//        }
-//        return resultEvents;
+        firstDate = firstDate != null ? firstDate : Dates.MINDATE;
+        lastDate = lastDate != null ? lastDate : Dates.MAXDATE;
+        curTerm = curTerm != null ? curTerm : true;
 
-        return eventRepository.findByReceptionBeginBeforeAndReceptionFinishAfter(LocalDate.now());
+        Event example = new Event();
+        example.setEventID(eventID);
+        example.setTitle(title);
+        example.setEventDate(eventDate);
+        example.setDuration(duration);
+        example.setReseptionBegin(receptionBegin);
+        example.setReseptionFinish(reseptionFinish);
+        example.setEmployee(employeeID != null ? employeeRepository.findOne(employeeID) : null);
+        example.setSection(sectionID != null ? sectionRepository.findOne(sectionID) : null);
+        example.setNumberOfPlaces(numberOfPlaces);
+        example.setQuotasPercantage(quotasPercentage);
+        example.setSuitableCategory(suitableCategory);
 
+        EventSpecification specification = new EventSpecification(example);
+        List<Event> events1 = eventRepository.findAll(specification);
 
+        List<Event> events2 = eventRepository.findByEventDateBetween(firstDate, lastDate);
+        List<Event> events3 = eventRepository.findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate.now());
+        List<Event> resultEvents = new ArrayList<>();
+        for (Event event : events1) {
+            //пересечение event, event2 и event3 (только если curTerm=true)
+            if (events2.contains(event) && (events3.contains(event) || !curTerm)) {
+                resultEvents.add(event);
+            }
+        }
+        return resultEvents;
     }
 
     @RequestMapping(method = RequestMethod.POST)
