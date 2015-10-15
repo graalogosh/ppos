@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 import tk.graalogosh.ppos.models.Event;
-import tk.graalogosh.ppos.repositories.custom.EventRepositoryCustom;
 
 import javax.persistence.Table;
 import java.time.LocalDate;
