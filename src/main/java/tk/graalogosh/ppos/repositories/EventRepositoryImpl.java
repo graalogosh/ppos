@@ -19,23 +19,6 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
     private StatementRepository statementRepository;
 
     @Override
-    public List<Event> findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate date) {
-        LocalDate now = LocalDate.now();
-        List<Event> list1 = eventRepository.findByReseptionBeginBefore(now);
-        List<Event> list2 = eventRepository.findByReseptionFinishAfter(now);
-
-        List<Event> resultList = new ArrayList<>();
-
-        for (Event event : list1) {
-            if (list2.contains(event)) {
-                resultList.add(event);
-            }
-        }
-
-        return resultList;
-    }
-
-    @Override
     public Boolean haveStudentBeenOnEventOrAncestorEvent(Student student, Event event) {
         if (event.getAncestor() == null || studentHaveBeenOnEvent(student, event)) {
             return studentHaveBeenOnEvent(student, event);
