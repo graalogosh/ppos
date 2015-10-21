@@ -1,6 +1,7 @@
 package tk.graalogosh.ppos.repositories;
 
 import tk.graalogosh.ppos.models.Event;
+import tk.graalogosh.ppos.models.Student;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -10,4 +11,8 @@ import java.util.List;
  */
 public interface EventRepositoryCustom {
     List<Event> findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate date);
+
+    Boolean haveStudentBeenOnEventOrAncestorEvent(Student student, Event event);
+
+    //List<Event> findByEventOrAncestor (Event event);
 }
