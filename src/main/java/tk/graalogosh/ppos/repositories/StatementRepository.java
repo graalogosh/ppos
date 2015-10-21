@@ -20,4 +20,8 @@ public interface StatementRepository extends JpaRepository<Statement, Integer>, 
 
     List<Statement> findByPermitNumberIsNotNull();
 
+    Statement findByStudentAndEvent(Student student, Event event);
+
+    List<Statement> findByStudent(Student student);
+
 }
