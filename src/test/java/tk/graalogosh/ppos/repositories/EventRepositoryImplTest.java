@@ -20,10 +20,6 @@ public class EventRepositoryImplTest extends TestCase {
     EventRepository eventRepository;
     @Autowired
     StudentRepository studentRepository;
-//    @Test
-//    public void testFindByReseptionBeginBeforeAndReseptionFinishAfter() throws Exception {
-//
-//    }
 
     @Test
     public void testHaveStudentBeenOnEventOrAncestorEvent() throws Exception {

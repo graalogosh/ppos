@@ -1,5 +1,6 @@
 package tk.graalogosh.ppos.specifications;
 
+import org.apache.tomcat.jni.Local;
 import org.springframework.data.jpa.domain.Specification;
 import tk.graalogosh.ppos.models.Employee;
 import tk.graalogosh.ppos.models.Event;
@@ -168,6 +169,29 @@ public class EventSpecification {
             @Override
             public Predicate toPredicate(Root<Event> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 return criteriaBuilder.equal(root.get(Event_.quotasPercantage),quotas);
+            }
+        };
+    }
+
+    public static Specification<Event> findBetweenDates (LocalDate date1, LocalDate date2){
+        return new Specification<Event>() {
+            @Override
+            public Predicate toPredicate(Root<Event> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                Predicate eventIsAfterDate1 = cb.greaterThanOrEqualTo(root.get(Event_.eventDate), date1);
+                Predicate eventIsBeforeDate2 = cb.lessThanOrEqualTo(root.get(Event_.eventDate), date2);
+                return cb.and(eventIsAfterDate1,eventIsBeforeDate2);
+            }
+        };
+    }
+
+    public static Specification<Event> findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate date){
+        return new Specification<Event>() {
+            @Override
+            public Predicate toPredicate(Root<Event> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                //e.reseptionBegin<=?1 and e.reseptionFinish>=?1
+                Predicate reseptionStartIsBeforeDate = cb.lessThanOrEqualTo(root.get(Event_.reseptionBegin),date);
+                Predicate reseptionFinishIsAfterDate = cb.greaterThanOrEqualTo(root.get(Event_.reseptionFinish), date);
+                return cb.and(reseptionStartIsBeforeDate, reseptionFinishIsAfterDate);
             }
         };
     }
