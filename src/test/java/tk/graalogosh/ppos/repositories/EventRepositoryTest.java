@@ -1,7 +1,6 @@
 package tk.graalogosh.ppos.repositories;
 
 import junit.framework.TestCase;
-import org.apache.tomcat.jni.Local;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tk.graalogosh.ppos.PposApplication;
 import tk.graalogosh.ppos.models.Event;
-import tk.graalogosh.ppos.specifications.EventSpecification;
+import tk.graalogosh.ppos.specifications.EventSpecifications;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,20 +25,20 @@ public class EventRepositoryTest extends TestCase {
     @Test
     public void testFindByEventDateBetween_Specification() throws Exception {
         System.out.println("*************************");
-        for(Event event : (List<Event>)eventRepository.findAll(EventSpecification.findBetweenDates(LocalDate.of(2014, 3, 15), LocalDate.of(2014, 3, 30)))){
+        for(Event event : (List<Event>)eventRepository.findAll(EventSpecifications.findBetweenDates(LocalDate.of(2014, 3, 15), LocalDate.of(2014, 3, 30)))){
             System.out.println(event.getEventID());
         }
         System.out.println("*************************");
-        assertEquals(4,eventRepository.findAll(EventSpecification.findBetweenDates(LocalDate.of(2014, 3, 15), LocalDate.of(2014, 3, 30))).size());
+        assertEquals(4,eventRepository.findAll(EventSpecifications.findBetweenDates(LocalDate.of(2014, 3, 15), LocalDate.of(2014, 3, 30))).size());
     }
 
     @Test
     public void testFindByReseptionBeginBeforeAndReseptionFinishAfter_specification(){
         System.out.println("*************************");
-        for(Event event : (List<Event>)eventRepository.findAll(EventSpecification.findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate.now()))){
+        for(Event event : (List<Event>)eventRepository.findAll(EventSpecifications.findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate.now()))){
             System.out.println(event.getEventID());
         }
         System.out.println("*************************");
-        assertEquals(5, eventRepository.findAll(EventSpecification.findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate.now())).size());
+        assertEquals(5, eventRepository.findAll(EventSpecifications.findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate.now())).size());
     }
 }
