@@ -1,6 +1,5 @@
 package tk.graalogosh.ppos.specifications;
 
-import org.apache.tomcat.jni.Local;
 import org.springframework.data.jpa.domain.Specification;
 import tk.graalogosh.ppos.models.Employee;
 import tk.graalogosh.ppos.models.Event;
@@ -13,8 +12,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by graal on 01.10.2015.
