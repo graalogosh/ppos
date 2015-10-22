@@ -184,6 +184,24 @@ public class EventSpecification {
         };
     }
 
+    public static Specification<Event> eventIsBefore (LocalDate date){
+        return new Specification<Event>() {
+            @Override
+            public Predicate toPredicate(Root<Event> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.lessThanOrEqualTo(root.get(Event_.eventDate), date);
+            }
+        };
+    }
+
+    public static Specification<Event> eventIsAfter (LocalDate date){
+        return new Specification<Event>() {
+            @Override
+            public Predicate toPredicate(Root<Event> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.greaterThanOrEqualTo(root.get(Event_.eventDate), date);
+            }
+        };
+    }
+
     public static Specification<Event> findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate date){
         return new Specification<Event>() {
             @Override

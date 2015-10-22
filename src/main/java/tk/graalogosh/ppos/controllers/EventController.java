@@ -103,8 +103,8 @@ public class EventController {
             @RequestParam(value = "lastDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastDate,
             @RequestParam(value = "curTerm", required = false) Boolean curTerm) {
 
-        firstDate = firstDate != null ? firstDate : Dates.MINDATE;
-        lastDate = lastDate != null ? lastDate : Dates.MAXDATE;
+        //firstDate = firstDate != null ? firstDate : Dates.MINDATE;
+        //lastDate = lastDate != null ? lastDate : Dates.MAXDATE;
         curTerm = curTerm != null ? curTerm : true;
 
         List<Specification<Event>> specifications = new ArrayList<>();
@@ -148,8 +148,17 @@ public class EventController {
             specifications.add(EventSpecification.quotasPercantageIs(quotasPercentage));
         }
 
-        //TODO fisrtDate-lastDate
-        //TODO curTerm
+        if (firstDate!=null){
+            specifications.add(EventSpecification.eventIsAfter(firstDate));
+        }
+
+        if (lastDate!=null){
+            specifications.add(EventSpecification.eventIsBefore(lastDate));
+        }
+
+        if (curTerm){
+            specifications.add(EventSpecification.findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate.now()));
+        }
 
         Specification<Event> finalSpecification=null;
         for (Specification<Event> spec : specifications){
