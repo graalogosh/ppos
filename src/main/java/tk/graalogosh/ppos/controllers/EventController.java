@@ -103,8 +103,6 @@ public class EventController {
             @RequestParam(value = "lastDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastDate,
             @RequestParam(value = "curTerm", required = false) Boolean curTerm) {
 
-        //firstDate = firstDate != null ? firstDate : Dates.MINDATE;
-        //lastDate = lastDate != null ? lastDate : Dates.MAXDATE;
         curTerm = curTerm != null ? curTerm : true;
 
         List<Specification<Event>> specifications = new ArrayList<>();
