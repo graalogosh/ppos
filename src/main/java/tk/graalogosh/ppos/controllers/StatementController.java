@@ -1,16 +1,16 @@
 package tk.graalogosh.ppos.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import tk.graalogosh.ppos.models.*;
-import tk.graalogosh.ppos.repositories.*;
+import tk.graalogosh.ppos.dao.repositories.*;
+import tk.graalogosh.ppos.dao.specifications.StatementSpecification;
+import tk.graalogosh.ppos.models.Statement;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import tk.graalogosh.ppos.specifications.StatementSpecification;
-
-import javax.swing.plaf.nimbus.State;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -103,41 +103,89 @@ public class StatementController {
 
         showSuccesses = showSuccesses != null ? showSuccesses : false;
 
-        Statement example = new Statement();
-        example.setStatementID(statementID);
-        example.setFillingDate(fillingDate);
-        example.setStudent(studentID != null ? studentRepository.findOne(studentID) : null);
-        example.setEvent(eventID != null ? eventRepository.findOne(eventID) : null);
-        example.setEmployee(employeeID != null ? employeeRepository.findOne(employeeID) : null);
-        example.setSocialGrant(socialGrant);
-        example.setSocialCategory(socialCategoryID != null ? socialCategoryRepository.findOne(socialCategoryID) : null);
-        example.setSocialWork(socialWorkID != null ? socialWorkRepository.findOne(socialWorkID) : null);
-        example.setMoneyCategory(moneyCategory);
-        example.setCourse(course != null ? courseRepository.findOne(course) : null);
-        example.setTripCount(tripCount != null ? tripCountRepository.findOne(tripCount) : null);
-        example.setAverage_score(averageScore);
-        example.setRefusalCount(refusalCount != null ? refusalRepository.findOne(refusalCount) : null);
-        example.setPermitNumber(permitNumber);
-        example.setRefusalDate(refusalDate);
-        example.setCancellationDate(cancellationDate);
-        example.setList(listID != null ? statementListRepository.findOne(listID) : null);
-        example.setComment(comment);
-        example.setCompleteDocs(completeDocs);
-        example.setReserve(reserve);
-
-        StatementSpecification specification = new StatementSpecification(example);
-        List<Statement> statements = statementRepository.findAll(specification);
-        List<Statement> statements2 = statementRepository.findByPermitNumberIsNotNull();
-
-        if (showSuccesses){
-            for (Statement statement:statements2){
-                if (!statements.contains(statement)){
-                    statements.remove(statement);
-                }
-            }
+        List<Specification<Statement>> specifications = new ArrayList<>();
+        if (statementID != null) {
+            specifications.add(StatementSpecification.IDIs(statementID));
         }
 
-        return statements;
+        if (fillingDate != null) {
+            specifications.add(StatementSpecification.fillingDateIs(fillingDate));
+        }
+
+        if (studentID != null) {
+            specifications.add(StatementSpecification.studentIs(studentRepository.findOne(studentID)));
+        }
+
+        if (eventID != null) {
+            specifications.add(StatementSpecification.eventIs(eventRepository.findOne(eventID)));
+        }
+
+        if (employeeID != null) {
+            specifications.add(StatementSpecification.employeeIs(employeeRepository.findOne(employeeID)));
+        }
+
+        //TODO socialGrant fix
+        if (socialCategoryID != null) {
+            specifications.add(StatementSpecification.socialCategoryIs(socialCategoryRepository.findOne(socialCategoryID)));
+        }
+
+        if (socialWorkID != null) {
+            specifications.add(StatementSpecification.socialWorkIs(socialWorkRepository.findOne(socialWorkID)));
+        }
+
+        if (moneyCategory != null) {
+            specifications.add(StatementSpecification.moneyCategoryIs(moneyCategory));
+        }
+
+        if (course != null) {
+            specifications.add(StatementSpecification.courseIs(courseRepository.findOne(course)));
+        }
+
+        if (tripCount != null) {
+            specifications.add(StatementSpecification.tripCountIs(tripCountRepository.findOne(tripCount)));
+        }
+
+        if (averageScore != null) {
+            //TODO averageScore
+        }
+
+        if (refusalCount != null) {
+            specifications.add(StatementSpecification.refusalCountIs(refusalRepository.findOne(refusalCount)));
+        }
+
+        if (permitNumber != null) {
+            specifications.add(StatementSpecification.permitNumberIs(permitNumber));
+        }
+
+        if (refusalDate != null) {
+            specifications.add(StatementSpecification.refusalDateIs(refusalDate));
+        }
+
+        if (cancellationDate != null) {
+            specifications.add(StatementSpecification.cancellationDateIs(cancellationDate));
+        }
+
+        if (listID != null) {
+            specifications.add(StatementSpecification.statementListIs(statementListRepository.findOne(listID)));
+        }
+
+        if (comment != null) {
+            specifications.add(StatementSpecification.commentIs(comment));
+        }
+
+        if (completeDocs != null) {
+            specifications.add(StatementSpecification.completeDoscIs(completeDocs));
+        }
+
+        if (reserve != null) {
+            specifications.add(StatementSpecification.reserveIs(reserve));
+        }
+
+        Specification<Statement> finalSpecification = null;
+        for (Specification<Statement> spec : specifications) {
+            finalSpecification = Specifications.where(finalSpecification).and(spec);
+        }
+        return statementRepository.findAll(finalSpecification);
     }
 
     @RequestMapping(method = RequestMethod.POST)
