@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tk.graalogosh.ppos.models.Score;
-import tk.graalogosh.ppos.repositories.ScoreRepository;
+import tk.graalogosh.ppos.dao.repositories.ScoreRepository;
 
 import java.util.List;
 

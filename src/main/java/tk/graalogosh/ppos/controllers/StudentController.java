@@ -3,11 +3,10 @@ package tk.graalogosh.ppos.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import tk.graalogosh.ppos.models.Status;
 import tk.graalogosh.ppos.models.Student;
-import tk.graalogosh.ppos.repositories.StatusRepository;
-import tk.graalogosh.ppos.repositories.StudentRepository;
-import tk.graalogosh.ppos.specifications.StudentSpecification;
+import tk.graalogosh.ppos.dao.repositories.StatusRepository;
+import tk.graalogosh.ppos.dao.repositories.StudentRepository;
+import tk.graalogosh.ppos.dao.specifications.StudentSpecification;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import tk.graalogosh.ppos.models.TripCount;
-import tk.graalogosh.ppos.repositories.TripCountRepository;
+import tk.graalogosh.ppos.dao.repositories.TripCountRepository;
 
 import java.util.List;
 

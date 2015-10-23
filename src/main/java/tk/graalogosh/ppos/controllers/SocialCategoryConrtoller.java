@@ -3,8 +3,8 @@ package tk.graalogosh.ppos.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tk.graalogosh.ppos.models.SocialCategory;
-import tk.graalogosh.ppos.repositories.SocialCategoryRepository;
-import tk.graalogosh.ppos.specifications.SocialCategorySpecification;
+import tk.graalogosh.ppos.dao.repositories.SocialCategoryRepository;
+import tk.graalogosh.ppos.dao.specifications.SocialCategorySpecification;
 
 import java.util.List;
 

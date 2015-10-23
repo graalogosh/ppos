@@ -6,10 +6,10 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import tk.graalogosh.ppos.models.Event;
-import tk.graalogosh.ppos.repositories.EmployeeRepository;
-import tk.graalogosh.ppos.repositories.EventRepository;
-import tk.graalogosh.ppos.repositories.SectionRepository;
-import tk.graalogosh.ppos.specifications.EventSpecifications;
+import tk.graalogosh.ppos.dao.repositories.EmployeeRepository;
+import tk.graalogosh.ppos.dao.repositories.EventRepository;
+import tk.graalogosh.ppos.dao.repositories.SectionRepository;
+import tk.graalogosh.ppos.dao.specifications.EventSpecifications;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

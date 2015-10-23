@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import tk.graalogosh.ppos.models.Refusal;
-import tk.graalogosh.ppos.repositories.RefusalRepository;
+import tk.graalogosh.ppos.dao.repositories.RefusalRepository;
 
 import java.util.List;
 

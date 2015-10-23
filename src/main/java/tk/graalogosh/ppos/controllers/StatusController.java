@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import tk.graalogosh.ppos.models.Status;
-import tk.graalogosh.ppos.repositories.StatusRepository;
+import tk.graalogosh.ppos.dao.repositories.StatusRepository;
 
 import java.util.List;
 

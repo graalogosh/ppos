@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import tk.graalogosh.ppos.models.Course;
-import tk.graalogosh.ppos.repositories.CourseRepository;
+import tk.graalogosh.ppos.dao.repositories.CourseRepository;
 
 import java.util.List;
 
