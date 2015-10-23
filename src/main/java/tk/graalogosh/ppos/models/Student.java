@@ -157,4 +157,8 @@ public class Student {
         this.studentPaid = studentPaid;
         this.studentMustPay = studentMustPay;
     }
+
+    public Integer getCourse(){
+        return Character.getNumericValue(educationalGroup.charAt(0));
+    }
 }
