@@ -190,14 +190,18 @@ public class StatementController {
 
     @RequestMapping(method = RequestMethod.POST)
     public boolean postStatement(
-            @RequestBody Statement payload) {
-        //TODO get course from student.group
-        //TODO get fillingdate from system date
+            @RequestBody Statement statement) {
+        statement.setFillingDate(LocalDate.now());
+        statement.setEmployee(employeeRepository.findOne(1));//TODO fix to real employeeID from session
+        statement.setCourse(courseRepository.findOne(statement.getStudent().getCourse()));
+        //        statement.setTripCount(tripCountRepository.findOne());
+        //        statement.setRefusalCount(refusalRepository.findOne());
 
-
-        System.out.println(payload.getStatementID());
-        System.out.println(payload.getFillingDate());
-        System.out.println(payload.getAverage_score());//TODO change name
-        return true;
+        if (true) {//statementRepository.statementIsValid( statement);
+            statementRepository.save(statement);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

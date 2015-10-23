@@ -17,11 +17,10 @@ import java.util.List;
 @Repository
 @Table(name = "statement")
 public interface StatementRepository extends JpaRepository<Statement, Integer>, JpaSpecificationExecutor {
-//
-//    List<Statement> findByPermitNumberIsNotNull();
-//
-//    Statement findByStudentAndEvent(Student student, Event event);
-//
-//    List<Statement> findByStudent(Student student);
+    //TODO realize
+    //Boolean statementIsValid(Statement statement);
 
+    //Integer getStudentTripCount(Student student);
+
+//    Integer getStudentRefusalCount(Student student)l
 }
