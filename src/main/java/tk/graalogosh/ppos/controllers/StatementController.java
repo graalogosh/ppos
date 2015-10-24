@@ -101,11 +101,11 @@ public class StatementController {
             @RequestParam(value = "comment", required = false) String comment,
             @RequestParam(value = "completeDocs", required = false) Boolean completeDocs,
             @RequestParam(value = "reserve", required = false) Boolean reserve,
-            @RequestParam(value = "showSuccesses", required = false) Boolean showSuccesses,
+            //@RequestParam(value = "showSuccesses", required = false) Boolean showSuccesses,
             @RequestParam(value = "curTerm", required = false) Boolean curTerm,
             @RequestParam(value = "activeStatements", required = false) Boolean activeStatements) {
 
-        showSuccesses = showSuccesses != null ? showSuccesses : false;
+        //showSuccesses = showSuccesses != null ? showSuccesses : false;
         curTerm = curTerm != null ? curTerm : true;
         activeStatements = activeStatements != null ? activeStatements : true;
 
