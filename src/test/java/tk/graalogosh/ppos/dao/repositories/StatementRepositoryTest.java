@@ -20,6 +20,8 @@ public class StatementRepositoryTest extends TestCase {
     private StudentRepository studentRepository;
     @Autowired
     private EventRepository eventRepository;
+    @Autowired
+    private SectionRepository sectionRepository;
 
     @Test
     public void testFindByStudentIDAndEventID() throws Exception {
@@ -27,5 +29,24 @@ public class StatementRepositoryTest extends TestCase {
 //        List<Statement> statements = statementRepository.findByStudentAndEvent(studentRepository.findOne("120902"), eventRepository.findOne(24));
 //
 //        statements.forEach(s-> System.out.println(s.getStatementID()));
+    }
+    //    @Test
+//    public void testStatementIsValid() throws Exception {
+//
+//    }
+
+    @Test
+    public void testGetStudentTripCount() throws Exception {
+        assertEquals(new Integer(4), statementRepository.getStudentTripCount(studentRepository.findOne("120930"), sectionRepository.findOne(2)));
+    }
+
+    @Test
+    public void testGetStudentRefusalCount_Have1Refusal() throws Exception {
+        assertEquals(new Integer(1), statementRepository.getStudentRefusalCount(studentRepository.findOne("102124"), sectionRepository.findOne(2)));
+    }
+
+    @Test
+    public void testGetStudentRefusalCount_Have0Refusal() throws Exception{
+        assertEquals(new Integer(0), statementRepository.getStudentRefusalCount(studentRepository.findOne("120902"), sectionRepository.findOne(2)));
     }
 }

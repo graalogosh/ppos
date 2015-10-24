@@ -21,6 +21,8 @@ import java.util.List;
 public class EventRepositoryTest extends TestCase {
     @Autowired
     EventRepository eventRepository;
+    @Autowired
+    StudentRepository studentRepository;
 
     @Test
     public void testFindByEventDateBetween_Specification() throws Exception {
@@ -40,5 +42,29 @@ public class EventRepositoryTest extends TestCase {
 //        }
 //        System.out.println("*************************");
         assertEquals(5, eventRepository.findAll(EventSpecifications.findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate.now())).size());
+    }
+
+    @Test
+    public void testHaveStudentBeenOnAncestorEvent_False_DidntGaveDocs() throws Exception {
+        assertFalse(eventRepository.haveStudentBeenOnAncestorEvent(
+                        studentRepository.findOne("120902"),
+                        eventRepository.findOne(28))
+        );
+    }
+
+    @Test
+    public void testHaveStudentBeenOnAncestorEvent_True() throws Exception {
+        assertTrue(eventRepository.haveStudentBeenOnAncestorEvent(
+                        studentRepository.findOne("120930"),
+                        eventRepository.findOne(28))
+        );
+    }
+
+    @Test
+    public void testHaveStudentBeenOnAncestorEvent_False_DidntGaveDocsOnAncestor() throws Exception{
+        assertFalse(eventRepository.haveStudentBeenOnAncestorEvent(
+                        studentRepository.findOne("120930"),
+                        eventRepository.findOne(7))
+        );
     }
 }
