@@ -38,7 +38,14 @@ public class StatementRepositoryImpl implements StatementRepositoryCustom {
     }
 
     @Override
-    public Integer getStudentRefusalCount(Student student) {
-        return null;
+    public Integer getStudentRefusalCount(Student student, Section section) {
+        List<Statement> statements = statementRepository.findAll(StatementSpecification.studentIs(student));
+        int count = 0;
+        for (Statement statement:statements){
+            if(statement.getRefusalDate()!=null){
+                count++;
+            }
+        }
+        return count;
     }
 }

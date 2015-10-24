@@ -13,5 +13,5 @@ public interface StatementRepositoryCustom {
 
     Integer getStudentTripCount(Student student, Section section);
 
-    Integer getStudentRefusalCount(Student student);
+    Integer getStudentRefusalCount(Student student, Section section);
 }

@@ -32,8 +32,13 @@ public class StatementRepositoryImplTest extends TestCase {
         assertEquals(new Integer(4), statementRepository.getStudentTripCount(studentRepository.findOne("120930"), sectionRepository.findOne(2)));
     }
 
-//    @Test
-//    public void testGetStudentRefusalCount() throws Exception {
-//
-//    }
+    @Test
+    public void testGetStudentRefusalCount_Have1Refusal() throws Exception {
+        assertEquals(new Integer(1), statementRepository.getStudentRefusalCount(studentRepository.findOne("102124"), sectionRepository.findOne(2)));
+    }
+
+    @Test
+    public void testGetStudentRefusalCount_Have0Refusal() throws Exception{
+        assertEquals(new Integer(0), statementRepository.getStudentRefusalCount(studentRepository.findOne("120902"), sectionRepository.findOne(2)));
+    }
 }
