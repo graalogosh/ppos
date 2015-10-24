@@ -6,6 +6,8 @@ import tk.graalogosh.ppos.models.Event;
 import tk.graalogosh.ppos.models.Statement;
 import tk.graalogosh.ppos.models.Student;
 
+import java.util.List;
+
 /**
  * Created by GraaLoGosh (graalogosh@gmail.com)) on 15.10.2015.
  */
@@ -25,11 +27,16 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
     }
 
     private Boolean studentHaveBeenOnEvent(Student student, Event event) {
-        Statement statement = (Statement)statementRepository.findAll(StatementSpecification.findByStudentAndEvent(student, event)).get(0);
-        return statement != null && //человек подавал заявку
-                statement.getPermitNumber() != null && //человек прошел по конкурсу
-                statement.getCancellationDate() == null && //не отменил
-                statement.getRefusalDate() == null; //не отказался
+        List<Statement> statements = statementRepository.findAll(StatementSpecification.findByStudentAndEvent(student, event));
+        if (statements.size() == 0) {
+            return false;
+        } else {
+            Statement statement = statements.get(0);
+            return statement != null && //человек подавал заявку
+                    statement.getPermitNumber() != null && //человек прошел по конкурсу
+                    statement.getCancellationDate() == null && //не отменил
+                    statement.getRefusalDate() == null; //не отказался
+        }
     }
 
 }
