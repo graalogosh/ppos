@@ -191,7 +191,7 @@ public class StatementController {
         }
 
         if (activeStatements){
-
+            specifications.add(StatementSpecifications.isActive());
         }
 
         Specification<Statement> finalSpecification = null;

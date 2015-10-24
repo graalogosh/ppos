@@ -301,5 +301,9 @@ public class Statement {
                 getCancellationDate() == null && //не отменил
                 getRefusalDate() == null; //не отказался
     }
+
+//    public Boolean isActive(){
+//        return getCancellationDate()!=null && getRefusalDate()!=null;
+//    }
 }
 

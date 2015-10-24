@@ -221,4 +221,15 @@ public class StatementSpecifications {
     public static Specification<Statement> inCurrentTerm(){
         return inTermOfDate(LocalDate.now());
     }
+
+    public static Specification<Statement> isActive(){
+        return new Specification<Statement>() {
+            @Override
+            public Predicate toPredicate(Root<Statement> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                Predicate isNotCancelled = cb.isNull(root.get(Statement_.cancellationDate));
+                Predicate isNotRefused = cb.isNull(root.get(Statement_.refusalDate));
+                return cb.and(isNotCancelled, isNotRefused);
+            }
+        };
+    }
 }
