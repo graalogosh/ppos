@@ -218,7 +218,7 @@ public class StatementController {
                 )
         ));
 
-        if (true) {//statementRepository.statementIsValid( statement);
+        if (statementRepository.statementIsValid(statement)) {
             statementRepository.save(statement);
             return true;
         } else {
