@@ -99,9 +99,11 @@ public class StatementController {
             @RequestParam(value = "comment", required = false) String comment,
             @RequestParam(value = "completeDocs", required = false) Boolean completeDocs,
             @RequestParam(value = "reserve", required = false) Boolean reserve,
-            @RequestParam(value = "showSuccesses", required = false) Boolean showSuccesses) {
+            @RequestParam(value = "showSuccesses", required = false) Boolean showSuccesses,
+            @RequestParam(value = "curTerm", required = false) Boolean curTerm) {
 
         showSuccesses = showSuccesses != null ? showSuccesses : false;
+        curTerm = curTerm != null ? curTerm : true;
 
         List<Specification<Statement>> specifications = new ArrayList<>();
         if (statementID != null) {
@@ -179,6 +181,10 @@ public class StatementController {
 
         if (reserve != null) {
             specifications.add(StatementSpecification.reserveIs(reserve));
+        }
+
+        if (curTerm){
+            specifications.add(StatementSpecification.inCurrentTerm());
         }
 
         Specification<Statement> finalSpecification = null;
