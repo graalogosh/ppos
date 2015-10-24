@@ -41,8 +41,9 @@ public class Student {
     @JoinColumn(name = "financial_status")
     private Status financialStatus;
 
-    @Column(name = "faculty")
-    private String faculty;
+    @ManyToOne
+    @JoinColumn(name = "faculty")
+    private Faculty faculty;
 
     @Column(name = "phone")
     private String phone;
@@ -104,11 +105,11 @@ public class Student {
         this.financialStatus = financialStatus;
     }
 
-    public String getFaculty() {
+    public Faculty getFaculty() {
         return faculty;
     }
 
-    public void setFaculty(String faculty) {
+    public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }
 
@@ -144,7 +145,7 @@ public class Student {
         this.studentMustPay = studentMustPay;
     }
 
-    public Student(String studentID, String name, LocalDate entryDate, String educationalGroup, Status academicStatus, Status financialStatus, String faculty, String phone, String bankAccountNumber, int studentPaid, int studentMustPay) {
+    public Student(String studentID, String name, LocalDate entryDate, String educationalGroup, Status academicStatus, Status financialStatus, Faculty faculty, String phone, String bankAccountNumber, int studentPaid, int studentMustPay) {
         this.studentID = studentID;
         this.name = name;
         this.entryDate = entryDate;
