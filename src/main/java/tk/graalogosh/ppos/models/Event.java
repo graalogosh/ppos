@@ -51,6 +51,10 @@ public class Event {
     @Column(name = "suitable_category")
     private String suitableCategory;
 
+    @OneToOne
+    @JoinColumn(name = "ancestor_id")
+    private Event ancestor;
+
     public Integer getEventID() {
         return eventID;
     }
@@ -137,6 +141,14 @@ public class Event {
 
     public void setSuitableCategory(String suitableCategory) {
         this.suitableCategory = suitableCategory;
+    }
+
+    public Event getAncestor() {
+        return ancestor;
+    }
+
+    public void setAncestor(Event ancestor) {
+        this.ancestor = ancestor;
     }
 
     public Event(String title, LocalDate eventDate, Integer duration, LocalDate reseptionBegin, LocalDate reseptionFinish, Employee employee, Section section, Integer numberOfPlaces, Integer quotasPercantage, String suitableCategory) {

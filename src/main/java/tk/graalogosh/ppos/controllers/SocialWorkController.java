@@ -3,9 +3,9 @@ package tk.graalogosh.ppos.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tk.graalogosh.ppos.models.SocialWork;
-import tk.graalogosh.ppos.repositories.SocialWorkCategoryRepository;
-import tk.graalogosh.ppos.repositories.SocialWorkRepository;
-import tk.graalogosh.ppos.specifications.SocialWorkSpecification;
+import tk.graalogosh.ppos.dao.repositories.SocialWorkCategoryRepository;
+import tk.graalogosh.ppos.dao.repositories.SocialWorkRepository;
+import tk.graalogosh.ppos.dao.specifications.SocialWorkSpecification;
 
 import java.util.List;
 

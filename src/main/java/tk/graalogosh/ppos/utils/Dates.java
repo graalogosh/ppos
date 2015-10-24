@@ -28,7 +28,7 @@ public class Dates {
             case OCTOBER:
             case NOVEMBER:
             case DECEMBER:
-                return LocalDate.of(LocalDate.now().getYear(), Month.JUNE, 1);
+                return LocalDate.of(LocalDate.now().getYear(), Month.JULY, 1);
         }
         throw new RuntimeException("LocalDate.getMonth returned value not between Jan and Dec");
     }

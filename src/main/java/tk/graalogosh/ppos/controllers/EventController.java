@@ -1,14 +1,15 @@
 package tk.graalogosh.ppos.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import tk.graalogosh.ppos.models.Event;
-import tk.graalogosh.ppos.repositories.EmployeeRepository;
-import tk.graalogosh.ppos.repositories.EventRepository;
-import tk.graalogosh.ppos.repositories.SectionRepository;
-import tk.graalogosh.ppos.specifications.EventSpecification;
-import tk.graalogosh.ppos.utils.Dates;
+import tk.graalogosh.ppos.dao.repositories.EmployeeRepository;
+import tk.graalogosh.ppos.dao.repositories.EventRepository;
+import tk.graalogosh.ppos.dao.repositories.SectionRepository;
+import tk.graalogosh.ppos.dao.specifications.EventSpecifications;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,36 +52,66 @@ public class EventController {
             @RequestParam(value = "lastDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastDate,
             @RequestParam(value = "curTerm", required = false) Boolean curTerm) {
 
-        firstDate = firstDate != null ? firstDate : Dates.MINDATE;
-        lastDate = lastDate != null ? lastDate : Dates.MAXDATE;
         curTerm = curTerm != null ? curTerm : true;
 
-        Event example = new Event();
-        example.setEventID(eventID);
-        example.setTitle(title);
-        example.setEventDate(eventDate);
-        example.setDuration(duration);
-        example.setReseptionBegin(receptionBegin);
-        example.setReseptionFinish(reseptionFinish);
-        example.setEmployee(employeeID != null ? employeeRepository.findOne(employeeID) : null);
-        example.setSection(sectionID != null ? sectionRepository.findOne(sectionID) : null);
-        example.setNumberOfPlaces(numberOfPlaces);
-        example.setQuotasPercantage(quotasPercentage);
-        example.setSuitableCategory(suitableCategory);
-
-        EventSpecification specification = new EventSpecification(example);
-        List<Event> events1 = eventRepository.findAll(specification);
-
-        List<Event> events2 = eventRepository.findByEventDateBetween(firstDate, lastDate);
-        List<Event> events3 = eventRepository.findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate.now());
-        List<Event> resultEvents = new ArrayList<>();
-        for (Event event : events1) {
-            //пересечение event, event2 и event3 (только если curTerm=true)
-            if (events2.contains(event) && (events3.contains(event) || !curTerm)) {
-                resultEvents.add(event);
-            }
+        List<Specification<Event>> specifications = new ArrayList<>();
+        if (eventID != null){
+            specifications.add(EventSpecifications.IDIs(eventID));
         }
-        return resultEvents;
+
+        if (title!=null){
+            specifications.add(EventSpecifications.titleIs(title));
+        }
+
+        if (eventDate!=null){
+            specifications.add(EventSpecifications.eventDateIs(eventDate));
+        }
+
+        if (duration!=null){
+            specifications.add(EventSpecifications.durationIs(duration));
+        }
+
+        if (receptionBegin!=null){
+            specifications.add(EventSpecifications.reseptionBeginIn(receptionBegin));
+        }
+
+        if (reseptionFinish!=null){
+            specifications.add(EventSpecifications.reseptionFinishIn(reseptionFinish));
+        }
+
+        if (employeeID!=null){
+            specifications.add(EventSpecifications.employeeIs(employeeRepository.findOne(employeeID)));
+        }
+
+        if (sectionID!=null){
+            specifications.add(EventSpecifications.sectionIs(sectionRepository.findOne(sectionID)));
+        }
+
+        if (numberOfPlaces!=null){
+            specifications.add(EventSpecifications.numberOfPlacesIs(numberOfPlaces));
+        }
+
+        if (quotasPercentage!=null){
+            specifications.add(EventSpecifications.quotasPercantageIs(quotasPercentage));
+        }
+
+        if (firstDate!=null){
+            specifications.add(EventSpecifications.eventIsAfter(firstDate));
+        }
+
+        if (lastDate!=null){
+            specifications.add(EventSpecifications.eventIsBefore(lastDate));
+        }
+
+        if (curTerm){
+            specifications.add(EventSpecifications.findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate.now()));
+        }
+
+        Specification<Event> finalSpecification=null;
+        for (Specification<Event> spec : specifications){
+            finalSpecification = Specifications.where(finalSpecification).and(spec);
+        }
+        return eventRepository.findAll(finalSpecification);
     }
 
     @RequestMapping(method = RequestMethod.POST)

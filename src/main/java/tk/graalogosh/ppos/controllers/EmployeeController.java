@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tk.graalogosh.ppos.models.Employee;
-import tk.graalogosh.ppos.repositories.EmployeeRepository;
-import tk.graalogosh.ppos.specifications.EmployeeSpecification;
+import tk.graalogosh.ppos.dao.repositories.EmployeeRepository;
+import tk.graalogosh.ppos.dao.specifications.EmployeeSpecification;
 
 import java.time.LocalDate;
 import java.util.List;

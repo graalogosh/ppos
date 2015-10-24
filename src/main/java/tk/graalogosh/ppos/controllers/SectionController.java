@@ -1,11 +1,10 @@
 package tk.graalogosh.ppos.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 import tk.graalogosh.ppos.models.Section;
-import tk.graalogosh.ppos.repositories.SectionRepository;
-import tk.graalogosh.ppos.specifications.SectionSpecification;
+import tk.graalogosh.ppos.dao.repositories.SectionRepository;
+import tk.graalogosh.ppos.dao.specifications.SectionSpecification;
 
 import java.util.List;
 

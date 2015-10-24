@@ -1,16 +1,16 @@
 package tk.graalogosh.ppos.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import tk.graalogosh.ppos.models.*;
-import tk.graalogosh.ppos.repositories.*;
+import tk.graalogosh.ppos.dao.repositories.*;
+import tk.graalogosh.ppos.dao.specifications.StatementSpecifications;
+import tk.graalogosh.ppos.models.Statement;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-import tk.graalogosh.ppos.specifications.StatementSpecification;
-
-import javax.swing.plaf.nimbus.State;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -99,57 +99,125 @@ public class StatementController {
             @RequestParam(value = "comment", required = false) String comment,
             @RequestParam(value = "completeDocs", required = false) Boolean completeDocs,
             @RequestParam(value = "reserve", required = false) Boolean reserve,
-            @RequestParam(value = "showSuccesses", required = false) Boolean showSuccesses) {
+            @RequestParam(value = "showSuccesses", required = false) Boolean showSuccesses,
+            @RequestParam(value = "curTerm", required = false) Boolean curTerm,
+            @RequestParam(value = "activeStatements", required = false) Boolean activeStatements) {
 
         showSuccesses = showSuccesses != null ? showSuccesses : false;
+        curTerm = curTerm != null ? curTerm : true;
+        activeStatements = activeStatements != null ? activeStatements : true;
 
-        Statement example = new Statement();
-        example.setStatementID(statementID);
-        example.setFillingDate(fillingDate);
-        example.setStudent(studentID != null ? studentRepository.findOne(studentID) : null);
-        example.setEvent(eventID != null ? eventRepository.findOne(eventID) : null);
-        example.setEmployee(employeeID != null ? employeeRepository.findOne(employeeID) : null);
-        example.setSocialGrant(socialGrant);
-        example.setSocialCategory(socialCategoryID != null ? socialCategoryRepository.findOne(socialCategoryID) : null);
-        example.setSocialWork(socialWorkID != null ? socialWorkRepository.findOne(socialWorkID) : null);
-        example.setMoneyCategory(moneyCategory);
-        example.setCourse(course != null ? courseRepository.findOne(course) : null);
-        example.setTripCount(tripCount != null ? tripCountRepository.findOne(tripCount) : null);
-        example.setAverage_score(averageScore);
-        example.setRefusalCount(refusalCount != null ? refusalRepository.findOne(refusalCount) : null);
-        example.setPermitNumber(permitNumber);
-        example.setRefusalDate(refusalDate);
-        example.setCancellationDate(cancellationDate);
-        example.setList(listID != null ? statementListRepository.findOne(listID) : null);
-        example.setComment(comment);
-        example.setCompleteDocs(completeDocs);
-        example.setReserve(reserve);
 
-        StatementSpecification specification = new StatementSpecification(example);
-        List<Statement> statements = statementRepository.findAll(specification);
-        List<Statement> statements2 = statementRepository.findByPermitNumberIsNotNull();
-
-        if (showSuccesses){
-            for (Statement statement:statements2){
-                if (!statements.contains(statement)){
-                    statements.remove(statement);
-                }
-            }
+        List<Specification<Statement>> specifications = new ArrayList<>();
+        if (statementID != null) {
+            specifications.add(StatementSpecifications.IDIs(statementID));
         }
 
-        return statements;
+        if (fillingDate != null) {
+            specifications.add(StatementSpecifications.fillingDateIs(fillingDate));
+        }
+
+        if (studentID != null) {
+            specifications.add(StatementSpecifications.studentIs(studentRepository.findOne(studentID)));
+        }
+
+        if (eventID != null) {
+            specifications.add(StatementSpecifications.eventIs(eventRepository.findOne(eventID)));
+        }
+
+        if (employeeID != null) {
+            specifications.add(StatementSpecifications.employeeIs(employeeRepository.findOne(employeeID)));
+        }
+
+        //TODO socialGrant fix
+        if (socialCategoryID != null) {
+            specifications.add(StatementSpecifications.socialCategoryIs(socialCategoryRepository.findOne(socialCategoryID)));
+        }
+
+        if (socialWorkID != null) {
+            specifications.add(StatementSpecifications.socialWorkIs(socialWorkRepository.findOne(socialWorkID)));
+        }
+
+        if (moneyCategory != null) {
+            specifications.add(StatementSpecifications.moneyCategoryIs(moneyCategory));
+        }
+
+        if (course != null) {
+            specifications.add(StatementSpecifications.courseIs(courseRepository.findOne(course)));
+        }
+
+        if (tripCount != null) {
+            specifications.add(StatementSpecifications.tripCountIs(tripCountRepository.findOne(tripCount)));
+        }
+
+        if (averageScore != null) {
+            //TODO averageScore
+        }
+
+        if (refusalCount != null) {
+            specifications.add(StatementSpecifications.refusalCountIs(refusalRepository.findOne(refusalCount)));
+        }
+
+        if (permitNumber != null) {
+            specifications.add(StatementSpecifications.permitNumberIs(permitNumber));
+        }
+
+        if (refusalDate != null) {
+            specifications.add(StatementSpecifications.refusalDateIs(refusalDate));
+        }
+
+        if (cancellationDate != null) {
+            specifications.add(StatementSpecifications.cancellationDateIs(cancellationDate));
+        }
+
+        if (listID != null) {
+            specifications.add(StatementSpecifications.statementListIs(statementListRepository.findOne(listID)));
+        }
+
+        if (comment != null) {
+            specifications.add(StatementSpecifications.commentIs(comment));
+        }
+
+        if (completeDocs != null) {
+            specifications.add(StatementSpecifications.completeDoscIs(completeDocs));
+        }
+
+        if (reserve != null) {
+            specifications.add(StatementSpecifications.reserveIs(reserve));
+        }
+
+        if (curTerm){
+            specifications.add(StatementSpecifications.inCurrentTerm());
+        }
+
+        if (activeStatements){
+            specifications.add(StatementSpecifications.isActive());
+        }
+
+        Specification<Statement> finalSpecification = null;
+        for (Specification<Statement> spec : specifications) {
+            finalSpecification = Specifications.where(finalSpecification).and(spec);
+        }
+        return statementRepository.findAll(finalSpecification);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public boolean postStatement(
-            @RequestBody Statement payload) {
-        //TODO get course from student.group
-        //TODO get fillingdate from system date
+            @RequestBody Statement statement) {
+        statement.setFillingDate(LocalDate.now());
+        statement.setEmployee(employeeRepository.findOne(1));//TODO fix to real employeeID from session
+        statement.setCourse(courseRepository.findOne(statement.getStudent().getCourse()));
+        //        statement.setTripCount(tripCountRepository.findOne());
+        //        statement.setRefusalCount(refusalRepository.findOne());
 
-
-        System.out.println(payload.getStatementID());
-        System.out.println(payload.getFillingDate());
-        System.out.println(payload.getAverage_score());//TODO change name
-        return true;
+        if (true) {//statementRepository.statementIsValid( statement);
+            statementRepository.save(statement);
+            return true;
+        } else {
+            return false;
+        }
     }
+
+    //@RequestMapping(value = "/check/", method = RequestMethod.GET)
+
 }

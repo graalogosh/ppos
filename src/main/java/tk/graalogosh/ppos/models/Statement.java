@@ -295,5 +295,15 @@ public class Statement {
         this.completeDocs = completeDocs;
         this.reserve = reserve;
     }
+
+    public Boolean studentHaveBeenOnEvent() {
+        return  getPermitNumber() != null && //человек прошел по конкурсу
+                getCancellationDate() == null && //не отменил
+                getRefusalDate() == null; //не отказался
+    }
+
+//    public Boolean isActive(){
+//        return getCancellationDate()!=null && getRefusalDate()!=null;
+//    }
 }
 
