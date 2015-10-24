@@ -188,11 +188,11 @@ public class StatementController {
             specifications.add(StatementSpecifications.reserveIs(reserve));
         }
 
-        if (curTerm){
+        if (curTerm) {
             specifications.add(StatementSpecifications.inCurrentTerm());
         }
 
-        if (activeStatements){
+        if (activeStatements) {
             specifications.add(StatementSpecifications.isActive());
         }
 
@@ -209,8 +209,14 @@ public class StatementController {
         statement.setFillingDate(LocalDate.now());
         statement.setEmployee(employeeRepository.findOne(1));//TODO fix to real employeeID from session
         statement.setCourse(courseRepository.findOne(statement.getStudent().getCourse()));
-        //        statement.setTripCount(tripCountRepository.findOne());
-        //        statement.setRefusalCount(refusalRepository.findOne());
+        statement.setTripCount(tripCountRepository.findOne(
+                statementRepository.getStudentTripCount(
+                        statement.getStudent(), statement.getEvent().getSection())));
+        statement.setRefusalCount(refusalRepository.findOne(
+                statementRepository.getStudentTripCount(
+                        statement.getStudent(), statement.getEvent().getSection()
+                )
+        ));
 
         if (true) {//statementRepository.statementIsValid( statement);
             statementRepository.save(statement);
@@ -223,15 +229,15 @@ public class StatementController {
     @RequestMapping(value = "/check/beenOnEvent", method = RequestMethod.GET)
     public Boolean haveBeenOnEvent(
             @RequestParam(value = "eventID", required = true) Event event,
-            @RequestParam(value = "studentID", required = true)Student student){
-        return eventRepository.studentHaveBeenOnEvent(student,event);
+            @RequestParam(value = "studentID", required = true) Student student) {
+        return eventRepository.studentHaveBeenOnEvent(student, event);
     }
 
     @RequestMapping(value = "/check/beenOnAncestors", method = RequestMethod.GET)
     public Boolean haveBeenOnAncestors(
             @RequestParam(value = "eventID", required = true) Event event,
-            @RequestParam(value = "studentID", required = true) Student student){
-        return eventRepository.haveStudentBeenOnAncestorEvent(student,event);
+            @RequestParam(value = "studentID", required = true) Student student) {
+        return eventRepository.haveStudentBeenOnAncestorEvent(student, event);
     }
 
 }
