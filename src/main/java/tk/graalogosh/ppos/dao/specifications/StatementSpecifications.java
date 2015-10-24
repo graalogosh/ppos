@@ -160,7 +160,7 @@ public class StatementSpecifications {
         };
     }
 
-    public static Specification<Statement> completeDoscIs (Boolean completeDocs){
+    public static Specification<Statement> completeDocsIs(Boolean completeDocs){
         return new Specification<Statement>() {
             @Override
             public Predicate toPredicate(Root<Statement> root, CriteriaQuery<?> query, CriteriaBuilder cb) {

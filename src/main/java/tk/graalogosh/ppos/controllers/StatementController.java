@@ -181,7 +181,7 @@ public class StatementController {
         }
 
         if (completeDocs != null) {
-            specifications.add(StatementSpecifications.completeDoscIs(completeDocs));
+            specifications.add(StatementSpecifications.completeDocsIs(completeDocs));
         }
 
         if (reserve != null) {

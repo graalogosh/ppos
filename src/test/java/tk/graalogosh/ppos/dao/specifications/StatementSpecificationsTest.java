@@ -154,10 +154,10 @@ public class StatementSpecificationsTest extends TestCase {
     }
 
     @Test
-    public void testCompleteDoscIs() throws Exception {
+    public void testCompleteDocsIs() throws Exception {
         Boolean completeDocs = true;
         int count = 7549;
-        assertEquals(count, statementRepository.findAll(StatementSpecifications.completeDoscIs(completeDocs)).size());
+        assertEquals(count, statementRepository.findAll(StatementSpecifications.completeDocsIs(completeDocs)).size());
     }
 
     @Test
