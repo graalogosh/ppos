@@ -16,11 +16,6 @@ import java.util.List;
  */
 @Repository
 @Table(name = "statement")
-public interface StatementRepository extends JpaRepository<Statement, Integer>, JpaSpecificationExecutor {
-    //TODO realize
-    //Boolean statementIsValid(Statement statement);
+public interface StatementRepository extends JpaRepository<Statement, Integer>, JpaSpecificationExecutor, StatementRepositoryCustom {
 
-    //Integer getStudentTripCount(Student student);
-
-//    Integer getStudentRefusalCount(Student student)l
 }

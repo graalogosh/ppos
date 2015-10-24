@@ -204,4 +204,7 @@ public class StatementController {
             return false;
         }
     }
+
+    //@RequestMapping(value = "/check/", method = RequestMethod.GET)
+
 }

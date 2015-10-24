@@ -182,5 +182,10 @@ public class Section {
         this.moneyCategory = moneyCategory;
     }
 
+    @Override
+    public boolean equals(Object section) {
+        return this.sectionID == ((Section)section).sectionID;
+    }
+
 
 }

@@ -299,4 +299,13 @@ public class StatementSpecification{
             }
         };
     }
+
+//    public static Specification<Statement> findByEventSection (Section section){
+//        return new Specification<Statement>() {
+//            @Override
+//            public Predicate toPredicate(Root<Statement> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+//                return cb.equal(root.get(Statement_.event))
+//            }
+//        }
+//    }
 }
