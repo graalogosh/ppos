@@ -7,7 +7,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import tk.graalogosh.ppos.dao.repositories.*;
 import tk.graalogosh.ppos.dao.specifications.StatementSpecifications;
+import tk.graalogosh.ppos.models.Event;
 import tk.graalogosh.ppos.models.Statement;
+import tk.graalogosh.ppos.models.Student;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -202,7 +204,7 @@ public class StatementController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public boolean postStatement(
+    public Boolean postStatement(
             @RequestBody Statement statement) {
         statement.setFillingDate(LocalDate.now());
         statement.setEmployee(employeeRepository.findOne(1));//TODO fix to real employeeID from session
@@ -218,6 +220,18 @@ public class StatementController {
         }
     }
 
-    //@RequestMapping(value = "/check/", method = RequestMethod.GET)
+    @RequestMapping(value = "/check/beenOnEvent", method = RequestMethod.GET)
+    public Boolean haveBeenOnEvent(
+            @RequestParam(value = "eventID", required = true) Event event,
+            @RequestParam(value = "studentID", required = true)Student student){
+        return eventRepository.studentHaveBeenOnEvent(student,event);
+    }
+
+    @RequestMapping(value = "/check/beenOnAncestors", method = RequestMethod.GET)
+    public Boolean haveBeenOnAncestors(
+            @RequestParam(value = "eventID", required = true) Event event,
+            @RequestParam(value = "studentID", required = true) Student student){
+        return eventRepository.haveStudentBeenOnAncestorEvent(student,event);
+    }
 
 }
