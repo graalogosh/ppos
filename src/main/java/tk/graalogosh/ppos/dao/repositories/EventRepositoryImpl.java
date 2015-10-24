@@ -17,13 +17,23 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
     @Autowired
     private StatementRepository statementRepository;
 
+
+
+    private Boolean haveStudentBeenOnAncestorEvent_recursive(Student student, Event event, Integer depth) {
+        if (event.getAncestor() == null && depth>1) {
+            return studentHaveBeenOnEvent(student, event);
+        } else if (event.getAncestor()==null){
+            return false;
+        }
+        else {
+            depth++;
+            return haveStudentBeenOnAncestorEvent_recursive(student, event.getAncestor(),depth);
+        }
+    }
+
     @Override
     public Boolean haveStudentBeenOnAncestorEvent(Student student, Event event) {
-        if (event.getAncestor() == null) {
-            return studentHaveBeenOnEvent(student, event);
-        } else {
-            return haveStudentBeenOnAncestorEvent(student, event.getAncestor());
-        }
+        return haveStudentBeenOnAncestorEvent_recursive(student,event,1);
     }
 
     public Boolean studentHaveBeenOnEvent(Student student, Event event) {

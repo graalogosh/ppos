@@ -21,7 +21,7 @@ public class EventRepositoryImplTest extends TestCase {
     StudentRepository studentRepository;
 
     @Test
-    public void testHaveStudentBeenOnAncestorEvent_False() throws Exception {
+    public void testHaveStudentBeenOnAncestorEvent_False_DidntGaveDocs() throws Exception {
         assertFalse(eventRepository.haveStudentBeenOnAncestorEvent(
                         studentRepository.findOne("120902"),
                         eventRepository.findOne(28))
@@ -33,6 +33,14 @@ public class EventRepositoryImplTest extends TestCase {
         assertTrue(eventRepository.haveStudentBeenOnAncestorEvent(
                         studentRepository.findOne("120930"),
                         eventRepository.findOne(28))
+        );
+    }
+
+    @Test
+    public void testHaveStudentBeenOnAncestorEvent_False_DidntGaveDocsOnAncestor() throws Exception{
+        assertFalse(eventRepository.haveStudentBeenOnAncestorEvent(
+                        studentRepository.findOne("120930"),
+                        eventRepository.findOne(7))
         );
     }
 }
