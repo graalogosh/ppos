@@ -6,7 +6,7 @@ import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import tk.graalogosh.ppos.dao.repositories.*;
-import tk.graalogosh.ppos.dao.specifications.StatementSpecification;
+import tk.graalogosh.ppos.dao.specifications.StatementSpecifications;
 import tk.graalogosh.ppos.models.Statement;
 
 import java.time.LocalDate;
@@ -100,51 +100,54 @@ public class StatementController {
             @RequestParam(value = "completeDocs", required = false) Boolean completeDocs,
             @RequestParam(value = "reserve", required = false) Boolean reserve,
             @RequestParam(value = "showSuccesses", required = false) Boolean showSuccesses,
-            @RequestParam(value = "curTerm", required = false) Boolean curTerm) {
+            @RequestParam(value = "curTerm", required = false) Boolean curTerm,
+            @RequestParam(value = "activeStatements", required = false) Boolean activeStatements) {
 
         showSuccesses = showSuccesses != null ? showSuccesses : false;
         curTerm = curTerm != null ? curTerm : true;
+        activeStatements = activeStatements != null ? activeStatements : true;
+
 
         List<Specification<Statement>> specifications = new ArrayList<>();
         if (statementID != null) {
-            specifications.add(StatementSpecification.IDIs(statementID));
+            specifications.add(StatementSpecifications.IDIs(statementID));
         }
 
         if (fillingDate != null) {
-            specifications.add(StatementSpecification.fillingDateIs(fillingDate));
+            specifications.add(StatementSpecifications.fillingDateIs(fillingDate));
         }
 
         if (studentID != null) {
-            specifications.add(StatementSpecification.studentIs(studentRepository.findOne(studentID)));
+            specifications.add(StatementSpecifications.studentIs(studentRepository.findOne(studentID)));
         }
 
         if (eventID != null) {
-            specifications.add(StatementSpecification.eventIs(eventRepository.findOne(eventID)));
+            specifications.add(StatementSpecifications.eventIs(eventRepository.findOne(eventID)));
         }
 
         if (employeeID != null) {
-            specifications.add(StatementSpecification.employeeIs(employeeRepository.findOne(employeeID)));
+            specifications.add(StatementSpecifications.employeeIs(employeeRepository.findOne(employeeID)));
         }
 
         //TODO socialGrant fix
         if (socialCategoryID != null) {
-            specifications.add(StatementSpecification.socialCategoryIs(socialCategoryRepository.findOne(socialCategoryID)));
+            specifications.add(StatementSpecifications.socialCategoryIs(socialCategoryRepository.findOne(socialCategoryID)));
         }
 
         if (socialWorkID != null) {
-            specifications.add(StatementSpecification.socialWorkIs(socialWorkRepository.findOne(socialWorkID)));
+            specifications.add(StatementSpecifications.socialWorkIs(socialWorkRepository.findOne(socialWorkID)));
         }
 
         if (moneyCategory != null) {
-            specifications.add(StatementSpecification.moneyCategoryIs(moneyCategory));
+            specifications.add(StatementSpecifications.moneyCategoryIs(moneyCategory));
         }
 
         if (course != null) {
-            specifications.add(StatementSpecification.courseIs(courseRepository.findOne(course)));
+            specifications.add(StatementSpecifications.courseIs(courseRepository.findOne(course)));
         }
 
         if (tripCount != null) {
-            specifications.add(StatementSpecification.tripCountIs(tripCountRepository.findOne(tripCount)));
+            specifications.add(StatementSpecifications.tripCountIs(tripCountRepository.findOne(tripCount)));
         }
 
         if (averageScore != null) {
@@ -152,39 +155,43 @@ public class StatementController {
         }
 
         if (refusalCount != null) {
-            specifications.add(StatementSpecification.refusalCountIs(refusalRepository.findOne(refusalCount)));
+            specifications.add(StatementSpecifications.refusalCountIs(refusalRepository.findOne(refusalCount)));
         }
 
         if (permitNumber != null) {
-            specifications.add(StatementSpecification.permitNumberIs(permitNumber));
+            specifications.add(StatementSpecifications.permitNumberIs(permitNumber));
         }
 
         if (refusalDate != null) {
-            specifications.add(StatementSpecification.refusalDateIs(refusalDate));
+            specifications.add(StatementSpecifications.refusalDateIs(refusalDate));
         }
 
         if (cancellationDate != null) {
-            specifications.add(StatementSpecification.cancellationDateIs(cancellationDate));
+            specifications.add(StatementSpecifications.cancellationDateIs(cancellationDate));
         }
 
         if (listID != null) {
-            specifications.add(StatementSpecification.statementListIs(statementListRepository.findOne(listID)));
+            specifications.add(StatementSpecifications.statementListIs(statementListRepository.findOne(listID)));
         }
 
         if (comment != null) {
-            specifications.add(StatementSpecification.commentIs(comment));
+            specifications.add(StatementSpecifications.commentIs(comment));
         }
 
         if (completeDocs != null) {
-            specifications.add(StatementSpecification.completeDoscIs(completeDocs));
+            specifications.add(StatementSpecifications.completeDoscIs(completeDocs));
         }
 
         if (reserve != null) {
-            specifications.add(StatementSpecification.reserveIs(reserve));
+            specifications.add(StatementSpecifications.reserveIs(reserve));
         }
 
         if (curTerm){
-            specifications.add(StatementSpecification.inCurrentTerm());
+            specifications.add(StatementSpecifications.inCurrentTerm());
+        }
+
+        if (activeStatements){
+
         }
 
         Specification<Statement> finalSpecification = null;

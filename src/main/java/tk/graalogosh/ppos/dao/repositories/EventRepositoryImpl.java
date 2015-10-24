@@ -1,7 +1,7 @@
 package tk.graalogosh.ppos.dao.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import tk.graalogosh.ppos.dao.specifications.StatementSpecification;
+import tk.graalogosh.ppos.dao.specifications.StatementSpecifications;
 import tk.graalogosh.ppos.models.Event;
 import tk.graalogosh.ppos.models.Statement;
 import tk.graalogosh.ppos.models.Student;
@@ -27,7 +27,7 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
     }
 
     private Boolean studentHaveBeenOnEvent(Student student, Event event) {
-        List<Statement> statements = statementRepository.findAll(StatementSpecification.findByStudentAndEvent(student, event));
+        List<Statement> statements = statementRepository.findAll(StatementSpecifications.findByStudentAndEvent(student, event));
         if (statements.size() == 0) {
             return false;
         } else {

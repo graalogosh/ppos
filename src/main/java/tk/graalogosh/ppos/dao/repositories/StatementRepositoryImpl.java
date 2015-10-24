@@ -1,8 +1,7 @@
 package tk.graalogosh.ppos.dao.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specifications;
-import tk.graalogosh.ppos.dao.specifications.StatementSpecification;
+import tk.graalogosh.ppos.dao.specifications.StatementSpecifications;
 import tk.graalogosh.ppos.models.Section;
 import tk.graalogosh.ppos.models.Statement;
 import tk.graalogosh.ppos.models.Student;
@@ -27,7 +26,7 @@ public class StatementRepositoryImpl implements StatementRepositoryCustom {
 
     @Override
     public Integer getStudentTripCount(Student student, Section section) {
-        List<Statement> statements = statementRepository.findAll(StatementSpecification.studentIs(student));
+        List<Statement> statements = statementRepository.findAll(StatementSpecifications.studentIs(student));
         int count = 0;
         for (Statement statement:statements){
             if(statement.getEvent().getSection().equals(section) && statement.studentHaveBeenOnEvent()){
@@ -39,7 +38,7 @@ public class StatementRepositoryImpl implements StatementRepositoryCustom {
 
     @Override
     public Integer getStudentRefusalCount(Student student, Section section) {
-        List<Statement> statements = statementRepository.findAll(StatementSpecification.studentIs(student));
+        List<Statement> statements = statementRepository.findAll(StatementSpecifications.studentIs(student));
         int count = 0;
         for (Statement statement:statements){
             if(statement.getRefusalDate()!=null){

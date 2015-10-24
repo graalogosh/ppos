@@ -13,7 +13,7 @@ import java.time.LocalDate;
 /**
  * Created by graal on 11.09.2015.
  */
-public class StatementSpecification{
+public class StatementSpecifications {
     public static Specification<Statement> IDIs(Integer statementID){
         return new Specification<Statement>() {
             @Override
