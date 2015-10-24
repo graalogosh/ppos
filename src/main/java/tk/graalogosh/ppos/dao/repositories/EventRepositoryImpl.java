@@ -18,15 +18,15 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
     private StatementRepository statementRepository;
 
     @Override
-    public Boolean haveStudentBeenOnEventOrAncestorEvent(Student student, Event event) {
-        if (event.getAncestor() == null || studentHaveBeenOnEvent(student, event)) {
+    public Boolean haveStudentBeenOnAncestorEvent(Student student, Event event) {
+        if (event.getAncestor() == null) {
             return studentHaveBeenOnEvent(student, event);
         } else {
-            return haveStudentBeenOnEventOrAncestorEvent(student, event.getAncestor());
+            return haveStudentBeenOnAncestorEvent(student, event.getAncestor());
         }
     }
 
-    private Boolean studentHaveBeenOnEvent(Student student, Event event) {
+    public Boolean studentHaveBeenOnEvent(Student student, Event event) {
         List<Statement> statements = statementRepository.findAll(StatementSpecifications.findByStudentAndEvent(student, event));
         if (statements.size() == 0) {
             return false;
