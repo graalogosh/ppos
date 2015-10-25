@@ -43,7 +43,7 @@ public class StatementSpecificationsTest extends TestCase {
     @Test
     public void testIDIs() throws Exception {
         Integer ID = 1;
-        Statement statement = (Statement) statementRepository.findOne(StatementSpecifications.IDIs(ID));
+        Statement statement = statementRepository.findOne(StatementSpecifications.IDIs(ID));
         assertEquals(ID, statement.getStatementID());
     }
 

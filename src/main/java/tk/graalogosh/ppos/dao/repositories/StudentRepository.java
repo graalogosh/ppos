@@ -13,5 +13,5 @@ import javax.persistence.Table;
  */
 @Repository
 @Table(name = "student")
-public interface StudentRepository extends JpaRepository<Student, String>, JpaSpecificationExecutor{
+public interface StudentRepository extends JpaRepository<Student, String>, JpaSpecificationExecutor<Student>{
 }

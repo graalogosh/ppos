@@ -12,5 +12,5 @@ import javax.persistence.Table;
  */
 @Repository
 @Table(name="socialworkcategory")
-public interface SocialWorkCategoryRepository extends JpaRepository<SocialWorkCategory, Integer>, JpaSpecificationExecutor {
+public interface SocialWorkCategoryRepository extends JpaRepository<SocialWorkCategory, Integer>, JpaSpecificationExecutor<SocialWorkCategory> {
 }

@@ -16,6 +16,6 @@ import java.util.List;
  */
 @Repository
 @Table(name = "statement")
-public interface StatementRepository extends JpaRepository<Statement, Integer>, JpaSpecificationExecutor, StatementRepositoryCustom {
+public interface StatementRepository extends JpaRepository<Statement, Integer>, JpaSpecificationExecutor<Statement>, StatementRepositoryCustom {
 
 }
