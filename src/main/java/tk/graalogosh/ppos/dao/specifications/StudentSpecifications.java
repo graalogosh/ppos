@@ -92,6 +92,15 @@ public class StudentSpecifications {
         };
     }
 
+//    public static Specification<Student> phoneIsNull(){
+//        return new Specification<Student>() {
+//            @Override
+//            public Predicate toPredicate(Root<Student> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+//                return cb.isNull(root.get(Student_.phone));
+//            }
+//        };
+//    }
+
     public static Specification<Student> bankAccountNumberIs(String bankAccountNumber) {
         return new Specification<Student>() {
             @Override
