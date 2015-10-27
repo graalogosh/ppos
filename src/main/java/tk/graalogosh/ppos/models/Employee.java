@@ -44,8 +44,9 @@ public class Employee {
     private LocalDate lastLoginDate;
     @Column(name = "dismissed")
     private Boolean dismissed;
-    @Column(name = "faculty")
-    private String faculty;
+    @ManyToOne
+    @JoinColumn(name = "faculty")
+    private Faculty faculty;
 
     public Integer getEmployeeID() {
         return employeeID;
@@ -111,15 +112,15 @@ public class Employee {
         this.dismissed = dismissed;
     }
 
-    public String getFaculty() {
+    public Faculty getFaculty() {
         return faculty;
     }
 
-    public void setFaculty(String faculty) {
+    public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }
 
-    public Employee(String name, int accessLevel, String password, String passwordHash, LocalDate registrationDate, LocalDate lastLoginDate, boolean dismissed, String faculty) {
+    public Employee(String name, int accessLevel, String password, String passwordHash, LocalDate registrationDate, LocalDate lastLoginDate, boolean dismissed, Faculty faculty) {
         this.name = name;
         this.accessLevel = accessLevel;
         this.password = password;
