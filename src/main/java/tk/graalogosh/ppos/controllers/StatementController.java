@@ -1,5 +1,8 @@
 package tk.graalogosh.ppos.controllers;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import tk.graalogosh.ppos.dao.repositories.*;
 import tk.graalogosh.ppos.dao.specifications.StatementSpecifications;
 import tk.graalogosh.ppos.models.Event;
+import tk.graalogosh.ppos.models.Section;
 import tk.graalogosh.ppos.models.Statement;
 import tk.graalogosh.ppos.models.Student;
 
@@ -32,6 +36,9 @@ public class StatementController {
     private TripCountRepository tripCountRepository;
     private RefusalRepository refusalRepository;
     private StatementListRepository statementListRepository;
+    private SectionRepository sectionRepository;
+
+    private static final Logger LOG = LoggerFactory.getLogger(StatementController.class);
 
     @Autowired
     public StatementController(StatementRepository statementRepository,
@@ -43,7 +50,8 @@ public class StatementController {
                                SocialWorkRepository socialWorkRepository,
                                TripCountRepository tripCountRepository,
                                RefusalRepository refusalRepository,
-                               StatementListRepository statementListRepository) {
+                               StatementListRepository statementListRepository,
+                               SectionRepository sectionRepository) {
         this.statementRepository = statementRepository;
         this.studentRepository = studentRepository;
         this.courseRepository = courseRepository;
@@ -54,6 +62,7 @@ public class StatementController {
         this.tripCountRepository = tripCountRepository;
         this.refusalRepository = refusalRepository;
         this.statementListRepository = statementListRepository;
+        this.sectionRepository = sectionRepository;
     }
 
     /**
@@ -238,6 +247,13 @@ public class StatementController {
             @RequestParam(value = "eventID", required = true) Event event,
             @RequestParam(value = "studentID", required = true) Student student) {
         return eventRepository.haveStudentBeenOnAncestorEvent(student, event);
+    }
+
+    @RequestMapping(value = "/check/beenOnSectionInCurTerm", method = RequestMethod.GET)
+    public Boolean haveBeenOnSectionInCurrentTerm(
+            @RequestParam(value = "studentID", required = true) Student student,
+            @RequestParam(value = "sectionID", required = true) Section section) {
+        return sectionRepository.studentBeenOnSectionOfCurrentTerm(student, section);
     }
 
 }

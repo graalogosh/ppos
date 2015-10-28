@@ -12,5 +12,5 @@ import javax.persistence.Table;
  */
 @Repository
 @Table(name = "section")
-public interface SectionRepository extends JpaRepository<Section, Integer>, JpaSpecificationExecutor{
+public interface SectionRepository extends JpaRepository<Section, Integer>, JpaSpecificationExecutor<Section>, SectionRepositoryCustom{
 }
