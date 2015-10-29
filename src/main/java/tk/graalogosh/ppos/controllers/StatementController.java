@@ -256,7 +256,7 @@ public class StatementController {
         return sectionRepository.studentBeenOnSectionOfCurrentTerm(student, section);
     }
 
-    @RequestMapping(value = "/check/studentMadeStatementOnEvent", method = RequestMethod.GET)
+    @RequestMapping(value = "/check/madeStatementOnEvent", method = RequestMethod.GET)
     public Boolean studentMadeStatementOnEvent(
             @RequestParam(value = "studentID", required = true) Student student,
             @RequestParam(value = "eventID", required = true) Event event) {
