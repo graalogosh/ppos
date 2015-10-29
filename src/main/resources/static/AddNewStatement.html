@@ -285,6 +285,14 @@
 <!-- ____________________________________________________________________________________________________ -->
 
 
+   <!-- глабальные переменные -->
+    <script>
+      //переменная для обозначения, попадает заявление в резерв или нет
+      var reserve = false;
+    </script>
+<!-- ____________________________________________________________________________________________________ -->
+
+
     <!-- Когда документ загрузится - запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID -->
     <script>
       $(document).ready(function() {
@@ -355,16 +363,12 @@
 <!-- ____________________________________________________________________________________________________ -->
 
 
-		<!-- Заполняем поле eventID мероприятиями по выбранному разделу мероприятий и активирование нужных для данного раздела элементов-->
+		<!-- Заполняем поле eventID мероприятиями по выбранному разделу мероприятий-->
 		<script>
 			function onChangeSection() {
 
         //удаляем уже записанные в комбобокс мероприятия
         $('#eventID').html('<option value="0" disabled selected style="display:none;">Выберите мероприятие</option>');
-        
-        //активация комбобокса мероприятий и раздела с комментарием
-        $('#eventID').prop('disabled', false);
-        $('#comment').prop('disabled', false);
 
         //Заполняем поле eventID мероприятиями по выбранному разделу мероприятий
         var query_data = sendInform("sectionID");
@@ -375,28 +379,10 @@
 						});
 				});
 
-        //активирование нужных и деактивирование ненужных для выбранного раздела элементов
-        $.getJSON('https://graalogosh.tk/section', query_data, function(data) {
-            $.each(data, function(index, el) {
-               $('#socialGrant').prop('disabled', !el.socialGrant);
-               $('#socialCategory').prop('disabled', !el.socialCategory);
-               $('#socialWorkCategory').prop('disabled', !el.socialWork);
-               $('#socialWork').prop('disabled', !el.socialWork);
-               $('#score').prop('disabled', !el.averageScore);
-               $('#calculateButton').prop('disabled', !el.averageScore);
-               $('#bankAccountNumber').prop('disabled', !el.bankAccountNumber);
-            });
-        });
+        //активация комбобокса мероприятий и раздела с комментарием
+        $('#eventID').prop('disabled', false);
+        $('#comment').prop('disabled', false);
 
-        //проверяем, не подавал ли студент в этом семестре доументы по выбранному разделу
-        query_data = sendInform("studentID", "sectionID");
-
-        $.getJSON('https://graalogosh.tk/statement', query_data, function(data) {
-            //если длина полученного массива не 0, то студент уже подавал документы по выбранному направлению в текущем семестре
-            //выводим об этом сообщение
-            if (data.length == 0) {
-              alert('Студент уже подавал заявление по данному разделу. При подаче ещё одного заявления оно автоматически попадёт в резерв.');
-            }
         });
 			}
 		</script>
@@ -409,12 +395,26 @@
          активируем кнопку добавления заявления -->
     <script>
         function onChangeEvent() {
-          //проверяем, подавал ли студент заявление на данное мероприяти в текущем семестре. Если да, то блокируем кнопку "Добавить"
-          var query_data = sendInform("eventID");
-          $.getJSON('https://graalogosh.tk/statement', query_data, function(data) {
+
+          //сбрасываем флаг попадания заявления в резерв
+          reserve = false;
+
+          var query_data = sendInform("studentID", "eventID");
+
+          //проверяем, подавал ли студент заявление по данному разделу в текущем семестре
+          $.getJSON('https://graalogosh.tk/statement/check/beenOnSectionInCurTerm', query_data, function(data) {
+            //если получили true - студент автматически попадает в резерв
+            if (data == true) {
+              reserve = true;
+              alert('Студент уже подавал заявление по данному разделу. При подаче ещё одного заявления оно автоматически попадёт в резерв.');
+            }
+          });
+
+          //проверяем, подавал ли студент заявление на данное мероприятие в текущем семестре
+          $.getJSON('https://graalogosh.tk/statement/check/madeStetementOnEvent', query_data, function(data) {
 
               //если нашлись заявления, удовлетворяющие условиям, блокируем добавление и сообщеам, что документы уже были добавлены
-              if (data.length != 0) {
+              if (data == true) {
                 //деактивируем кнопку "Добавить""
                 $('#addButton').prop('disabled', true);
 
@@ -429,22 +429,27 @@
               }
           });
 
-          //проверяем, ездил ли студент на данное мероприятие за всё время обучения и не влияет ли повторная подача документов на попадание в резерв
-          $.getJSON('https://graalogosh.tk/statement', query_data, function(data) {
-            //проверяем, влияет ли повторная подача документов на попадание в резерв
-            $.each(data, function(index, el) {
-              //если влияет, то проверяем, подавал ли студент заявления на данное мероприятие
-              if (el.section.retrip == false) {
-                //добавляем в данные для запроса параметры, вызывающие поиск только по мероприятиям, на которые студент ездил
-                query_data[''] =
-                $.getJSON('https://graalogosh.tk/statement', query_data, function(data) {
-                    //если количество заявлений на данное мероприятие не равно нулю, то выводим сообщение о том, что студент автоматически попадёт в резерв
-                    if (data.length != 0) {
-                      alert('Студент уже посещал ');
-                    }
-                });
-              }
-            });
+          //проверяем, ездил ли студент на данное мероприятие за всё время обучения (по предкам мероприятия)
+          $.getJSON('https://graalogosh.tk/statement/check/beenOnAncestors', query_data, function(data) {
+            //если true, то предупреждаем, что заявление автоматически попадает в резерв
+            if (data == true) {
+              reserve = true;
+              alert("Студент уже ездил на данное мероприятие раньше. Его заявление автоматически попадёт в резерв.");
+            }
+          });
+
+          var query_data = sendInform("sectionID");
+          //активирование нужных и деактивирование ненужных для выбранного раздела элементов
+          $.getJSON('https://graalogosh.tk/section', query_data, function(data) {
+              $.each(data, function(index, el) {
+                 $('#socialGrant').prop('disabled', !el.socialGrant);
+                 $('#socialCategory').prop('disabled', !el.socialCategory);
+                 $('#socialWorkCategory').prop('disabled', !el.socialWork);
+                 $('#socialWork').prop('disabled', !el.socialWork);
+                 $('#score').prop('disabled', !el.averageScore);
+                 $('#calculateButton').prop('disabled', !el.averageScore);
+                 $('#bankAccountNumber').prop('disabled', !el.bankAccountNumber);
+              });
           });
         }
     </script>
