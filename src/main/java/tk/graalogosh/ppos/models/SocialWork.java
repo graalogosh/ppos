@@ -11,25 +11,30 @@ public class SocialWork {
     public SocialWork() {
     }
 
-    //TODO Change field names to JAVA convention
     @Id
     @GeneratedValue
-    private Integer social_work_id;
+    @Column(name = "social_work_id")
+    private Integer socialWorkID;
+
+    @Column(name = "title")
     private String title;
-    private int point;
+
+    @Column(name = "point")
+    private Integer point;
 
     @ManyToOne
     @JoinColumn(name = "social_work_category_id")
     private SocialWorkCategory socialWorkCategory;
 
-    private boolean visible;
+    @Column(name = "visible")
+    private Boolean visible;
 
-    public Integer getSocial_work_id() {
-        return social_work_id;
+    public Integer getSocialWorkID() {
+        return socialWorkID;
     }
 
-    public void setSocial_work_id(Integer social_work_id) {
-        this.social_work_id = social_work_id;
+    public void setSocialWorkID(Integer socialWorkID) {
+        this.socialWorkID = socialWorkID;
     }
 
     public String getTitle() {
@@ -40,11 +45,11 @@ public class SocialWork {
         this.title = title;
     }
 
-    public int getPoint() {
+    public Integer getPoint() {
         return point;
     }
 
-    public void setPoint(int point) {
+    public void setPoint(Integer point) {
         this.point = point;
     }
 
@@ -52,19 +57,19 @@ public class SocialWork {
         return socialWorkCategory;
     }
 
-    public void setSocial_work_category_id(SocialWorkCategory socialWorkCategory) {
+    public void setSocialWorkCategory(SocialWorkCategory socialWorkCategory) {
         this.socialWorkCategory = socialWorkCategory;
     }
 
-    public boolean getVisible() {
+    public Boolean getVisible() {
         return visible;
     }
 
-    public void setVisible(boolean visible) {
+    public void setVisible(Boolean visible) {
         this.visible = visible;
     }
 
-    public SocialWork(String title, int point, SocialWorkCategory socialWorkCategory, boolean visible) {
+    public SocialWork(String title, Integer point, SocialWorkCategory socialWorkCategory, Boolean visible) {
         this.title = title;
         this.point = point;
         this.socialWorkCategory = socialWorkCategory;

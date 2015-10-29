@@ -2,6 +2,10 @@ package tk.graalogosh.ppos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+//import lombok.AccessLevel;
+//import lombok.AllArgsConstructor;
+//import lombok.Getter;
+//import lombok.Setter;
 import tk.graalogosh.ppos.utils.LocalDateDeserializer;
 import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
 
@@ -13,79 +17,101 @@ import java.time.*;
  */
 @Entity
 @Table(name = "statement")
+//@AllArgsConstructor (access = AccessLevel.PUBLIC)
 public class Statement {
     public Statement(){}
 
     @Id
-    @GeneratedValue
+//    @GeneratedValue
     @Column(name = "statement_id")
+//    @Getter @Setter
     private Integer statementID;
 
     @Convert(converter = LocalDatePersistenceConverter.class)
     @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
     @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @Getter @Setter
     private LocalDate fillingDate;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
+//    @Getter @Setter
     private Student student;
 
     @ManyToOne
     @JoinColumn(name = "event_id")
+//    @Getter @Setter
     private Event event;
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
+//    @Getter @Setter
     private Employee employee;
 
-    private boolean socialGrant;
+//    @Getter @Setter
+    private Boolean socialGrant;
 
     @ManyToOne
     @JoinColumn(name = "social_category_id")
+//    @Getter @Setter
     private SocialCategory socialCategory;
 
     @ManyToOne
     @JoinColumn(name = "social_work_id")
+//    @Getter @Setter
     private SocialWork socialWork;
 
-    private double moneyCategory;
+//    @Getter @Setter
+    private Double moneyCategory;
 
     @ManyToOne
     @JoinColumn(name = "course")
+//    @Getter @Setter
     private Course course;
 
     @ManyToOne
     @JoinColumn(name = "trip_count")
+//    @Getter @Setter
     private TripCount tripCount;
 
     //TODO averageScore
-    private double average_score;
+//    @Getter @Setter
+    private Double average_score;
 
     @ManyToOne
     @JoinColumn(name = "refusal_count")
+//    @Getter @Setter
     private Refusal refusalCount;
 
-    private int permitNumber;
+//    @Getter @Setter
+    @Column(name = "permit_number")
+    private Integer permitNumber;
 
     @Convert(converter = LocalDatePersistenceConverter.class)
     @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
     @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @Getter @Setter
     private LocalDate refusalDate;
 
     @Convert(converter = LocalDatePersistenceConverter.class)
     @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
     @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @Getter @Setter
     private LocalDate cancellationDate;
 
     @ManyToOne
     @JoinColumn(name = "list_id")
+//    @Getter @Setter
     private StatementList list;
 
+//    @Getter @Setter
     private String comment;
 
-    private boolean completeDocs;
+//    @Getter @Setter
+    private Boolean completeDocs;
 
-    private boolean reserve;
+//    @Getter @Setter
+    private Boolean reserve;
 
     public Integer getStatementID() {
         return statementID;
@@ -127,11 +153,11 @@ public class Statement {
         this.employee = employee;
     }
 
-    public boolean isSocialGrant() {
+    public Boolean getSocialGrant() {
         return socialGrant;
     }
 
-    public void setSocialGrant(boolean socialGrant) {
+    public void setSocialGrant(Boolean socialGrant) {
         this.socialGrant = socialGrant;
     }
 
@@ -151,11 +177,11 @@ public class Statement {
         this.socialWork = socialWork;
     }
 
-    public double getMoneyCategory() {
+    public Double getMoneyCategory() {
         return moneyCategory;
     }
 
-    public void setMoneyCategory(double moneyCategory) {
+    public void setMoneyCategory(Double moneyCategory) {
         this.moneyCategory = moneyCategory;
     }
 
@@ -175,11 +201,11 @@ public class Statement {
         this.tripCount = tripCount;
     }
 
-    public double getAverage_score() {
+    public Double getAverage_score() {
         return average_score;
     }
 
-    public void setAverage_score(double average_score) {
+    public void setAverage_score(Double average_score) {
         this.average_score = average_score;
     }
 
@@ -191,11 +217,11 @@ public class Statement {
         this.refusalCount = refusalCount;
     }
 
-    public int getPermitNumber() {
+    public Integer getPermitNumber() {
         return permitNumber;
     }
 
-    public void setPermitNumber(int permitNumber) {
+    public void setPermitNumber(Integer permitNumber) {
         this.permitNumber = permitNumber;
     }
 
@@ -231,23 +257,24 @@ public class Statement {
         this.comment = comment;
     }
 
-    public boolean isCompleteDocs() {
+    public Boolean getCompleteDocs() {
         return completeDocs;
     }
 
-    public void setCompleteDocs(boolean completeDocs) {
+    public void setCompleteDocs(Boolean completeDocs) {
         this.completeDocs = completeDocs;
     }
 
-    public boolean isReserve() {
+    public Boolean getReserve() {
         return reserve;
     }
 
-    public void setReserve(boolean reserve) {
+    public void setReserve(Boolean reserve) {
         this.reserve = reserve;
     }
 
-    public Statement(LocalDate fillingDate, Student student, Event event, Employee employee, boolean socialGrant, SocialCategory socialCategory, SocialWork socialWork, double moneyCategory, Course course, TripCount tripCount, double average_score, Refusal refusalCount, int permitNumber, LocalDate refusalDate, LocalDate cancellationDate, StatementList list, String comment, boolean completeDocs, boolean reserve) {
+    public Statement(Integer statementID, LocalDate fillingDate, Student student, Event event, Employee employee, Boolean socialGrant, SocialCategory socialCategory, SocialWork socialWork, Double moneyCategory, Course course, TripCount tripCount, Double average_score, Refusal refusalCount, Integer permitNumber, LocalDate refusalDate, LocalDate cancellationDate, StatementList list, String comment, Boolean completeDocs, Boolean reserve) {
+        this.statementID = statementID;
         this.fillingDate = fillingDate;
         this.student = student;
         this.event = event;
@@ -268,5 +295,15 @@ public class Statement {
         this.completeDocs = completeDocs;
         this.reserve = reserve;
     }
+
+    public Boolean studentHaveBeenOnEvent() {
+        return  getPermitNumber() != null && //человек прошел по конкурсу
+                getCancellationDate() == null && //не отменил
+                getRefusalDate() == null; //не отказался
+    }
+
+//    public Boolean isActive(){
+//        return getCancellationDate()!=null && getRefusalDate()!=null;
+//    }
 }
 

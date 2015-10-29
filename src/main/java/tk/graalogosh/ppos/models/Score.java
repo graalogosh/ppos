@@ -1,5 +1,7 @@
 package tk.graalogosh.ppos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -13,37 +15,51 @@ public class Score {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    @Column(name = "score_id")
+    @JsonIgnore
+    private Integer scoreID;
 
-    private double minScore;
-    private double maxScore;
-    private int point;
+    @Column(name = "min_score")
+    private Double minScore;
 
-    public double getMinScore() {
+    @Column(name = "max_score")
+    private Double maxScore;
+
+    private Integer point;
+
+    public Integer getScoreID() {
+        return scoreID;
+    }
+
+    public void setId(Integer scoreID) {
+        this.scoreID = scoreID;
+    }
+
+    public Double getMinScore() {
         return minScore;
     }
 
-    public void setMinScore(double minScore) {
+    public void setMinScore(Double minScore) {
         this.minScore = minScore;
     }
 
-    public double getMaxScore() {
+    public Double getMaxScore() {
         return maxScore;
     }
 
-    public void setMaxScore(double maxScore) {
+    public void setMaxScore(Double maxScore) {
         this.maxScore = maxScore;
     }
 
-    public int getPoint() {
+    public Integer getPoint() {
         return point;
     }
 
-    public void setPoint(int point) {
+    public void setPoint(Integer point) {
         this.point = point;
     }
 
-    public Score(double minScore, double maxScore, int point) {
+    public Score(Double minScore, Double maxScore, Integer point) {
         this.minScore = minScore;
         this.maxScore = maxScore;
         this.point = point;

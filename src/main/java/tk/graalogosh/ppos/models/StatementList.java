@@ -15,29 +15,33 @@ public class StatementList {
     public StatementList() {
     }
 
-    //TODO fix naming
-
     @Id
     @GeneratedValue
     @Column(name = "list_id")
-    private Integer list_id;
+    private Integer listID;
+
     @Column(name = "transfer_date")
     @Convert(converter = LocalDatePersistenceConverter.class)
     @JsonIgnoreProperties(value = {"dayOfWeek", "era", "dayOfYear", "leapYear", "chronology"})
     private LocalDate date;
-    @Column(name = "type")
-    private int type;
-    @Column(name = "count_statement")
-    private int count_statement;
-    @Column(name = "faculty")
-    private String faculty;
 
-    public int getList_id() {
-        return list_id;
+    @ManyToOne
+    @JoinColumn(name = "type")
+    private TypeList type;
+
+    @Column(name = "count_statement")
+    private Integer countStatement;
+
+    @ManyToOne
+    @JoinColumn(name = "faculty")
+    private Faculty faculty;
+
+    public Integer getListID() {
+        return listID;
     }
 
-    public void setList_id(int list_id) {
-        this.list_id = list_id;
+    public void setListID(Integer listID) {
+        this.listID = listID;
     }
 
     public LocalDate getDate() {
@@ -48,34 +52,34 @@ public class StatementList {
         this.date = date;
     }
 
-    public int getType() {
+    public TypeList getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(TypeList type) {
         this.type = type;
     }
 
-    public int getCount_statement() {
-        return count_statement;
+    public Integer getCountStatement() {
+        return countStatement;
     }
 
-    public void setCount_statement(int count_statement) {
-        this.count_statement = count_statement;
+    public void setCountStatement(Integer countStatement) {
+        this.countStatement = countStatement;
     }
 
-    public String getFaculty() {
+    public Faculty getFaculty() {
         return faculty;
     }
 
-    public void setFaculty(String faculty) {
+    public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }
 
-    public StatementList(LocalDate date, int type, int count_statement, String faculty) {
+    public StatementList(LocalDate date, TypeList type, Integer countStatement, Faculty faculty) {
         this.date = date;
         this.type = type;
-        this.count_statement = count_statement;
+        this.countStatement = countStatement;
         this.faculty = faculty;
     }
 }

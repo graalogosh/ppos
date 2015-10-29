@@ -17,17 +17,17 @@ public class SocialCategory {
     @Column(name = "social_category_id")
     private Integer socialCategoryID;
     private String title;
-    private int priority;
-    private int point;
+    private Integer priority;
+    private Integer point;
     private String documents;
-    private double money;
-    private boolean visible;
+    private Double money;
+    private Boolean visible;
 
     public Integer getSocialCategoryID() {
         return socialCategoryID;
     }
 
-    public void setSocial_category_id(Integer socialCategoryID) {
+    public void setSocialCategoryID(Integer socialCategoryID) {
         this.socialCategoryID = socialCategoryID;
     }
 
@@ -39,19 +39,19 @@ public class SocialCategory {
         this.title = title;
     }
 
-    public int getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(Integer priority) {
         this.priority = priority;
     }
 
-    public int getPoint() {
+    public Integer getPoint() {
         return point;
     }
 
-    public void setPoint(int point) {
+    public void setPoint(Integer point) {
         this.point = point;
     }
 
@@ -63,23 +63,23 @@ public class SocialCategory {
         this.documents = documents;
     }
 
-    public double getMoney() {
+    public Double getMoney() {
         return money;
     }
 
-    public void setMoney(double money) {
+    public void setMoney(Double money) {
         this.money = money;
     }
 
-    public boolean isVisible() {
+    public Boolean getVisible() {
         return visible;
     }
 
-    public void setVisible(boolean visible) {
+    public void setVisible(Boolean visible) {
         this.visible = visible;
     }
 
-    public SocialCategory(String title, int priority, int point, String documents, double money, boolean visible) {
+    public SocialCategory(String title, Integer priority, Integer point, String documents, Double money, Boolean visible) {
         this.title = title;
         this.priority = priority;
         this.point = point;

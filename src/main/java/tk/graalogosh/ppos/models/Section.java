@@ -10,31 +10,56 @@ import javax.persistence.*;
 public class Section {
     public Section() {
     }
-
-    //TODO Change field names to JAVA convention
     @Id
     @GeneratedValue
-    private Integer section_id;
-    private String title;
-    private boolean social_grant;
-    private boolean social_category;
-    private boolean social_work;
-    private boolean average_score;
-    private boolean trip_count;
-    private boolean refusual_count;
-    private boolean course;
-    private boolean point_sum;
-    private boolean bank_account_number;
-    private boolean list;
-    private boolean retrip;
-    private boolean money_category;
+    @Column(name = "section_id")
+    private Integer sectionID;
 
-    public Integer getSection_id() {
-        return section_id;
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "social_grant")
+    private Boolean socialGrant;
+
+    @Column(name = "social_category")
+    private Boolean socialCategory;
+
+    @Column(name = "social_work")
+    private Boolean socialWork;
+
+    @Column(name = "average_score")
+    private Boolean averageScore;
+
+    @Column(name = "trip_count")
+    private Boolean tripCount;
+
+    @Column(name = "refusual_count")
+    private Boolean refusualCount;
+
+    @Column(name = "course")
+    private Boolean course;
+
+    @Column(name = "point_sum")
+    private Boolean pointSum;
+
+    @Column(name = "bank_account_number")
+    private Boolean bankAccountNumber;
+
+    @Column(name = "list")
+    private Boolean list;
+
+    @Column(name = "retrip")
+    private Boolean retrip;
+
+    @Column(name = "money_category")
+    private Boolean moneyCategory;
+
+    public Integer getSectionID() {
+        return sectionID;
     }
 
-    public void setSection_id(Integer section_id) {
-        this.section_id = section_id;
+    public void setSectionID(Integer sectionID) {
+        this.sectionID = sectionID;
     }
 
     public String getTitle() {
@@ -45,115 +70,124 @@ public class Section {
         this.title = title;
     }
 
-    public boolean isSocial_grant() {
-        return social_grant;
+    public Boolean getSocialGrant() {
+        return socialGrant;
     }
 
-    public void setSocial_grant(boolean social_grant) {
-        this.social_grant = social_grant;
+    public void setSocialGrant(Boolean socialGrant) {
+        this.socialGrant = socialGrant;
     }
 
-    public boolean isSocial_category() {
-        return social_category;
+    public Boolean getSocialCategory() {
+        return socialCategory;
     }
 
-    public void setSocial_category(boolean social_category) {
-        this.social_category = social_category;
+    public void setSocialCategory(Boolean socialCategory) {
+        this.socialCategory = socialCategory;
     }
 
-    public boolean isSocial_work() {
-        return social_work;
+    public Boolean getSocialWork() {
+        return socialWork;
     }
 
-    public void setSocial_work(boolean social_work) {
-        this.social_work = social_work;
+    public void setSocialWork(Boolean socialWork) {
+        this.socialWork = socialWork;
     }
 
-    public boolean isAverage_score() {
-        return average_score;
+    public Boolean getAverageScore() {
+        return averageScore;
     }
 
-    public void setAverage_score(boolean average_score) {
-        this.average_score = average_score;
+    public void setAverageScore(Boolean averageScore) {
+        this.averageScore = averageScore;
     }
 
-    public boolean isTrip_count() {
-        return trip_count;
+    public Boolean getTripCount() {
+        return tripCount;
     }
 
-    public void setTrip_count(boolean trip_count) {
-        this.trip_count = trip_count;
+    public void setTripCount(Boolean tripCount) {
+        this.tripCount = tripCount;
     }
 
-    public boolean isRefusual_count() {
-        return refusual_count;
+    public Boolean getRefusualCount() {
+        return refusualCount;
     }
 
-    public void setRefusual_count(boolean refusual_count) {
-        this.refusual_count = refusual_count;
+    public void setRefusualCount(Boolean refusualCount) {
+        this.refusualCount = refusualCount;
     }
 
-    public boolean isCourse() {
+    public Boolean getCourse() {
         return course;
     }
 
-    public void setCourse(boolean course) {
+    public void setCourse(Boolean course) {
         this.course = course;
     }
 
-    public boolean isPoint_sum() {
-        return point_sum;
+    public Boolean getPointSum() {
+        return pointSum;
     }
 
-    public void setPoint_sum(boolean point_sum) {
-        this.point_sum = point_sum;
+    public void setPointSum(Boolean pointSum) {
+        this.pointSum = pointSum;
     }
 
-    public boolean isBank_account_number() {
-        return bank_account_number;
+    public Boolean getBankAccountNumber() {
+        return bankAccountNumber;
     }
 
-    public void setBank_account_number(boolean bank_account_number) {
-        this.bank_account_number = bank_account_number;
+    public void setBankAccountNumber(Boolean bankAccountNumber) {
+        this.bankAccountNumber = bankAccountNumber;
     }
 
-    public boolean isList() {
+    public Boolean getList() {
         return list;
     }
 
-    public void setList(boolean list) {
+    public void setList(Boolean list) {
         this.list = list;
     }
 
-    public boolean isRetrip() {
+    public Boolean getRetrip() {
         return retrip;
     }
 
-    public void setRetrip(boolean retrip) {
+    public void setRetrip(Boolean retrip) {
         this.retrip = retrip;
     }
 
-    public boolean isMoney_category() {
-        return money_category;
+    public Boolean getMoneyCategory() {
+        return moneyCategory;
     }
 
-    public void setMoney_category(boolean money_category) {
-        this.money_category = money_category;
+    public void setMoneyCategory(Boolean moneyCategory) {
+        this.moneyCategory = moneyCategory;
     }
 
-    public Section(String title, boolean social_grant, boolean social_category, boolean social_work, boolean average_score, boolean trip_count, boolean refusual_count, boolean course, boolean point_sum, boolean bank_account_number, boolean list, boolean retrip, boolean money_category) {
+    public Section(String title, Boolean socialGrant, Boolean socialCategory, Boolean socialWork, Boolean averageScore, Boolean tripCount, Boolean refusualCount, Boolean course, Boolean pointSum, Boolean bankAccountNumber, Boolean list, Boolean retrip, Boolean moneyCategory) {
         this.title = title;
-        this.social_grant = social_grant;
-        this.social_category = social_category;
-        this.social_work = social_work;
-        this.average_score = average_score;
-        this.trip_count = trip_count;
-        this.refusual_count = refusual_count;
+        this.socialGrant = socialGrant;
+        this.socialCategory = socialCategory;
+        this.socialWork = socialWork;
+        this.averageScore = averageScore;
+        this.tripCount = tripCount;
+        this.refusualCount = refusualCount;
         this.course = course;
-        this.point_sum = point_sum;
-        this.bank_account_number = bank_account_number;
+        this.pointSum = pointSum;
+        this.bankAccountNumber = bankAccountNumber;
         this.list = list;
         this.retrip = retrip;
-        this.money_category = money_category;
+        this.moneyCategory = moneyCategory;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Section section = (Section) o;
+        return sectionID.equals(section.sectionID);
+    }
+
 }

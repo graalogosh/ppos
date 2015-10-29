@@ -39,11 +39,11 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name = "financial_status")
-   // @Column(name = "financial_status")
     private Status financialStatus;
 
-    @Column(name = "faculty")
-    private String faculty;
+    @ManyToOne
+    @JoinColumn(name = "faculty")
+    private Faculty faculty;
 
     @Column(name = "phone")
     private String phone;
@@ -52,10 +52,10 @@ public class Student {
     private String bankAccountNumber;
 
     @Column(name = "student_paid")
-    private int studentPaid;
+    private Integer studentPaid;
 
     @Column(name = "student_must_pay")
-    private int studentMustPay;
+    private Integer studentMustPay;
 
     public String getStudentID() {
         return studentID;
@@ -105,11 +105,11 @@ public class Student {
         this.financialStatus = financialStatus;
     }
 
-    public String getFaculty() {
+    public Faculty getFaculty() {
         return faculty;
     }
 
-    public void setFaculty(String faculty) {
+    public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }
 
@@ -129,23 +129,23 @@ public class Student {
         this.bankAccountNumber = bankAccountNumber;
     }
 
-    public int getStudentPaid() {
+    public Integer getStudentPaid() {
         return studentPaid;
     }
 
-    public void setStudentPaid(int studentPaid) {
+    public void setStudentPaid(Integer studentPaid) {
         this.studentPaid = studentPaid;
     }
 
-    public int getStudentMustPay() {
+    public Integer getStudentMustPay() {
         return studentMustPay;
     }
 
-    public void setStudentMustPay(int studentMustPay) {
+    public void setStudentMustPay(Integer studentMustPay) {
         this.studentMustPay = studentMustPay;
     }
 
-    public Student(String studentID, String name, LocalDate entryDate, String educationalGroup, Status academicStatus, Status financialStatus, String faculty, String phone, String bankAccountNumber, int studentPaid, int studentMustPay) {
+    public Student(String studentID, String name, LocalDate entryDate, String educationalGroup, Status academicStatus, Status financialStatus, Faculty faculty, String phone, String bankAccountNumber, int studentPaid, int studentMustPay) {
         this.studentID = studentID;
         this.name = name;
         this.entryDate = entryDate;
@@ -157,5 +157,9 @@ public class Student {
         this.bankAccountNumber = bankAccountNumber;
         this.studentPaid = studentPaid;
         this.studentMustPay = studentMustPay;
+    }
+
+    public Integer getCourse(){
+        return Character.getNumericValue(educationalGroup.charAt(0));
     }
 }
