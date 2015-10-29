@@ -49,4 +49,10 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
         }
     }
 
+    @Override
+    public Boolean studentMadeStatementOnEvent(Student student, Event event) {
+        return statementRepository.findOne(StatementSpecifications.findByStudentAndEvent(student, event)) != null;
+    }
+
+
 }

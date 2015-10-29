@@ -10,4 +10,6 @@ public interface EventRepositoryCustom {
     Boolean haveStudentBeenOnAncestorEvent(Student student, Event event);
     Boolean studentHaveBeenOnEvent(Student student, Event event);
     //List<Event> findByEventOrAncestor (Event event);
+
+    Boolean studentMadeStatementOnEvent(Student student, Event event);
 }

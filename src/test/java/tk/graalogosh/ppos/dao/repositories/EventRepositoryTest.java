@@ -67,4 +67,11 @@ public class EventRepositoryTest extends TestCase {
                         eventRepository.findOne(7))
         );
     }
+
+    @Test
+    public void testStudentMadeStatementOnEvent() throws Exception{
+        assertTrue(eventRepository.studentMadeStatementOnEvent(
+                studentRepository.findOne("120930"),
+                eventRepository.findOne(29)));
+    }
 }
