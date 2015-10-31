@@ -169,7 +169,7 @@
                            <div class="form-group">
                                <label class="control-label col-lg-3" for="socialWorkCategory">Категория:</label>
                                   <div class="col-lg-9">
-                                     <select class="form-control" id="socialWorkCategory" disabled>
+                                     <select class="form-control" id="socialWorkCategory" onchange="onChangeSocialWorkCategory()" disabled>
                                         <option value="0" disabled selected style="display:none;">Выберите категорию</option>
                                       </select>
                                   </div>
@@ -202,7 +202,7 @@
                            <div class="form-group">
                                <label class="control-label col-lg-5" for="socialCategory">Социальная категория:</label>
                                <div class="col-lg-7">
-                                 <select class="form-control" id="socialCategory" disabled>
+                                 <select class="form-control" id="socialCategory" onchange="onChangeSocialCategory()" disabled>
                                     <option value="0" disabled selected style="display:none;">Выберите социальную категорию</option>
                                  </select>
                                </div>
@@ -299,7 +299,7 @@
         //маска для ввода оценок студента
         $('#score').mask('0000000000', {'translation': {0: {pattern: /[2-5]/}}});
         //маска для номера студенческого
-        $('#studentNumber').mask('00000000', {'translation': {0: {pattern: /[0-9Ии-]/}}});
+        $('#studentID').mask('00000000', {'translation': {0: {pattern: /[0-9Ии-]/}}});
 
         //запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID
         $.getJSON('https://graalogosh.tk/section', function(data) {
@@ -367,6 +367,15 @@
 		<script>
 			function onChangeSection() {
 
+        //выключаем все эоементы при смене раздела (в дальнейшей работе с программой нужные элементы будут включены)
+        $('#socialGrant').prop('disabled', true);
+        $('#socialCategory').prop('disabled', true);
+        $('#socialWorkCategory').prop('disabled', true);
+        $('#socialWork').prop('disabled', true);
+        $('#score').prop('disabled', true);
+        $('#calculateButton').prop('disabled', true);
+        $('#bankAccountNumber').prop('disabled', true);
+
         //удаляем уже записанные в комбобокс мероприятия
         $('#eventID').html('<option value="0" disabled selected style="display:none;">Выберите мероприятие</option>');
 
@@ -395,10 +404,13 @@
     <script>
         function onChangeEvent() {
 
+          //активируем кнопку добавления заявления
+          $('#calculateButton').prop('disabled', true);
+
           //сбрасываем флаг попадания заявления в резерв
           reserve = false;
 
-          var query_data = sendInform("studentID", "eventID");
+          var query_data = sendInform("studentID", "sectionID");
 
           //проверяем, подавал ли студент заявление по данному разделу в текущем семестре
           $.getJSON('https://graalogosh.tk/statement/check/beenOnSectionInCurTerm', query_data, function(data) {
@@ -428,6 +440,8 @@
               }
           });
 
+          var query_data = sendInform("studentID", "eventID");
+
           //проверяем, ездил ли студент на данное мероприятие за всё время обучения (по предкам мероприятия)
           $.getJSON('https://graalogosh.tk/statement/check/beenOnAncestors', query_data, function(data) {
             //если true, то предупреждаем, что заявление автоматически попадает в резерв
@@ -438,15 +452,34 @@
           });
 
           var query_data = sendInform("sectionID");
-          //активирование нужных и деактивирование ненужных для выбранного раздела элементов
+
+          //активирование нужных и деактивирование ненужных для выбранного раздела элементов, а так же заполнение активированных
           $.getJSON('https://graalogosh.tk/section', query_data, function(data) {
               $.each(data, function(index, el) {
                  $('#socialGrant').prop('disabled', !el.socialGrant);
+
                  $('#socialCategory').prop('disabled', !el.socialCategory);
+                 if (el.socialCategory) {
+                    $.getJSON('https://graalogosh.tk/socialCategory', function(data) {
+                      $.each(data, function(index, el) {
+                         $('<option value="' + el.socialCategoryID + '">' + el.title + '</option>').appendTo('#socialCategory');
+                      });
+                    });
+                 };
+
                  $('#socialWorkCategory').prop('disabled', !el.socialWork);
-                 $('#socialWork').prop('disabled', !el.socialWork);
+                 if (el.socialWork) {
+                    $.getJSON('https://graalogosh.tk/socialWorkCategory', function(data) {
+                        $.each(data, function(index, el) {
+                           $('<option value="' + el.socialWorkCategoryID + '">' + el.title + '</option>').appendTo('#socialWorkCategory');
+                        });
+                    });
+                 };
+
                  $('#score').prop('disabled', !el.averageScore);
+
                  $('#calculateButton').prop('disabled', !el.averageScore);
+
                  $('#bankAccountNumber').prop('disabled', !el.bankAccountNumber);
               });
           });
@@ -455,6 +488,67 @@
 
 
 <!-- ____________________________________________________________________________________________________ -->
+
+
+    <!-- заполнение комбобокса видами общественных работ в зависимости от выбранной категории общественных работ и активация этого комбобокса -->
+    <script>
+      function onChangeSocialWorkCategory() {
+        var query_data = sendInform("socialWorkCategory");
+        $.getJSON('https://graalogosh.tk/socialWork', function(data) {
+            $.each(data, function(index, el) {
+              $('<option value="' + el.socialWorkID + '">' + el.title + '</option>').appendTo('#socialWork');
+            });
+        });
+
+        $('#socialWork').prop('disabled', false);
+      }
+    </script>
+
+
+<!-- ____________________________________________________________________________________________________ -->
+
+
+<!-- при выборе социальной категории заполняем окошко необходимых жокументов и выводим выплачиваемую денежную сумму, если она нужна -->
+    <script>
+      function onChangeSocialCategory(){
+
+        //переменная для хранения выплачиваемой суммы денег
+        var moneyCategory = 0;
+        //заполняем окошко нербходимыми документами для данной социальной категории
+        var query_data = sendInform("socialCategory");
+        $.getJSON('https://graalogosh.tk/socialCategory', query_data, function(data) {
+            $.each(data, function(index, el) {
+              $("#documents").text(el.documents);
+              moneyCategory = el.money;
+            });
+        });
+
+        //если для выбранного раздела нужно знать выплачиваемую сумму денег, то заполняем это поле
+        var query_data = sendInform("section");
+        $.getJSON('https://graalogosh.tk/section', query_data, function(data) {
+            $.each(data, function(index, el) {
+              if (el.moneyCategory) {
+                $("#moneyCategory").text(moneyCategory);
+              };
+            });
+        });
+      }
+    </script>
+
+
+<!-- ____________________________________________________________________________________________________ -->
+
+
+    <!-- проверяем, какая клавиша была нажата. Если enter, то вызываем обработчик писка студента по номеру студенческого -->
+    <script>
+      // $("#studentID").keydown(function (e){
+      //   if (e.keyCode === 13) {
+      //     onClickFind();
+      //   }
+      //   return false;
+      // });
+    </script>
+
 
   
     <!-- Перенаправление не страницу с карточкой студента при нажатии кнопки "Открыть карточку студента" -->
