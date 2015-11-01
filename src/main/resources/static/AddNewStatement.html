@@ -280,6 +280,7 @@
     <script type="text/javascript" src="js/jquery.mask.min.js"></script>
     <script type="text/javascript" src="js/function_sendInform.js"></script>
     <script type="text/javascript" src="js/function_averageEstimates.js"></script>
+    <script type="text/javascript" src="js/function_changeSettings.js"></script>
 
 
 <!-- ____________________________________________________________________________________________________ -->
@@ -337,8 +338,9 @@
         });
 
         //активация комбобокса раздела мероприятия и checkbox "Все документы в наличии"
-        $('#sectionID').prop('disabled', false);
-        $('#completeDocs').prop('disabled', false)
+        // $('#sectionID').prop('disabled', false);
+        // $('#completeDocs').prop('disabled', false)
+        changeSettings(sectionID, disabled, false, completeDocs, disabled, false);
       }
     </script> 
 
