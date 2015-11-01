@@ -260,7 +260,7 @@
                              </form>
                              <form class="form-horizontal col-lg-3">
                                <div class="btn-group pull-right">
-                                   <button type="submit" class="btn btn-success" id="addButton" disabled>Добавить</button>
+                                   <button type="submit" class="btn btn-success" id="addButton" onclick="onClickAddButton()" disabled>Добавить</button>
                                    <button type="submit" class="btn btn-primary">Отмена</button>
                                </div>
                              </form>
@@ -556,6 +556,34 @@
         }
         return false;
       });
+    </script>
+
+
+<!-- ____________________________________________________________________________________________________ -->
+
+
+    <!-- проверяем правильность заполнения полей и отправляем данные на сервер для добавления заявления -->
+    <script>
+      function onClickAddButton(){
+
+        var data = {
+          "studentID":$("#studentID").val(),
+          "eventID":$("#eventID").val(),
+          "socialCategoryID":$("#socialCategoryID").val(),
+          "socialWorkID":$("#socialWorkID").val(),
+          "completeDocs":$("#completeDocs").is(":checked"),
+          "comment":$("#comment").val(),
+          "reserve":reserve
+        };
+
+        $.ajax({
+          url: 'https://graalogosh.tk/statement',
+          type: 'POST',
+          data: data,
+          processData: false,
+          contentType: "application/json"
+        });        
+      }
     </script>
 
 
