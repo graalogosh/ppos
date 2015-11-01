@@ -320,6 +320,16 @@
     <script>
       function onClickFind () {
 
+        //выключаем все элементы при поиске студента(в дальнейшей работе с программой нужные элементы будут включены)
+        changeSettings("socialGrant", 'disabled', true,
+          "socialCategory", 'disabled', true,
+          "socialWorkCategory", 'disabled', true,
+          "socialWork", 'disabled', true,
+          "score",'disabled', true,
+          "calculateButton", 'disabled', true,
+          "bankAccountNumber", 'disabled', true,
+          "eventID", "disabled", true);
+
         //Если воле номера студенческого не заполнили, то выводим об этом сообщение с предупреждением и завершаем скрипт
         if ($('#studentID').val() == "") {
           alert ("Не введён номер студенческого.");
@@ -367,7 +377,7 @@
 		<script>
 			function onChangeSection() {
 
-        //выключаем все эоементы при смене раздела (в дальнейшей работе с программой нужные элементы будут включены)
+        //выключаем все элементы при смене раздела (в дальнейшей работе с программой нужные элементы будут включены)
         changeSettings("socialGrant", 'disabled', true,
           "socialCategory", 'disabled', true,
           "socialWorkCategory", 'disabled', true,
@@ -428,7 +438,7 @@
               //если нашлись заявления, удовлетворяющие условиям, блокируем добавление и сообщеам, что документы уже были добавлены
               if (data == true) {
                 //деактивируем кнопку "Добавить""
-                calculateButton("addButton", "disabled", true);
+                changeSettings("addButton", "disabled", true);
 
                 //выводим сообщение о том, что студент уже подавал документы на данное мероприятие в текущем семестре
                 alert('Нельзя принять документы. Студент уже подавал заявление на выбранное мероприятие в текущем семестре.');
@@ -437,7 +447,7 @@
               }
               //если заявлений, удовлетворяющих условиям нет, разблокируем кнопку "Добавить"
               else {
-                calculateButton("addButton", "disabled", false);
+                changeSettings("addButton", "disabled", false);
               }
           });
 
@@ -457,7 +467,7 @@
           $.getJSON('https://graalogosh.tk/section', query_data, function(data) {
               $.each(data, function(index, el) {
 
-                 calculateButton("socialGrant", "disabled", !el.socialGrant, 
+                 changeSettings("socialGrant", "disabled", !el.socialGrant, 
                   "socialCategory", "disabled", !el.socialCategory,
                   "socialWorkCategory", "disabled", !el.socialWork,
                   "score", "disabled", !el.averageScore,
@@ -479,7 +489,7 @@
                         });
                     });
                  };
-                 
+
               });
           });
         }
