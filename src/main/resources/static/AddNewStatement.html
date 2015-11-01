@@ -421,6 +421,8 @@
             }
           });
 
+          var query_data = sendInform("studentID", "eventID");
+
           //проверяем, подавал ли студент заявление на данное мероприятие в текущем семестре
           $.getJSON('https://graalogosh.tk/statement/check/madeStatementOnEvent', query_data, function(data) {
 
@@ -440,7 +442,6 @@
               }
           });
 
-          var query_data = sendInform("studentID", "eventID");
 
           //проверяем, ездил ли студент на данное мероприятие за всё время обучения (по предкам мероприятия)
           $.getJSON('https://graalogosh.tk/statement/check/beenOnAncestors', query_data, function(data) {
