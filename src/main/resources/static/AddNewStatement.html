@@ -422,7 +422,7 @@
           });
 
           //проверяем, подавал ли студент заявление на данное мероприятие в текущем семестре
-          $.getJSON('https://graalogosh.tk/statement/check/madeStetementOnEvent', query_data, function(data) {
+          $.getJSON('https://graalogosh.tk/statement/check/madeStatementOnEvent', query_data, function(data) {
 
               //если нашлись заявления, удовлетворяющие условиям, блокируем добавление и сообщеам, что документы уже были добавлены
               if (data == true) {
