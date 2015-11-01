@@ -12,7 +12,7 @@ function changeSettings(){
 	}
 
 	//изменяем настройки в цикле
-	for (var i = 0; i <= arguments.length - 3; i+3) {
+	for (var i = 0; i <= (arguments.length - 3); i = i + 3) {
 		$("#" + arguments[i]).prop(arguments[i+1], arguments[i+2]);
 	};
 
