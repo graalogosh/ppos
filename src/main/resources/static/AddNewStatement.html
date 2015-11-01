@@ -541,12 +541,12 @@
 
     <!-- проверяем, какая клавиша была нажата. Если enter, то вызываем обработчик писка студента по номеру студенческого -->
     <script>
-      // $("#studentID").keydown(function (e){
-      //   if (e.keyCode === 13) {
-      //     onClickFind();
-      //   }
-      //   return false;
-      // });
+      $("#studentID").keyup(function (e){
+        if (e.keyCode === 13) {
+          onClickFind();
+        }
+        return false;
+      });
     </script>
 
 
