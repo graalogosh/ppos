@@ -338,9 +338,7 @@
         });
 
         //активация комбобокса раздела мероприятия и checkbox "Все документы в наличии"
-        // $('#sectionID').prop('disabled', false);
-        // $('#completeDocs').prop('disabled', false)
-        changeSettings("sectionID", "disabled", "false", "completeDocs", "disabled", "false");
+        changeSettings("sectionID", "disabled", false, "completeDocs", "disabled", false);
       }
     </script> 
 
@@ -370,13 +368,13 @@
 			function onChangeSection() {
 
         //выключаем все эоементы при смене раздела (в дальнейшей работе с программой нужные элементы будут включены)
-        $('#socialGrant').prop('disabled', true);
-        $('#socialCategory').prop('disabled', true);
-        $('#socialWorkCategory').prop('disabled', true);
-        $('#socialWork').prop('disabled', true);
-        $('#score').prop('disabled', true);
-        $('#calculateButton').prop('disabled', true);
-        $('#bankAccountNumber').prop('disabled', true);
+        changeSettings("socialGrant", 'disabled', true,
+          "socialCategory", 'disabled', true,
+          "socialWorkCategory", 'disabled', true,
+          "socialWork", 'disabled', true,
+          "score",'disabled', true,
+          "calculateButton", 'disabled', true,
+          "bankAccountNumber", 'disabled', true);
 
         //удаляем уже записанные в комбобокс мероприятия
         $('#eventID').html('<option value="0" disabled selected style="display:none;">Выберите мероприятие</option>');
@@ -391,8 +389,7 @@
 				});
 
         //активация комбобокса мероприятий и раздела с комментарием
-        $('#eventID').prop('disabled', false);
-        $('#comment').prop('disabled', false);
+        changeSettings("eventID", "disabled", false, "comment", "disabled", false);
 
 			}
 		</script>
@@ -407,7 +404,7 @@
         function onChangeEvent() {
 
           //активируем кнопку добавления заявления
-          $('#calculateButton').prop('disabled', true);
+          changeSettings("calculateButton", "disabled", true);
 
           //сбрасываем флаг попадания заявления в резерв
           reserve = false;
@@ -431,7 +428,7 @@
               //если нашлись заявления, удовлетворяющие условиям, блокируем добавление и сообщеам, что документы уже были добавлены
               if (data == true) {
                 //деактивируем кнопку "Добавить""
-                $('#addButton').prop('disabled', true);
+                calculateButton("addButton", "disabled", true);
 
                 //выводим сообщение о том, что студент уже подавал документы на данное мероприятие в текущем семестре
                 alert('Нельзя принять документы. Студент уже подавал заявление на выбранное мероприятие в текущем семестре.');
@@ -440,7 +437,7 @@
               }
               //если заявлений, удовлетворяющих условиям нет, разблокируем кнопку "Добавить"
               else {
-                $('#addButton').prop('disabled', false);
+                calculateButton("addButton", "disabled", false);
               }
           });
 
@@ -459,9 +456,14 @@
           //активирование нужных и деактивирование ненужных для выбранного раздела элементов, а так же заполнение активированных
           $.getJSON('https://graalogosh.tk/section', query_data, function(data) {
               $.each(data, function(index, el) {
-                 $('#socialGrant').prop('disabled', !el.socialGrant);
 
-                 $('#socialCategory').prop('disabled', !el.socialCategory);
+                 calculateButton("socialGrant", "disabled", !el.socialGrant, 
+                  "socialCategory", "disabled", !el.socialCategory,
+                  "socialWorkCategory", "disabled", !el.socialWork,
+                  "score", "disabled", !el.averageScore,
+                  "calculateButton", "disabled", !el.averageScore,
+                  "bankAccountNumber", "disabled", !el.bankAccountNumber);
+
                  if (el.socialCategory) {
                     $.getJSON('https://graalogosh.tk/socialCategory', function(data) {
                       $.each(data, function(index, el) {
@@ -470,7 +472,6 @@
                     });
                  };
 
-                 $('#socialWorkCategory').prop('disabled', !el.socialWork);
                  if (el.socialWork) {
                     $.getJSON('https://graalogosh.tk/socialWorkCategory', function(data) {
                         $.each(data, function(index, el) {
@@ -478,12 +479,7 @@
                         });
                     });
                  };
-
-                 $('#score').prop('disabled', !el.averageScore);
-
-                 $('#calculateButton').prop('disabled', !el.averageScore);
-
-                 $('#bankAccountNumber').prop('disabled', !el.bankAccountNumber);
+                 
               });
           });
         }
@@ -503,7 +499,7 @@
             });
         });
 
-        $('#socialWork').prop('disabled', false);
+        changeSettings("socialWork", "disabled", false);
       }
     </script>
 
