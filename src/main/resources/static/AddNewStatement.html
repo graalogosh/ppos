@@ -182,7 +182,7 @@
                            <div class="form-group">
                                <label class="control-label col-lg-3" for="socialWorkID">Общ. работа:</label>
                                <div class="col-lg-9">
-                                 <select class="form-control" id="socialWorkID" disabled>
+                                 <select class="form-control" id="socialWorkID" disabled onchange="onChangeSocialWork()">
                                     <option value="0" disabled selected style="display:none;">Выберите общественную работу</option>
                                  </select>
                                </div>
@@ -260,7 +260,7 @@
                              </form>
                              <form class="form-horizontal col-lg-3">
                                <div class="btn-group pull-right">
-                                   <button type="submit" class="btn btn-success" id="addButton" onclick="onClickAddButton()" disabled>Добавить</button>
+                                   <button type="button" class="btn btn-success" id="addButton" onclick="onClickAddButton()" disabled>Добавить</button>
                                    <button type="submit" class="btn btn-primary">Отмена</button>
                                </div>
                              </form>
@@ -290,6 +290,8 @@
     <script>
       //переменная для обозначения, попадает заявление в резерв или нет
       var reserve = false;
+      //объект для проверки заполненности всех нужных полей перед добавлением заявления
+      var addObject = {};
     </script>
 <!-- ____________________________________________________________________________________________________ -->
 
@@ -379,6 +381,9 @@
         }
         else {
           $("#averageScore").val(averageEstimates("score"));
+
+          //присваиваем вычисленное значение объекту addObject
+          addObject["averageScore"] = $("#averageScore").val();
         }
 	    }
     </script>
@@ -399,6 +404,9 @@
           "score",'disabled', true,
           "calculateButton", 'disabled', true,
           "bankAccountNumber", 'disabled', true);
+
+        //очищаем объект addObject
+        addObject = {};
 
         //очищаем все поля ввода, чтобы пользователь случайно не добавил заявление с неверными данными
         $('#eventID').html('<option value="0" disabled selected style="display:none;">Выберите мероприятие</option>');
@@ -498,6 +506,21 @@
                   "calculateButton", "disabled", !el.averageScore,
                   "bankAccountNumber", "disabled", !el.bankAccountNumber);
 
+                 //заполняем объект addObject элементами, нужными для выбранного раздела
+                 //если нужна социальная категория
+                 if (el.socialCategory) {
+                    addObject["socialCategoryID"] = -1;
+                 }
+                 //если нужна социальная работа
+                 if (el.socialWork) {
+                    addObject["socialWorkCategoryID"] = -1;
+                    addObject["socialWorkID"] = -1;
+                 }
+                 //если нужна средняя оценка за последний семестр
+                 if (el.averageScore) {
+                    addObject["averageScore"] = -1;
+                 }
+
                  if (el.socialCategory) {
                     $.getJSON('https://graalogosh.tk/socialCategory', function(data) {
                       $.each(data, function(index, el) {
@@ -528,18 +551,32 @@
       function onChangeSocialWorkCategory() {
 
         //очищаем элемент от старых записей
-        $('#socialWorkID').html('');
+        $('#socialWorkID').html('<option value="0" disabled selected style="display:none;">Выберите общественную работу</option>');
         
         var query_data = sendInform("socialWorkCategoryID");
         $.getJSON('https://graalogosh.tk/socialWork', query_data, function(data) {
             $.each(data, function(index, el) {
               $('<option value="' + el.socialWorkID + '">' + el.title + '</option>').appendTo('#socialWorkID');
+
+              //присваиваем выбранное значение объекту addObject
+              addObject["socialWorkCategoryID"] = query_data.socialWorkCategoryID;
             });
         });
 
         changeSettings("socialWorkID", "disabled", false);
       }
     </script>
+
+
+<!-- ____________________________________________________________________________________________________ -->
+
+
+<!-- при смене вида общественной работы сохраняем в объект addObject выбранный вариант -->
+  <script>
+    function onChangeSocialWork(){
+      addObject["socialWorkID"] = $("#socialWorkID").val();
+    }
+  </script>
 
 
 <!-- ____________________________________________________________________________________________________ -->
@@ -557,6 +594,9 @@
             $.each(data, function(index, el) {
               $("#documents").val(el.documents);
               moneyCategory = el.money;
+
+              //присваиваем объекту addObject выбранное значение
+              addObject["socialCategoryID"] = el.socialCategoryID;
             });
         });
 
@@ -604,15 +644,23 @@
         //   "reserve":reserve
         // };
 
+        //проверяем, заполнены ли все необходимые поля
+        for (var el in addObject){
+          if (addObject[el] == -1) {
+            alert("Заполнены не все необходимые поля.");
+            return;
+          }
+        }
+
         var query_data = sendInform("studentID", "eventID", "socialCategoryID", "socialWorkID", "completeDocs", "comment", "reserve");
 
-        $.ajax({
-          url: 'https://graalogosh.tk/statement',
-          type: 'POST',
-          data: query_data,
-          processData: false,
-          contentType: "application/json"
-        });        
+        // $.ajax({
+        //   url: 'https://graalogosh.tk/statement',
+        //   type: 'POST',
+        //   data: query_data,
+        //   processData: false,
+        //   contentType: "application/json"
+        // });        
       }
     </script>
 
