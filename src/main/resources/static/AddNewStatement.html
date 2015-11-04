@@ -503,7 +503,7 @@
     <script>
       function onChangeSocialWorkCategory() {
         var query_data = sendInform("socialWorkCategory");
-        $.getJSON('https://graalogosh.tk/socialWork', function(data) {
+        $.getJSON('https://graalogosh.tk/socialWork', query_data, function(data) {
             $.each(data, function(index, el) {
               $('<option value="' + el.socialWorkID + '">' + el.title + '</option>').appendTo('#socialWork');
             });
@@ -517,7 +517,7 @@
 <!-- ____________________________________________________________________________________________________ -->
 
 
-<!-- при выборе социальной категории заполняем окошко необходимых жокументов и выводим выплачиваемую денежную сумму, если она нужна -->
+<!-- при выборе социальной категории заполняем окошко необходимых документов и выводим выплачиваемую денежную сумму, если она нужна -->
     <script>
       function onChangeSocialCategory(){
 
