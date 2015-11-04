@@ -200,9 +200,9 @@
                    <div class="row">
                        <form class="form-horizontal col-md-6 col-lg-6">
                            <div class="form-group">
-                               <label class="control-label col-lg-5" for="socialCategory">Социальная категория:</label>
+                               <label class="control-label col-lg-5" for="socialCategoryID">Социальная категория:</label>
                                <div class="col-lg-7">
-                                 <select class="form-control" id="socialCategory" onchange="onChangeSocialCategory()" disabled>
+                                 <select class="form-control" id="socialCategoryID" onchange="onChangeSocialCategory()" disabled>
                                     <option value="0" disabled selected style="display:none;">Выберите социальную категорию</option>
                                  </select>
                                </div>
@@ -322,7 +322,7 @@
 
         //выключаем все элементы при поиске студента(в дальнейшей работе с программой нужные элементы будут включены)
         changeSettings("socialGrant", 'disabled', true,
-          "socialCategory", 'disabled', true,
+          "socialCategoryID", 'disabled', true,
           "socialWorkCategory", 'disabled', true,
           "socialWork", 'disabled', true,
           "score",'disabled', true,
@@ -393,7 +393,7 @@
 
         //выключаем все элементы при смене раздела (в дальнейшей работе с программой нужные элементы будут включены)
         changeSettings("socialGrant", 'disabled', true,
-          "socialCategory", 'disabled', true,
+          "socialCategoryID", 'disabled', true,
           "socialWorkCategory", 'disabled', true,
           "socialWork", 'disabled', true,
           "score",'disabled', true,
@@ -492,7 +492,7 @@
               $.each(data, function(index, el) {
 
                  changeSettings("socialGrant", "disabled", !el.socialGrant, 
-                  "socialCategory", "disabled", !el.socialCategory,
+                  "socialCategoryID", "disabled", !el.socialCategory,
                   "socialWorkCategory", "disabled", !el.socialWork,
                   "score", "disabled", !el.averageScore,
                   "calculateButton", "disabled", !el.averageScore,
@@ -501,7 +501,7 @@
                  if (el.socialCategory) {
                     $.getJSON('https://graalogosh.tk/socialCategory', function(data) {
                       $.each(data, function(index, el) {
-                         $('<option value="' + el.socialCategoryID + '">' + el.title + '</option>').appendTo('#socialCategory');
+                         $('<option value="' + el.socialCategoryID + '">' + el.title + '</option>').appendTo('#socialCategoryID');
                       });
                     });
                  };
@@ -548,7 +548,7 @@
         //переменная для хранения выплачиваемой суммы денег
         var moneyCategory = 0;
         //заполняем окошко нербходимыми документами для данной социальной категории
-        var query_data = sendInform("socialCategory");
+        var query_data = sendInform("socialCategoryID");
         $.getJSON('https://graalogosh.tk/socialCategory', query_data, function(data) {
             $.each(data, function(index, el) {
               $("#documents").text(el.documents);
