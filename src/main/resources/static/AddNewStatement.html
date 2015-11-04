@@ -180,9 +180,9 @@
                         <form class="form-horizontal col-md-6 col-lg-6">
                            <!-- общественная работа -->
                            <div class="form-group">
-                               <label class="control-label col-lg-3" for="socialWork">Общ. работа:</label>
+                               <label class="control-label col-lg-3" for="socialWorkID">Общ. работа:</label>
                                <div class="col-lg-9">
-                                 <select class="form-control" id="socialWork" disabled>
+                                 <select class="form-control" id="socialWorkID" disabled>
                                     <option value="0" disabled selected style="display:none;">Выберите общественную работу</option>
                                  </select>
                                </div>
@@ -244,9 +244,9 @@
                          </form>
                              <form class="form-horizontal col-md-4 col-lg-3">
                                <div class="form-group">
-                                   <label class="control-label col-lg-6" for="average_score">Средний балл:</label>
+                                   <label class="control-label col-lg-6" for="averageScore">Средний балл:</label>
                                    <div class="col-lg-6">
-                                     <input type="text" class="form-control" id="average_score" disabled>
+                                     <input type="text" class="form-control" id="averageScore" disabled>
                                    </div>                      
                                </div>
                              </form>
@@ -294,20 +294,13 @@
 <!-- ____________________________________________________________________________________________________ -->
 
 
-    <!-- Когда документ загрузится - запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID -->
+    <!-- Когда документ загрузится - задаём маски ввода элементам -->
     <script>
       $(document).ready(function() {
         //маска для ввода оценок студента
         $('#score').mask('0000000000', {'translation': {0: {pattern: /[2-5]/}}});
         //маска для номера студенческого
         $('#studentID').mask('00000000', {'translation': {0: {pattern: /[0-9Ии-]/}}});
-
-        //запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID
-        $.getJSON('https://graalogosh.tk/section', function(data) {
-            $.each(data, function(index, el) {
-              $('<option value="' + el.sectionID + '">' + el.title + '</option>').appendTo("#sectionID");
-            });
-        });
       });
     </script>
 
@@ -319,16 +312,16 @@
          активация комбобокса раздела мероприятия и checkbox "Все документы в наличии" -->
     <script>
       function onClickFind () {
-
         //выключаем все элементы при поиске студента(в дальнейшей работе с программой нужные элементы будут включены)
         changeSettings("socialGrant", 'disabled', true,
           "socialCategoryID", 'disabled', true,
           "socialWorkCategory", 'disabled', true,
-          "socialWork", 'disabled', true,
+          "socialWorkID", 'disabled', true,
           "score",'disabled', true,
           "calculateButton", 'disabled', true,
           "bankAccountNumber", 'disabled', true,
-          "eventID", "disabled", true);
+          "eventID", "disabled", true,
+          "comment", "disabled", true);
 
         //очищаем все поля ввода, чтобы пользователь случайно не добавил заявление с неверными данными
         $('#sectionID').html('<option value="0" disabled selected style="display:none;">Выберите раздел</option>');
@@ -336,13 +329,13 @@
         $('#socialWorkCategory').html('<option value="0" disabled selected style="display:none;">Выберите категорию</option>');
         $('#socialWorkID').html('<option value="0" disabled selected style="display:none;">Выберите общественную работу</option>');
         $('#socialCategoryID').html('<option value="0" disabled selected style="display:none;">Выберите социальную категорию</option>');
-        $('#documents').text('');
-        $('#comment').text('');
-        $('#completeDocs')prop('checked', false);
-        $('#socialGrant')prop('checked', false);
-        $('#score').text('');
-        $('#averageScore').text('');
-        $('#moneyCategorye').text('');
+        $('#completeDocs').prop('checked', false);
+        $('#socialGrant').prop('checked', false);
+        $('#documents').val('');
+        $('#comment').val('');
+        $('#score').val('');
+        $('#averageScore').val('');
+        $('#moneyCategory').val('');
 
         //Если воле номера студенческого не заполнили, то выводим об этом сообщение с предупреждением и завершаем скрипт
         if ($('#studentID').val() == "") {
@@ -358,6 +351,13 @@
               $("#phone").val(el.phone);
               $("#bankAccountNumber").val(el.bankAccountNumber);
               $("#fio").val(el.name);
+            });
+        });
+
+        //запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID
+        $.getJSON('https://graalogosh.tk/section', function(data) {
+            $.each(data, function(index, el) {
+              $('<option value="' + el.sectionID + '">' + el.title + '</option>').appendTo("#sectionID");
             });
         });
 
@@ -378,7 +378,7 @@
           alert('Не введена ни одна оценка.');
         }
         else {
-          $("#average_score").val(averageEstimates("score"));
+          $("#averageScore").val(averageEstimates("score"));
         }
 	    }
     </script>
@@ -395,7 +395,7 @@
         changeSettings("socialGrant", 'disabled', true,
           "socialCategoryID", 'disabled', true,
           "socialWorkCategory", 'disabled', true,
-          "socialWork", 'disabled', true,
+          "socialWorkID", 'disabled', true,
           "score",'disabled', true,
           "calculateButton", 'disabled', true,
           "bankAccountNumber", 'disabled', true);
@@ -405,13 +405,13 @@
         $('#socialWorkCategory').html('<option value="0" disabled selected style="display:none;">Выберите категорию</option>');
         $('#socialWorkID').html('<option value="0" disabled selected style="display:none;">Выберите общественную работу</option>');
         $('#socialCategoryID').html('<option value="0" disabled selected style="display:none;">Выберите социальную категорию</option>');
-        $('#documents').text('');
-        $('#comment').text('');
-        $('#completeDocs')prop('checked', false);
-        $('#socialGrant')prop('checked', false);
-        $('#score').text('');
-        $('#averageScore').text('');
-        $('#moneyCategorye').text('');
+        $('#completeDocs').prop('checked', false);
+        $('#socialGrant').prop('checked', false);
+        $('#documents').val('');
+        $('#comment').val('');
+        $('#score').val('');
+        $('#averageScore').val('');
+        $('#moneyCategory').val('');
 
         //Заполняем поле eventID мероприятиями по выбранному разделу мероприятий
         var query_data = sendInform("sectionID");
@@ -529,11 +529,11 @@
         var query_data = sendInform("socialWorkCategory");
         $.getJSON('https://graalogosh.tk/socialWork', query_data, function(data) {
             $.each(data, function(index, el) {
-              $('<option value="' + el.socialWorkID + '">' + el.title + '</option>').appendTo('#socialWork');
+              $('<option value="' + el.socialWorkID + '">' + el.title + '</option>').appendTo('#socialWorkID');
             });
         });
 
-        changeSettings("socialWork", "disabled", false);
+        changeSettings("socialWorkID", "disabled", false);
       }
     </script>
 
