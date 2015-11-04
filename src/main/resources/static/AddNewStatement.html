@@ -590,20 +590,22 @@
     <script>
       function onClickAddButton(){
 
-        var data = {
-          "studentID":$("#studentID").val(),
-          "eventID":$("#eventID").val(),
-          "socialCategoryID":$("#socialCategoryID").val(),
-          "socialWorkID":$("#socialWorkID").val(),
-          "completeDocs":$("#completeDocs").is(":checked"),
-          "comment":$("#comment").val(),
-          "reserve":reserve
-        };
+        // var data = {
+        //   "studentID":$("#studentID").val(),
+        //   "eventID":$("#eventID").val(),
+        //   "socialCategoryID":$("#socialCategoryID").val(),
+        //   "socialWorkID":$("#socialWorkID").val(),
+        //   "completeDocs":$("#completeDocs").is(":checked"),
+        //   "comment":$("#comment").val(),
+        //   "reserve":reserve
+        // };
+
+        var query_data = sendInform("studentID", "eventID", "socialCategoryID", "socialWorkID", "completeDocs", "comment", "reserve");
 
         $.ajax({
           url: 'https://graalogosh.tk/statement',
           type: 'POST',
-          data: data,
+          data: query_data,
           processData: false,
           contentType: "application/json"
         });        
