@@ -551,7 +551,7 @@
         var query_data = sendInform("socialCategoryID");
         $.getJSON('https://graalogosh.tk/socialCategory', query_data, function(data) {
             $.each(data, function(index, el) {
-              $("#documents").text(el.documents);
+              $("#documents").val(el.documents);
               moneyCategory = el.money;
             });
         });
