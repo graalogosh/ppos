@@ -167,9 +167,9 @@
                        <form class="form-horizontal col-md-6 col-lg-6">                           
                            <!-- категория -->
                            <div class="form-group">
-                               <label class="control-label col-lg-3" for="socialWorkCategory">Категория:</label>
+                               <label class="control-label col-lg-3" for="socialWorkCategoryID">Категория:</label>
                                   <div class="col-lg-9">
-                                     <select class="form-control" id="socialWorkCategory" onchange="onChangeSocialWorkCategory()" disabled>
+                                     <select class="form-control" id="socialWorkCategoryID" onchange="onChangeSocialWorkCategory()" disabled>
                                         <option value="0" disabled selected style="display:none;">Выберите категорию</option>
                                       </select>
                                   </div>
@@ -315,7 +315,7 @@
         //выключаем все элементы при поиске студента(в дальнейшей работе с программой нужные элементы будут включены)
         changeSettings("socialGrant", 'disabled', true,
           "socialCategoryID", 'disabled', true,
-          "socialWorkCategory", 'disabled', true,
+          "socialWorkCategoryID", 'disabled', true,
           "socialWorkID", 'disabled', true,
           "score",'disabled', true,
           "calculateButton", 'disabled', true,
@@ -326,7 +326,7 @@
         //очищаем все поля ввода, чтобы пользователь случайно не добавил заявление с неверными данными
         $('#sectionID').html('<option value="0" disabled selected style="display:none;">Выберите раздел</option>');
         $('#eventID').html('<option value="0" disabled selected style="display:none;">Выберите мероприятие</option>');
-        $('#socialWorkCategory').html('<option value="0" disabled selected style="display:none;">Выберите категорию</option>');
+        $('#socialWorkCategoryID').html('<option value="0" disabled selected style="display:none;">Выберите категорию</option>');
         $('#socialWorkID').html('<option value="0" disabled selected style="display:none;">Выберите общественную работу</option>');
         $('#socialCategoryID').html('<option value="0" disabled selected style="display:none;">Выберите социальную категорию</option>');
         $('#completeDocs').prop('checked', false);
@@ -394,7 +394,7 @@
         //выключаем все элементы при смене раздела (в дальнейшей работе с программой нужные элементы будут включены)
         changeSettings("socialGrant", 'disabled', true,
           "socialCategoryID", 'disabled', true,
-          "socialWorkCategory", 'disabled', true,
+          "socialWorkCategoryID", 'disabled', true,
           "socialWorkID", 'disabled', true,
           "score",'disabled', true,
           "calculateButton", 'disabled', true,
@@ -402,7 +402,7 @@
 
         //очищаем все поля ввода, чтобы пользователь случайно не добавил заявление с неверными данными
         $('#eventID').html('<option value="0" disabled selected style="display:none;">Выберите мероприятие</option>');
-        $('#socialWorkCategory').html('<option value="0" disabled selected style="display:none;">Выберите категорию</option>');
+        $('#socialWorkCategoryID').html('<option value="0" disabled selected style="display:none;">Выберите категорию</option>');
         $('#socialWorkID').html('<option value="0" disabled selected style="display:none;">Выберите общественную работу</option>');
         $('#socialCategoryID').html('<option value="0" disabled selected style="display:none;">Выберите социальную категорию</option>');
         $('#completeDocs').prop('checked', false);
@@ -493,7 +493,7 @@
 
                  changeSettings("socialGrant", "disabled", !el.socialGrant, 
                   "socialCategoryID", "disabled", !el.socialCategory,
-                  "socialWorkCategory", "disabled", !el.socialWork,
+                  "socialWorkCategoryID", "disabled", !el.socialWork,
                   "score", "disabled", !el.averageScore,
                   "calculateButton", "disabled", !el.averageScore,
                   "bankAccountNumber", "disabled", !el.bankAccountNumber);
@@ -509,7 +509,7 @@
                  if (el.socialWork) {
                     $.getJSON('https://graalogosh.tk/socialWorkCategory', function(data) {
                         $.each(data, function(index, el) {
-                           $('<option value="' + el.socialWorkCategoryID + '">' + el.title + '</option>').appendTo('#socialWorkCategory');
+                           $('<option value="' + el.socialWorkCategoryID + '">' + el.title + '</option>').appendTo('#socialWorkCategoryID');
                         });
                     });
                  };
@@ -526,7 +526,11 @@
     <!-- заполнение комбобокса видами общественных работ в зависимости от выбранной категории общественных работ и активация этого комбобокса -->
     <script>
       function onChangeSocialWorkCategory() {
-        var query_data = sendInform("socialWorkCategory");
+
+        //очищаем элемент от старых записей
+        $('#socialWorkID').html('');
+        
+        var query_data = sendInform("socialWorkCategoryID");
         $.getJSON('https://graalogosh.tk/socialWork', query_data, function(data) {
             $.each(data, function(index, el) {
               $('<option value="' + el.socialWorkID + '">' + el.title + '</option>').appendTo('#socialWorkID');
