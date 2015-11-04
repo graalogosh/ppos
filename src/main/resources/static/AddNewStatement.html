@@ -330,6 +330,20 @@
           "bankAccountNumber", 'disabled', true,
           "eventID", "disabled", true);
 
+        //очищаем все поля ввода, чтобы пользователь случайно не добавил заявление с неверными данными
+        $('#sectionID').html('<option value="0" disabled selected style="display:none;">Выберите раздел</option>');
+        $('#eventID').html('<option value="0" disabled selected style="display:none;">Выберите мероприятие</option>');
+        $('#socialWorkCategory').html('<option value="0" disabled selected style="display:none;">Выберите категорию</option>');
+        $('#socialWorkID').html('<option value="0" disabled selected style="display:none;">Выберите общественную работу</option>');
+        $('#socialCategoryID').html('<option value="0" disabled selected style="display:none;">Выберите социальную категорию</option>');
+        $('#documents').text('');
+        $('#comment').text('');
+        $('#completeDocs')prop('checked', false);
+        $('#socialGrant')prop('checked', false);
+        $('#score').text('');
+        $('#averageScore').text('');
+        $('#moneyCategorye').text('');
+
         //Если воле номера студенческого не заполнили, то выводим об этом сообщение с предупреждением и завершаем скрипт
         if ($('#studentID').val() == "") {
           alert ("Не введён номер студенческого.");
@@ -386,8 +400,18 @@
           "calculateButton", 'disabled', true,
           "bankAccountNumber", 'disabled', true);
 
-        //удаляем уже записанные в комбобокс мероприятия
+        //очищаем все поля ввода, чтобы пользователь случайно не добавил заявление с неверными данными
         $('#eventID').html('<option value="0" disabled selected style="display:none;">Выберите мероприятие</option>');
+        $('#socialWorkCategory').html('<option value="0" disabled selected style="display:none;">Выберите категорию</option>');
+        $('#socialWorkID').html('<option value="0" disabled selected style="display:none;">Выберите общественную работу</option>');
+        $('#socialCategoryID').html('<option value="0" disabled selected style="display:none;">Выберите социальную категорию</option>');
+        $('#documents').text('');
+        $('#comment').text('');
+        $('#completeDocs')prop('checked', false);
+        $('#socialGrant')prop('checked', false);
+        $('#score').text('');
+        $('#averageScore').text('');
+        $('#moneyCategorye').text('');
 
         //Заполняем поле eventID мероприятиями по выбранному разделу мероприятий
         var query_data = sendInform("sectionID");
