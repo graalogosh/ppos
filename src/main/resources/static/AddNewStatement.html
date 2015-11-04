@@ -654,13 +654,15 @@
 
         var query_data = sendInform("studentID", "eventID", "socialCategoryID", "socialWorkID", "completeDocs", "comment", "reserve");
 
-        // $.ajax({
-        //   url: 'https://graalogosh.tk/statement',
-        //   type: 'POST',
-        //   data: query_data,
-        //   processData: false,
-        //   contentType: "application/json"
-        // });        
+        var str = JSON.stringify(query_data);
+
+        $.ajax({
+          url: 'https://graalogosh.tk/statement',
+          type: 'POST',
+          data: str,
+          processData: false,
+          contentType: "application/json"
+        });        
       }
     </script>
 
