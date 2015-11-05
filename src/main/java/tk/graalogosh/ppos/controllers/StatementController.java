@@ -14,6 +14,7 @@ import tk.graalogosh.ppos.models.Event;
 import tk.graalogosh.ppos.models.Section;
 import tk.graalogosh.ppos.models.Statement;
 import tk.graalogosh.ppos.models.Student;
+import tk.graalogosh.ppos.models.constuctors.StatementConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -214,8 +215,19 @@ public class StatementController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Boolean postStatement(
-            @RequestBody Statement statement) {
-        //TODO fix names in frontend or get constructor object and buid real Statement object to save in DB
+            @RequestBody StatementConstructor statementConstructor) {
+
+        Statement statement = new Statement();
+
+        statement.setStudent(statementConstructor.getStudent());
+        statement.setEvent(statementConstructor.getEvent());
+        statement.setSocialCategory(statementConstructor.getSocialCategory());
+        statement.setSocialWork(statementConstructor.getSocialWork());
+        statement.setAverage_score(statementConstructor.getAverage_score());
+        statement.setComment(statementConstructor.getComment());
+        statement.setCompleteDocs(statementConstructor.getCompleteDocs());
+        statement.setReserve(statementConstructor.getReserve());
+
         statement.setFillingDate(LocalDate.now());
         statement.setEmployee(employeeRepository.findOne(1));//TODO fix to real employeeID from session
         statement.setCourse(courseRepository.findOne(statement.getStudent().getCourse()));
@@ -227,6 +239,7 @@ public class StatementController {
                         statement.getStudent(), statement.getEvent().getSection()
                 )
         ));
+
 
         if (statementRepository.statementIsValid(statement)) {
             statementRepository.save(statement);

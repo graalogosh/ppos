@@ -1,20 +1,14 @@
 package tk.graalogosh.ppos.models.constuctors;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import tk.graalogosh.ppos.models.*;
-import tk.graalogosh.ppos.utils.LocalDateDeserializer;
-import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
-
-import javax.persistence.*;
-import java.time.LocalDate;
+import tk.graalogosh.ppos.models.Event;
+import tk.graalogosh.ppos.models.SocialCategory;
+import tk.graalogosh.ppos.models.SocialWork;
+import tk.graalogosh.ppos.models.Student;
 
 /**
  * Created by graal on 06.08.2015.
  */
-@Entity
-@Table(name = "statement")
 public class StatementConstructor {
     public StatementConstructor(){}
 
@@ -22,7 +16,7 @@ public class StatementConstructor {
     private Student student;
 
     @JsonProperty(value = "eventID")
-    private Event eventID;
+    private Event event;
 
     @JsonProperty(value = "socialCategoryID")
     private SocialCategory socialCategory;
@@ -47,12 +41,12 @@ public class StatementConstructor {
         this.student = student;
     }
 
-    public Event getEventID() {
-        return eventID;
+    public Event getEvent() {
+        return event;
     }
 
-    public void setEventID(Event eventID) {
-        this.eventID = eventID;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     public SocialCategory getSocialCategory() {
@@ -103,9 +97,9 @@ public class StatementConstructor {
         this.reserve = reserve;
     }
 
-    public StatementConstructor(Student student, Event eventID, SocialCategory socialCategory, SocialWork socialWork, Double average_score, String comment, Boolean completeDocs, Boolean reserve) {
+    public StatementConstructor(Student student, Event event, SocialCategory socialCategory, SocialWork socialWork, Double average_score, String comment, Boolean completeDocs, Boolean reserve) {
         this.student = student;
-        this.eventID = eventID;
+        this.event = event;
         this.socialCategory = socialCategory;
         this.socialWork = socialWork;
         this.average_score = average_score;
