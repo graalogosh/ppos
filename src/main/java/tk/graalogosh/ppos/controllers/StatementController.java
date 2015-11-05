@@ -215,6 +215,7 @@ public class StatementController {
     @RequestMapping(method = RequestMethod.POST)
     public Boolean postStatement(
             @RequestBody Statement statement) {
+        //TODO fix names in frontend or get constructor object and buid real Statement object to save in DB
         statement.setFillingDate(LocalDate.now());
         statement.setEmployee(employeeRepository.findOne(1));//TODO fix to real employeeID from session
         statement.setCourse(courseRepository.findOne(statement.getStudent().getCourse()));
