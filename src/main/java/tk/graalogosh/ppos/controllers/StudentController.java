@@ -126,4 +126,13 @@ public class StudentController {
         studentRepository.saveAndFlush(payload);//try-catch
         return payload;
     }
+
+    @RequestMapping(value = "/changeBankAccountNumber", method = RequestMethod.POST)
+    public Boolean changeBankAccoutnNumber(
+            @RequestParam(value = "studentID", required = true) Student student,
+            @RequestParam(value = "bankAccountNumber", required = true) String bankAccountNumber) {
+        student.setBankAccountNumber(bankAccountNumber);
+        studentRepository.save(student);
+        return true;
+    }
 }
