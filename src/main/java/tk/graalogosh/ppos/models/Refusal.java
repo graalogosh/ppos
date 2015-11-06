@@ -14,7 +14,7 @@ public class Refusal {
     @Id
     @Column(name = "refusal_count")
     private Integer refusalCount;
-    private int point;
+    private Integer point;
 
     public int getRefusalCount() {
         return refusalCount;
