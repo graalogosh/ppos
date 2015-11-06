@@ -41,7 +41,7 @@ public class EventRepositoryTest extends TestCase {
 //            System.out.println(event.getEventID());
 //        }
 //        System.out.println("*************************");
-        assertEquals(5, eventRepository.findAll(EventSpecifications.findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate.now())).size());
+        assertEquals(6, eventRepository.findAll(EventSpecifications.findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate.now())).size());
     }
 
     @Test
