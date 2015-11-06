@@ -1,10 +1,6 @@
 package tk.graalogosh.ppos.models.constuctors;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import tk.graalogosh.ppos.models.Event;
-import tk.graalogosh.ppos.models.SocialCategory;
-import tk.graalogosh.ppos.models.SocialWork;
-import tk.graalogosh.ppos.models.Student;
 
 /**
  * Created by graal on 06.08.2015.
@@ -13,19 +9,19 @@ public class StatementConstructor {
     public StatementConstructor(){}
 
     @JsonProperty(value = "studentID")
-    private Student student;
+    private String  studentID;
 
     @JsonProperty(value = "eventID")
-    private Event event;
+    private Integer eventID;
 
     @JsonProperty(value = "socialCategoryID")
-    private SocialCategory socialCategory;
+    private Integer socialCategoryID;
 
     @JsonProperty(value = "socialWorkID")
-    private SocialWork socialWork;
+    private Integer socialWorkID;
 
     //TODO averageScore
-    private Double average_score;
+    private Double averageScore;
 
     private String comment;
 
@@ -33,44 +29,44 @@ public class StatementConstructor {
 
     private Boolean reserve;
 
-    public Student getStudent() {
-        return student;
+    public String getStudentID() {
+        return studentID;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
     }
 
-    public Event getEvent() {
-        return event;
+    public Integer getEventID() {
+        return eventID;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setEventID(Integer eventID) {
+        this.eventID = eventID;
     }
 
-    public SocialCategory getSocialCategory() {
-        return socialCategory;
+    public Integer getSocialCategoryID() {
+        return socialCategoryID;
     }
 
-    public void setSocialCategory(SocialCategory socialCategory) {
-        this.socialCategory = socialCategory;
+    public void setSocialCategoryID(Integer socialCategoryID) {
+        this.socialCategoryID = socialCategoryID;
     }
 
-    public SocialWork getSocialWork() {
-        return socialWork;
+    public Integer getSocialWorkID() {
+        return socialWorkID;
     }
 
-    public void setSocialWork(SocialWork socialWork) {
-        this.socialWork = socialWork;
+    public void setSocialWorkID(Integer socialWorkID) {
+        this.socialWorkID = socialWorkID;
     }
 
-    public Double getAverage_score() {
-        return average_score;
+    public Double getAverageScore() {
+        return averageScore;
     }
 
-    public void setAverage_score(Double average_score) {
-        this.average_score = average_score;
+    public void setAverageScore(Double averageScore) {
+        this.averageScore = averageScore;
     }
 
     public String getComment() {
@@ -97,12 +93,12 @@ public class StatementConstructor {
         this.reserve = reserve;
     }
 
-    public StatementConstructor(Student student, Event event, SocialCategory socialCategory, SocialWork socialWork, Double average_score, String comment, Boolean completeDocs, Boolean reserve) {
-        this.student = student;
-        this.event = event;
-        this.socialCategory = socialCategory;
-        this.socialWork = socialWork;
-        this.average_score = average_score;
+    public StatementConstructor(String studentID, Integer eventID, Integer socialCategoryID, Integer socialWorkID, Double averageScore, String comment, Boolean completeDocs, Boolean reserve) {
+        this.studentID = studentID;
+        this.eventID = eventID;
+        this.socialCategoryID = socialCategoryID;
+        this.socialWorkID = socialWorkID;
+        this.averageScore = averageScore;
         this.comment = comment;
         this.completeDocs = completeDocs;
         this.reserve = reserve;
