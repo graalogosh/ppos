@@ -128,7 +128,7 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/changeBankAccountNumber", method = RequestMethod.POST)
-    public Boolean changeBankAccoutnNumber(
+    public Boolean changeBankAccountNumber(
             @RequestParam(value = "studentID", required = true) Student student,
             @RequestParam(value = "bankAccountNumber", required = true) String bankAccountNumber) {
         student.setBankAccountNumber(bankAccountNumber);
