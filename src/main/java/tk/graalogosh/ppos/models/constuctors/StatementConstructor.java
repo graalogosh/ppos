@@ -8,6 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class StatementConstructor {
     public StatementConstructor(){}
 
+    //for statement update
+    @JsonProperty(value = "statementID")
+    private Integer statementID;
+
     @JsonProperty(value = "studentID")
     private String  studentID;
 
@@ -28,6 +32,14 @@ public class StatementConstructor {
     private Boolean completeDocs;
 
     private Boolean reserve;
+
+    public Integer getStatementID() {
+        return statementID;
+    }
+
+    public void setStatementID(Integer statementID) {
+        this.statementID = statementID;
+    }
 
     public String getStudentID() {
         return studentID;
@@ -93,7 +105,8 @@ public class StatementConstructor {
         this.reserve = reserve;
     }
 
-    public StatementConstructor(String studentID, Integer eventID, Integer socialCategoryID, Integer socialWorkID, Double averageScore, String comment, Boolean completeDocs, Boolean reserve) {
+    public StatementConstructor(Integer statementID, String studentID, Integer eventID, Integer socialCategoryID, Integer socialWorkID, Double averageScore, String comment, Boolean completeDocs, Boolean reserve) {
+        this.statementID = statementID;
         this.studentID = studentID;
         this.eventID = eventID;
         this.socialCategoryID = socialCategoryID;

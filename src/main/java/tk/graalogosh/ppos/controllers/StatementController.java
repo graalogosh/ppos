@@ -216,6 +216,8 @@ public class StatementController {
     public Boolean postStatement(
             @RequestBody StatementConstructor statementConstructor) {
 
+        //todo create - update methods and logic
+
         Statement statement = new Statement();
         statement.setStudent(studentRepository.findOne(statementConstructor.getStudentID()));
         statement.setEvent(eventRepository.findOne(statementConstructor.getEventID()));
