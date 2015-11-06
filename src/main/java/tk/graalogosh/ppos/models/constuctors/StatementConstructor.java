@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class StatementConstructor {
     public StatementConstructor(){}
 
+    //TODO в конструкторе должны быть все поля из заявления, чтобы можно было выполнть изменение
+
     //for statement update
     @JsonProperty(value = "statementID")
     private Integer statementID;
