@@ -219,10 +219,10 @@ public class StatementController {
         //todo create - update methods and logic
 
         Statement statement = new Statement();
-        statement.setStudent(studentRepository.findOne(statementConstructor.getStudentID()));
-        statement.setEvent(eventRepository.findOne(statementConstructor.getEventID()));
-        statement.setSocialCategory(socialCategoryRepository.findOne(statementConstructor.getSocialCategoryID()));
-        statement.setSocialWork(socialWorkRepository.findOne(statementConstructor.getSocialWorkID()));
+        statement.setStudent(statementConstructor.getStudentID() != null ? studentRepository.findOne(statementConstructor.getStudentID()) : null);
+        statement.setEvent(statementConstructor.getEventID() != null ? eventRepository.findOne(statementConstructor.getEventID()) : null);
+        statement.setSocialCategory(statementConstructor.getSocialCategoryID() != null ? socialCategoryRepository.findOne(statementConstructor.getSocialCategoryID()) : null);
+        statement.setSocialWork(statementConstructor.getSocialWorkID() != null ? socialWorkRepository.findOne(statementConstructor.getSocialWorkID()) : null);
         statement.setAverage_score(statementConstructor.getAverageScore());
         statement.setComment(statementConstructor.getComment());
         statement.setCompleteDocs(statementConstructor.getCompleteDocs());
