@@ -347,7 +347,7 @@
 
         var query_data = sendInform("studentID");
 
-        $.getJSON('https://graalogosh.tk/student', query_data, function(data) {
+        $.getJSON('/student', query_data, function(data) {
             $.each(data, function(index, el) {
               $("#educationalGroup").val(el.educationalGroup);
               $("#phone").val(el.phone);
@@ -357,7 +357,7 @@
         });
 
         //запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID
-        $.getJSON('https://graalogosh.tk/section', function(data) {
+        $.getJSON('/section', function(data) {
             $.each(data, function(index, el) {
               $('<option value="' + el.sectionID + '">' + el.title + '</option>').appendTo("#sectionID");
             });
@@ -424,7 +424,7 @@
         //Заполняем поле eventID мероприятиями по выбранному разделу мероприятий
         var query_data = sendInform("sectionID");
 
-				$.getJSON('https://graalogosh.tk/event', query_data, function(data) {
+				$.getJSON('/event', query_data, function(data) {
 						$.each(data, function(index, el) {
 							 $('<option value="' + el.eventID + '">' + el.title + '</option>').appendTo('#eventID');
 						});
@@ -454,7 +454,7 @@
           var query_data = sendInform("studentID", "sectionID");
 
           //проверяем, подавал ли студент заявление по данному разделу в текущем семестре
-          $.getJSON('https://graalogosh.tk/statement/check/beenOnSectionInCurTerm', query_data, function(data) {
+          $.getJSON('/statement/check/beenOnSectionInCurTerm', query_data, function(data) {
             //если получили true - студент автматически попадает в резерв
             if (data == true) {
               reserve = true;
@@ -465,7 +465,7 @@
           var query_data = sendInform("studentID", "eventID");
 
           //проверяем, подавал ли студент заявление на данное мероприятие в текущем семестре
-          $.getJSON('https://graalogosh.tk/statement/check/madeStatementOnEvent', query_data, function(data) {
+          $.getJSON('/statement/check/madeStatementOnEvent', query_data, function(data) {
 
               //если нашлись заявления, удовлетворяющие условиям, блокируем добавление и сообщеам, что документы уже были добавлены
               if (data == true) {
@@ -485,7 +485,7 @@
 
 
           //проверяем, ездил ли студент на данное мероприятие за всё время обучения (по предкам мероприятия)
-          $.getJSON('https://graalogosh.tk/statement/check/beenOnAncestors', query_data, function(data) {
+          $.getJSON('/statement/check/beenOnAncestors', query_data, function(data) {
             //если true, то предупреждаем, что заявление автоматически попадает в резерв
             if (data == true) {
               reserve = true;
@@ -496,7 +496,7 @@
           var query_data = sendInform("sectionID");
 
           //активирование нужных и деактивирование ненужных для выбранного раздела элементов, а так же заполнение активированных
-          $.getJSON('https://graalogosh.tk/section', query_data, function(data) {
+          $.getJSON('/section', query_data, function(data) {
               $.each(data, function(index, el) {
 
                  changeSettings("socialGrant", "disabled", !el.socialGrant, 
@@ -522,7 +522,7 @@
                  }
 
                  if (el.socialCategory) {
-                    $.getJSON('https://graalogosh.tk/socialCategory', function(data) {
+                    $.getJSON('/socialCategory', function(data) {
                       $.each(data, function(index, el) {
                          $('<option value="' + el.socialCategoryID + '">' + el.title + '</option>').appendTo('#socialCategoryID');
                       });
@@ -530,7 +530,7 @@
                  };
 
                  if (el.socialWork) {
-                    $.getJSON('https://graalogosh.tk/socialWorkCategory', function(data) {
+                    $.getJSON('/socialWorkCategory', function(data) {
                         $.each(data, function(index, el) {
                            $('<option value="' + el.socialWorkCategoryID + '">' + el.title + '</option>').appendTo('#socialWorkCategoryID');
                         });
@@ -554,7 +554,7 @@
         $('#socialWorkID').html('<option value="0" disabled selected style="display:none;">Выберите общественную работу</option>');
         
         var query_data = sendInform("socialWorkCategoryID");
-        $.getJSON('https://graalogosh.tk/socialWork', query_data, function(data) {
+        $.getJSON('/socialWork', query_data, function(data) {
             $.each(data, function(index, el) {
               $('<option value="' + el.socialWorkID + '">' + el.title + '</option>').appendTo('#socialWorkID');
 
@@ -590,7 +590,7 @@
         var moneyCategory = 0;
         //заполняем окошко нербходимыми документами для данной социальной категории
         var query_data = sendInform("socialCategoryID");
-        $.getJSON('https://graalogosh.tk/socialCategory', query_data, function(data) {
+        $.getJSON('/socialCategory', query_data, function(data) {
             $.each(data, function(index, el) {
               $("#documents").val(el.documents);
               moneyCategory = el.money;
@@ -602,7 +602,7 @@
 
         //если для выбранного раздела нужно знать выплачиваемую сумму денег, то заполняем это поле
         var query_data = sendInform("section");
-        $.getJSON('https://graalogosh.tk/section', query_data, function(data) {
+        $.getJSON('/section', query_data, function(data) {
             $.each(data, function(index, el) {
               if (el.moneyCategory) {
                 $("#moneyCategory").text(moneyCategory);
@@ -657,7 +657,7 @@
         var str = JSON.stringify(query_data);
 
         $.ajax({
-          url: 'https://graalogosh.tk/statement',
+          url: '/statement',
           type: 'POST',
           data: str,
           processData: false,
@@ -671,7 +671,7 @@
     <!-- Перенаправление не страницу с карточкой студента при нажатии кнопки "Открыть карточку студента" -->
     <script>
       function onClickOpenStudent() {
-        window.location.href = "https://graalogosh.tk/statements?statementID=" + $('#studentID').val();
+        window.location.href = "/statements?statementID=" + $('#studentID').val();
       }
     </script>
 
