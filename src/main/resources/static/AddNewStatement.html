@@ -97,7 +97,7 @@
                           <div class="form-group">
                               <label class="control-label col-md-4 col-lg-3" for="bankAccountNumber">Банк. счёт:</label>
                               <div class="col-md-8 col-lg-9">
-                                  <input type="text" class="form-control" id="bankAccountNumber" disabled>
+                                  <input type="text" class="form-control" id="bankAccountNumber" onblur="onBlurBankAccountNumber()" disabled>
                               </div>
                           </div>
                           <!-- конец банковского счёта -->
@@ -303,6 +303,8 @@
         $('#score').mask('0000000000', {'translation': {0: {pattern: /[2-5]/}}});
         //маска для номера студенческого
         $('#studentID').mask('00000000', {'translation': {0: {pattern: /[0-9Ии-]/}}});
+        //маска для номера банковского счёта
+        $('#bankAccountNumber').mask('00000000000000000000');
       });
     </script>
 
@@ -666,6 +668,33 @@
       }
     </script>
 
+
+<!-- ____________________________________________________________________________________________________ -->
+
+
+    <!-- при потере фокуса у элемента bankAccountNumber отправляем номер банковского счёта этого студента на сервер для записи -->
+    <script>
+      function onBlurBankAccountNumber(){
+
+        //проверка на нужное количество символов в номере банковского счёта
+        if ($("#bankAccountNumber").val().length != 20) {
+          alert('Неверно введён номер банковского счёта (пропущена одна или несколько цифр).');
+          return;
+        };
+
+        //формируем JSON объект для отправки на сервер
+        var query_data = sendInform("studentID", "bankAccountNumber");
+
+        // $.ajax({
+        //   url: '/student/changeBankAccountNumber',
+        //   type: 'POST',
+        //   data: query_data
+        // });
+
+        $.post('/student/changeBankAccountNumber', query_data);
+
+      }
+    </script>
 
   
     <!-- Перенаправление не страницу с карточкой студента при нажатии кнопки "Открыть карточку студента" -->
