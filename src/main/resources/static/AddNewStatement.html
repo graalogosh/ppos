@@ -313,6 +313,11 @@
         reserve = window.location.search.substring(9, index);
         statementID = window.location.search.substring(index+13);
 
+        //проверка, был ли передан номер заявления. Если нет - мы работаем в режиме добавления заявления и прерываем работу этой функции
+        if (statementID == "") {
+          return;
+        };
+
         if (reserve == 'true') {
           reserve = true;
         }
@@ -320,10 +325,8 @@
           reserve = false;
         }
 
-        //проверка, был ли передан номер заявления. Если нет - мы работаем в режиме добавления заявления и прерываем работу этой функции
-        if (statementID == "") {
-          return;
-        };
+        // меняем текст кнопки с "Добавить" на "Изменить"
+        $("#addButton").html("Изменить");
 
         //запрашиваем данные по открытому заявлению и заполняем поля данными о нём
         var query_data = {"statementID": statementID};
@@ -346,10 +349,26 @@
                   });
               });
 
+              // выделяем нужный раздел, выбранный в изменяемом заявлении
               $("#sectionID").val(el.event.section.sectionID);
 
               //активация комбобокса раздела мероприятия и checkbox "Все документы в наличии"
               changeSettings("sectionID", "disabled", false, "completeDocs", "disabled", false);
+
+              //Заполняем поле eventID мероприятиями по выбранному разделу мероприятий
+              var query_data = sendInform("sectionID");
+
+              $.getJSON('/event', query_data, function(data) {
+                  $.each(data, function(index, el) {
+                     $('<option value="' + el.eventID + '">' + el.title + '</option>').appendTo('#eventID');
+                  });
+              });
+
+              //активация комбобокса мероприятий и раздела с комментарием
+              changeSettings("eventID", "disabled", false, "comment", "disabled", false);
+              // выделяем нужное мероприятие, выбранное в изменяемом заявлении
+              $("#eventID").val(el.event.eventID);
+
             });
           });
 
