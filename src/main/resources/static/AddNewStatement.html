@@ -292,11 +292,13 @@
       var reserve = false;
       //объект для проверки заполненности всех нужных полей перед добавлением заявления
       var addObject = {};
+      //переменная для хранения номера заявления (если заявление - то null, если не новое - то его номер из базы данных)
+      var statementID = null;
     </script>
 <!-- ____________________________________________________________________________________________________ -->
 
 
-    <!-- Когда документ загрузится - задаём маски ввода элементам -->
+    <!-- Когда документ загрузится - задаём маски ввода элементам и парсим входящую строку запроса, если таковая была (получаем номер открытого заявления) -->
     <script>
       $(document).ready(function() {
         //маска для ввода оценок студента
@@ -305,6 +307,52 @@
         $('#studentID').mask('00000000', {'translation': {0: {pattern: /[0-9Ии-]/}}});
         //маска для номера банковского счёта
         $('#bankAccountNumber').mask('00000000000000000000');
+
+        //парсим строку запроса (получаем номер открытого заявления и находится ли оно в резерве)
+        var index = window.location.search.indexOf('&')
+        reserve = window.location.search.substring(9, index);
+        statementID = window.location.search.substring(index+13);
+
+        if (reserve == 'true') {
+          reserve = true;
+        }
+        else {
+          reserve = false;
+        }
+
+        //проверка, был ли передан номер заявления. Если нет - мы работаем в режиме добавления заявления и прерываем работу этой функции
+        if (statementID == "") {
+          return;
+        };
+
+        //запрашиваем данные по открытому заявлению и заполняем поля данными о нём
+        var query_data = {"statementID": statementID};
+
+        $.getJSON('/statement', query_data , function(data) {
+            $.each(data, function(index, el) {
+              $("#studentID").val(el.student.studentID);
+              $("#educationalGroup").val(el.student.educationalGroup);
+              $("#phone").val(el.student.phone);
+              $("#bankAccountNumber").val(el.student.bankAccountNumber);
+              $("#fio").val(el.student.name);
+
+              // отключаем асинхронность запросов, чтобы виды разделов успели загрузиться до того, как мы выберем в них раздел текущего заявления
+              $.ajaxSetup({async:false});
+
+              //запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID
+              $.getJSON('/section', function(data) {
+                  $.each(data, function(index, el) {
+                    $('<option value="' + el.sectionID + '">' + el.title + '</option>').appendTo("#sectionID");
+                  });
+              });
+
+              $("#sectionID").val(el.event.section.sectionID);
+
+              //активация комбобокса раздела мероприятия и checkbox "Все документы в наличии"
+              changeSettings("sectionID", "disabled", false, "completeDocs", "disabled", false);
+            });
+          });
+
       });
     </script>
 
@@ -737,7 +785,9 @@
     <!-- Перенаправление не страницу с карточкой студента при нажатии кнопки "Открыть карточку студента" -->
     <script>
       function onClickOpenStudent() {
-        window.location.href = "/statements?statementID=" + $('#studentID').val();
+
+        window.location.href = "/statements.html?statementID=" + $('#studentID').val();
+
       }
     </script>
 
