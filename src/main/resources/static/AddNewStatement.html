@@ -654,7 +654,9 @@
           }
         }
 
-        var query_data = sendInform("studentID", "eventID", "socialCategoryID", "socialWorkID", "completeDocs", "comment", "reserve", "averageScore");
+        var query_data = sendInform("studentID", "eventID", "socialCategoryID", "socialWorkID", "completeDocs", "comment", "averageScore");
+        // поскольку reserve является глобальной переменной, а не элементом формы, то запичываем его в объект вручную
+        query_data["reserve"] = reserve;
 
         var str = JSON.stringify(query_data);
 
@@ -663,8 +665,43 @@
           type: 'POST',
           data: str,
           processData: false,
-          contentType: "application/json"
-        });        
+          contentType: "application/json",
+          // делаем запрос синхронным
+          async: false
+        });
+
+        //выводим сообщение пользователю о том, что заявление принято
+        alert("Заявление принято.");
+
+        //очищаем поля ввода для следующего заявления
+        changeSettings("socialGrant", 'disabled', true,
+          "socialCategoryID", 'disabled', true,
+          "socialWorkCategoryID", 'disabled', true,
+          "socialWorkID", 'disabled', true,
+          "score",'disabled', true,
+          "calculateButton", 'disabled', true,
+          "bankAccountNumber", 'disabled', true,
+          "eventID", "disabled", true,
+          "comment", "disabled", true);
+
+        $('#sectionID').html('<option value="0" disabled selected style="display:none;">Выберите раздел</option>');
+        $('#eventID').html('<option value="0" disabled selected style="display:none;">Выберите мероприятие</option>');
+        $('#socialWorkCategoryID').html('<option value="0" disabled selected style="display:none;">Выберите категорию</option>');
+        $('#socialWorkID').html('<option value="0" disabled selected style="display:none;">Выберите общественную работу</option>');
+        $('#socialCategoryID').html('<option value="0" disabled selected style="display:none;">Выберите социальную категорию</option>');
+        $('#completeDocs').prop('checked', false);
+        $('#socialGrant').prop('checked', false);
+        $('#documents').val('');
+        $('#comment').val('');
+        $('#score').val('');
+        $('#averageScore').val('');
+        $('#moneyCategory').val('');
+        $('#studentID').val('');
+        $('#educationalGroup').val('');
+
+        // переводим фокус ввода на элемент с номером студенческого
+        $('#studentID').focus();
+
       }
     </script>
 
