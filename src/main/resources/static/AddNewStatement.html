@@ -107,11 +107,11 @@
                       <!-- кнопки "Найти" и "Открыть карточку студента" -->
                       <form class="form-horizontal col-md-3 col-lg-3 pull-right">
                           <div class="btn-group-vertical visible-md visible-lg" role="group">
-                              <button type="button" class="btn btn-success" onclick="onClickFind()">Найти</button>
+                              <button type="button" class="btn btn-success" onclick="onClickFind()" id="findButton1">Найти</button>
                               <button type="button" class="btn btn-primary" onclick="onClickOpenStudent()">Открыть карточку студента</button>
                           </div>
                           <div class="btn-group visible-sm visible-xs" role="group">
-                              <button type="button" class="btn btn-success" onclick="onClickFind()">Найти</button>
+                              <button type="button" class="btn btn-success" onclick="onClickFind()" id="findButton2">Найти</button>
                               <button type="button" class="btn btn-primary" onclick="onClickOpenStudent()">Открыть карточку студента</button>
                           </div>   
                       </form>
@@ -328,6 +328,11 @@
         // меняем текст кнопки с "Добавить" на "Изменить"
         $("#addButton").html("Изменить");
 
+        // блокируем кнопку "Найти" и элемент с номером студенческого, чтобы пользователь не мог поменять студента в изменяемом заявлении
+        $("#findButton1").prop('disabled', true);
+        $("#findButton2").prop('disabled', true);
+        $("#studentID").prop('disabled', true);
+
         //запрашиваем данные по открытому заявлению и заполняем поля данными о нём
         var query_data = {"statementID": statementID};
 
@@ -342,18 +347,11 @@
               // отключаем асинхронность запросов, чтобы виды разделов успели загрузиться до того, как мы выберем в них раздел текущего заявления
               $.ajaxSetup({async:false});
 
-              //запрашиваем данные о разделах мероприятий и записываем их в элемент sectionID
-              $.getJSON('/section', function(data) {
-                  $.each(data, function(index, el) {
-                    $('<option value="' + el.sectionID + '">' + el.title + '</option>').appendTo("#sectionID");
-                  });
-              });
+              // записываем в раздел мероприятий раздел, выбранный в изменяемомо заявлении
+              $("#sectionID").html('<option value="' + el.event.section.sectionID + '">' + el.event.section.title + '</option>');
 
-              // выделяем нужный раздел, выбранный в изменяемом заявлении
-              $("#sectionID").val(el.event.section.sectionID);
-
-              //активация комбобокса раздела мероприятия и checkbox "Все документы в наличии"
-              changeSettings("sectionID", "disabled", false, "completeDocs", "disabled", false);
+              //активация checkbox "Все документы в наличии"
+              changeSettings("completeDocs", "disabled", false);
 
               //Заполняем поле eventID мероприятиями по выбранному разделу мероприятий
               var query_data = sendInform("sectionID");
@@ -366,8 +364,67 @@
 
               //активация комбобокса мероприятий и раздела с комментарием
               changeSettings("eventID", "disabled", false, "comment", "disabled", false);
+
               // выделяем нужное мероприятие, выбранное в изменяемом заявлении
               $("#eventID").val(el.event.eventID);
+
+              //активирование нужных и деактивирование ненужных для выбранного раздела элементов, а так же заполнение активированных
+              $.getJSON('/section', query_data, function(data) {
+                  $.each(data, function(index, el1) {
+
+                     changeSettings("socialGrant", "disabled", !el1.socialGrant, 
+                      "socialCategoryID", "disabled", !el1.socialCategory,
+                      "socialWorkCategoryID", "disabled", !el1.socialWork,
+                      "socialWorkID", "disabled", !el1.socialWork,
+                      "score", "disabled", !el1.averageScore,
+                      "calculateButton", "disabled", !el1.averageScore,
+                      "bankAccountNumber", "disabled", !el1.bankAccountNumber);
+
+                     //если нужна средняя оценка за последний семестр
+                     if (el1.averageScore) {
+                        $("#averageScore").val(el.average_score);
+                     }
+
+                     // если нужна денежная категория
+                     if (el1.moneyCategory) {
+                      $("#moneyCategory").val(el.moneyCategory);
+                     };
+
+                     // если нужна социальная категория
+                     if (el1.socialCategory) {
+                        $.getJSON('/socialCategory', function(data) {
+                          $.each(data, function(index, el2) {
+                             $('<option value="' + el2.socialCategoryID + '">' + el2.title + '</option>').appendTo('#socialCategoryID');
+                          });
+                        });
+                        $("#socialCategoryID").val(el.socialCategory.socialCategoryID);
+                     };
+
+                     // если нужна социальная работа
+                     if (el1.socialWork) {
+                        $.getJSON('/socialWorkCategory', function(data) {
+                            $.each(data, function(index, el2) {
+                               $('<option value="' + el2.socialWorkCategoryID + '">' + el2.title + '</option>').appendTo('#socialWorkCategoryID');
+                            });
+                        });
+                        $("#socialWorkCategoryID").val(el.socialWork.socialWorkCategory.socialWorkCategoryID);
+
+                        $.getJSON('/socialWork', function(data) {
+                            $.each(data, function(index, el3) {
+                               $('<option value="' + el3.socialWorkID + '">' + el3.title + '</option>').appendTo('#socialWorkID');
+                            });
+                        });
+                        $("#socialWorkID").val(el.socialWork.socialWorkID);
+                     };
+
+                     //отмечаем "Все докменты" в соответствии с данными из изменяемого заявления
+                     $("#completeDocs").prop('checked', el.completeDocs);
+                  });
+              });
+
+
+
+
 
             });
           });
