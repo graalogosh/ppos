@@ -14,6 +14,7 @@ import tk.graalogosh.ppos.models.Section;
 import tk.graalogosh.ppos.models.Statement;
 import tk.graalogosh.ppos.models.Student;
 import tk.graalogosh.ppos.models.constuctors.StatementConstructor;
+import tk.graalogosh.ppos.utils.JsonBoolean;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -213,7 +214,7 @@ public class StatementController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Boolean postStatement(
+    public JsonBoolean postStatement(
             @RequestBody StatementConstructor statementConstructor) {
 
         //todo create - update methods and logic
@@ -256,37 +257,37 @@ public class StatementController {
 
         if (statementRepository.statementIsValid(statement)) {
             statementRepository.save(statement);
-            return true;
+            return new JsonBoolean(true);
         } else {
-            return false;
+            return new JsonBoolean(false);
         }
     }
 
-    @RequestMapping(value = "/check/beenOnEvent", method = RequestMethod.GET)
-    public Boolean haveBeenOnEvent(
+    @RequestMapping(value = "/check/beenOnEvent", method = RequestMethod.GET, produces="application/json")
+    public JsonBoolean haveBeenOnEvent(
             @RequestParam(value = "eventID", required = true) Event event,
             @RequestParam(value = "studentID", required = true) Student student) {
-        return eventRepository.studentHaveBeenOnEvent(student, event);
+        return new JsonBoolean(eventRepository.studentHaveBeenOnEvent(student, event));
     }
 
     @RequestMapping(value = "/check/beenOnAncestors", method = RequestMethod.GET)
-    public Boolean haveBeenOnAncestors(
+    public JsonBoolean haveBeenOnAncestors(
             @RequestParam(value = "eventID", required = true) Event event,
             @RequestParam(value = "studentID", required = true) Student student) {
-        return eventRepository.haveStudentBeenOnAncestorEvent(student, event);
+        return new JsonBoolean(eventRepository.haveStudentBeenOnAncestorEvent(student, event));
     }
 
     @RequestMapping(value = "/check/beenOnSectionInCurTerm", method = RequestMethod.GET)
-    public Boolean haveBeenOnSectionInCurrentTerm(
+    public JsonBoolean haveBeenOnSectionInCurrentTerm(
             @RequestParam(value = "studentID", required = true) Student student,
             @RequestParam(value = "sectionID", required = true) Section section) {
-        return sectionRepository.studentBeenOnSectionOfCurrentTerm(student, section);
+        return new JsonBoolean(sectionRepository.studentBeenOnSectionOfCurrentTerm(student, section));
     }
 
     @RequestMapping(value = "/check/madeStatementOnEvent", method = RequestMethod.GET)
-    public Boolean studentMadeStatementOnEvent(
+    public JsonBoolean studentMadeStatementOnEvent(
             @RequestParam(value = "studentID", required = true) Student student,
             @RequestParam(value = "eventID", required = true) Event event) {
-        return eventRepository.studentMadeStatementOnEvent(student, event);
+        return new JsonBoolean(eventRepository.studentMadeStatementOnEvent(student, event));
     }
 }
