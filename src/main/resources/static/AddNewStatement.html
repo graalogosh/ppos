@@ -409,7 +409,9 @@
                         });
                         $("#socialWorkCategoryID").val(el.socialWork.socialWorkCategory.socialWorkCategoryID);
 
-                        $.getJSON('/socialWork', function(data) {
+                        var query_data = sendInform("socialWorkCategoryID");
+
+                        $.getJSON('/socialWork', query_data, function(data) {
                             $.each(data, function(index, el3) {
                                $('<option value="' + el3.socialWorkID + '">' + el3.title + '</option>').appendTo('#socialWorkID');
                             });
@@ -423,8 +425,10 @@
               });
     
               //активируем кнопку "Изменить"
-              changeSettings("addButton", disabled, false);
+              changeSettings("addButton", "disabled", false);
 
+              // активирование асинхронного режима работы запросов
+              $.ajaxSetup({async:true});
 
 
             });
@@ -775,7 +779,7 @@
         if (statementID != "") {
           //если для данного раздела мероприятий нужна общественная работа и при этом не выбрана ни одна из них, то сообщаем об этом пользователю и завершаем
           //работу скрипта
-          if (($("#socialWorkID").val() == 0) && !($("#socialWorkID").is(':disabled'))) {
+          if (($("#socialWorkID").val() == null) && !($("#socialWorkID").is(':disabled'))) {
             alert("Пожалуйста, выберите общественную работу.");
             return;
           }
