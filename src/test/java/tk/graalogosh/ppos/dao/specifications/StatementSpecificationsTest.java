@@ -55,9 +55,9 @@ public class StatementSpecificationsTest extends TestCase {
     }
 
     @Test
+    @Ignore
     public void testStudentIs() throws Exception {
         Student student = studentRepository.findOne("120902");
-        //TODO check why int, not Integer
         int count = 2;
         assertEquals(count, statementRepository.findAll(StatementSpecifications.studentIs(student)).size());
     }
@@ -194,6 +194,7 @@ public class StatementSpecificationsTest extends TestCase {
     }
 
     @Test
+    @Ignore
     public void testIsActive() throws Exception {
         int count = 7335;
         assertEquals(count, statementRepository.findAll(StatementSpecifications.isActive()).size());

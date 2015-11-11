@@ -78,7 +78,7 @@ public class Statement {
 
     //TODO averageScore
 //    @Getter @Setter
-    private Double average_score;
+    private Double averageScore;
 
     @ManyToOne
     @JoinColumn(name = "refusal_count")
@@ -203,12 +203,12 @@ public class Statement {
         this.tripCount = tripCount;
     }
 
-    public Double getAverage_score() {
-        return average_score;
+    public Double getAverageScore() {
+        return averageScore;
     }
 
-    public void setAverage_score(Double average_score) {
-        this.average_score = average_score;
+    public void setAverageScore(Double averageScore) {
+        this.averageScore = averageScore;
     }
 
     public Refusal getRefusalCount() {
@@ -275,7 +275,7 @@ public class Statement {
         this.reserve = reserve;
     }
 
-    public Statement(Integer statementID, LocalDate fillingDate, Student student, Event event, Employee employee, Boolean socialGrant, SocialCategory socialCategory, SocialWork socialWork, Double moneyCategory, Course course, TripCount tripCount, Double average_score, Refusal refusalCount, Integer permitNumber, LocalDate refusalDate, LocalDate cancellationDate, StatementList list, String comment, Boolean completeDocs, Boolean reserve) {
+    public Statement(Integer statementID, LocalDate fillingDate, Student student, Event event, Employee employee, Boolean socialGrant, SocialCategory socialCategory, SocialWork socialWork, Double moneyCategory, Course course, TripCount tripCount, Double averageScore, Refusal refusalCount, Integer permitNumber, LocalDate refusalDate, LocalDate cancellationDate, StatementList list, String comment, Boolean completeDocs, Boolean reserve) {
         this.statementID = statementID;
         this.fillingDate = fillingDate;
         this.student = student;
@@ -287,7 +287,7 @@ public class Statement {
         this.moneyCategory = moneyCategory;
         this.course = course;
         this.tripCount = tripCount;
-        this.average_score = average_score;
+        this.averageScore = averageScore;
         this.refusalCount = refusalCount;
         this.permitNumber = permitNumber;
         this.refusalDate = refusalDate;

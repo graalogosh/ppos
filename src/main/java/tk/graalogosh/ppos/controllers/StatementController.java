@@ -213,53 +213,16 @@ public class StatementController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Boolean postStatement(
-            @RequestBody StatementConstructor statementConstructor) {
+    public Statement postStatement(
+            @RequestBody StatementConstructor statementConstructor) throws Exception {
 
-        //todo create - update methods and logic
-
-        Statement statement = new Statement();
-        statement.setStudent(statementConstructor.getStudentID() != null ? studentRepository.findOne(statementConstructor.getStudentID()) : null);
-        statement.setEvent(statementConstructor.getEventID() != null ? eventRepository.findOne(statementConstructor.getEventID()) : null);
-        statement.setSocialCategory(statementConstructor.getSocialCategoryID() != null ? socialCategoryRepository.findOne(statementConstructor.getSocialCategoryID()) : null);
-        statement.setSocialWork(statementConstructor.getSocialWorkID() != null ? socialWorkRepository.findOne(statementConstructor.getSocialWorkID()) : null);
-        statement.setAverage_score(statementConstructor.getAverageScore());
-        statement.setComment(statementConstructor.getComment());
-        statement.setCompleteDocs(statementConstructor.getCompleteDocs());
-        //todo не получаю с фронта
-//        statement.setReserve(statementConstructor.getReserve());
-        statement.setReserve(false);
-
-
-        //todo fix
-        if (statement.getEvent().getSection().getMoneyCategory()) {
-            statement.setMoneyCategory(statement.getSocialCategory().getMoney());
+        if (statementConstructor.getStatementID()==null){
+            return statementRepository.createStatement(statementConstructor);
+        }
+        else{
+            return statementRepository.updateStatement(statementConstructor);
         }
 
-        //todo откуда получить? видимо с фронта
-        statement.setSocialGrant(false);
-
-        statement.setFillingDate(LocalDate.now());
-        statement.setEmployee(employeeRepository.findOne(1));//TODO fix to real employeeID from session
-        statement.setCourse(courseRepository.findOne(statement.getStudent().getCourse()));
-        //todo а что если поездок больше, чем есть в таблице?
-//        Integer tripCount = statementRepository.getStudentTripCount(statement.getStudent(), statement.getEvent().getSection());
-        statement.setTripCount(tripCountRepository.findOne(
-                statementRepository.getStudentTripCount(
-                        statement.getStudent(), statement.getEvent().getSection())));
-        //todo а что если отказов больше, чем есть в таблице?
-//        Integer refusalCount = statementRepository.getStudentRefusalCount(statement.getStudent(), statement.getEvent().getSection());
-        statement.setRefusalCount(refusalRepository.findOne(
-                statementRepository.getStudentRefusalCount(
-                        statement.getStudent(), statement.getEvent().getSection())));
-
-
-        if (statementRepository.statementIsValid(statement)) {
-            statementRepository.save(statement);
-            return true;
-        } else {
-            return false;
-        }
     }
 
     @RequestMapping(value = "/check/beenOnEvent", method = RequestMethod.GET)
