@@ -12,4 +12,5 @@ import javax.persistence.Table;
 @Repository
 @Table(name = "refusal")
 public interface RefusalRepository extends JpaRepository<Refusal, Integer>{
+    //todo find
 }

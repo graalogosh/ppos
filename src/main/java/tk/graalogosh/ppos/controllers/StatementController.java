@@ -1,6 +1,5 @@
 package tk.graalogosh.ppos.controllers;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import tk.graalogosh.ppos.models.Event;
 import tk.graalogosh.ppos.models.Section;
 import tk.graalogosh.ppos.models.Statement;
 import tk.graalogosh.ppos.models.Student;
+import tk.graalogosh.ppos.models.constuctors.StatementConstructor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -214,18 +214,45 @@ public class StatementController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Boolean postStatement(
-            @RequestBody Statement statement) {
+            @RequestBody StatementConstructor statementConstructor) {
+
+        //todo create - update methods and logic
+
+        Statement statement = new Statement();
+        statement.setStudent(statementConstructor.getStudentID() != null ? studentRepository.findOne(statementConstructor.getStudentID()) : null);
+        statement.setEvent(statementConstructor.getEventID() != null ? eventRepository.findOne(statementConstructor.getEventID()) : null);
+        statement.setSocialCategory(statementConstructor.getSocialCategoryID() != null ? socialCategoryRepository.findOne(statementConstructor.getSocialCategoryID()) : null);
+        statement.setSocialWork(statementConstructor.getSocialWorkID() != null ? socialWorkRepository.findOne(statementConstructor.getSocialWorkID()) : null);
+        statement.setAverage_score(statementConstructor.getAverageScore());
+        statement.setComment(statementConstructor.getComment());
+        statement.setCompleteDocs(statementConstructor.getCompleteDocs());
+        //todo не получаю с фронта
+//        statement.setReserve(statementConstructor.getReserve());
+        statement.setReserve(false);
+
+
+        //todo fix
+        if (statement.getEvent().getSection().getMoneyCategory()) {
+            statement.setMoneyCategory(statement.getSocialCategory().getMoney());
+        }
+
+        //todo откуда получить? видимо с фронта
+        statement.setSocialGrant(false);
+
         statement.setFillingDate(LocalDate.now());
         statement.setEmployee(employeeRepository.findOne(1));//TODO fix to real employeeID from session
         statement.setCourse(courseRepository.findOne(statement.getStudent().getCourse()));
+        //todo а что если поездок больше, чем есть в таблице?
+//        Integer tripCount = statementRepository.getStudentTripCount(statement.getStudent(), statement.getEvent().getSection());
         statement.setTripCount(tripCountRepository.findOne(
                 statementRepository.getStudentTripCount(
                         statement.getStudent(), statement.getEvent().getSection())));
+        //todo а что если отказов больше, чем есть в таблице?
+//        Integer refusalCount = statementRepository.getStudentRefusalCount(statement.getStudent(), statement.getEvent().getSection());
         statement.setRefusalCount(refusalRepository.findOne(
-                statementRepository.getStudentTripCount(
-                        statement.getStudent(), statement.getEvent().getSection()
-                )
-        ));
+                statementRepository.getStudentRefusalCount(
+                        statement.getStudent(), statement.getEvent().getSection())));
+
 
         if (statementRepository.statementIsValid(statement)) {
             statementRepository.save(statement);

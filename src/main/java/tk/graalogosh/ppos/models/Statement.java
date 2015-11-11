@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 //import lombok.AllArgsConstructor;
 //import lombok.Getter;
 //import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import tk.graalogosh.ppos.utils.LocalDateDeserializer;
 import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
 
@@ -22,7 +23,8 @@ public class Statement {
     public Statement(){}
 
     @Id
-//    @GeneratedValue
+    @GenericGenerator(name="generator", strategy="increment")
+    @GeneratedValue(generator="generator")
     @Column(name = "statement_id")
 //    @Getter @Setter
     private Integer statementID;

@@ -795,6 +795,7 @@
           }
         }
 
+
         var query_data = sendInform("studentID", "eventID", "socialCategoryID", "socialWorkID", "completeDocs", "comment", "averageScore");
         // поскольку reserve является глобальной переменной, а не элементом формы, то запичываем его в объект вручную
         query_data["reserve"] = reserve;
@@ -878,7 +879,6 @@
     <!-- Перенаправление не страницу с карточкой студента при нажатии кнопки "Открыть карточку студента" -->
     <script>
       function onClickOpenStudent() {
-
         window.location.href = "/statements.html?statementID=" + $('#studentID').val();
 
       }
