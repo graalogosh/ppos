@@ -97,7 +97,7 @@
                           <div class="form-group">
                               <label class="control-label col-md-4 col-lg-3" for="bankAccountNumber">Банк. счёт:</label>
                               <div class="col-md-8 col-lg-9">
-                                  <input type="text" class="form-control" id="bankAccountNumber" disabled>
+                                  <input type="text" class="form-control" id="bankAccountNumber" onblur="onBlurBankAccountNumber()" disabled>
                               </div>
                           </div>
                           <!-- конец банковского счёта -->
@@ -107,11 +107,11 @@
                       <!-- кнопки "Найти" и "Открыть карточку студента" -->
                       <form class="form-horizontal col-md-3 col-lg-3 pull-right">
                           <div class="btn-group-vertical visible-md visible-lg" role="group">
-                              <button type="button" class="btn btn-success" onclick="onClickFind()">Найти</button>
+                              <button type="button" class="btn btn-success" onclick="onClickFind()" id="findButton1">Найти</button>
                               <button type="button" class="btn btn-primary" onclick="onClickOpenStudent()">Открыть карточку студента</button>
                           </div>
                           <div class="btn-group visible-sm visible-xs" role="group">
-                              <button type="button" class="btn btn-success" onclick="onClickFind()">Найти</button>
+                              <button type="button" class="btn btn-success" onclick="onClickFind()" id="findButton2">Найти</button>
                               <button type="button" class="btn btn-primary" onclick="onClickOpenStudent()">Открыть карточку студента</button>
                           </div>   
                       </form>
@@ -292,17 +292,148 @@
       var reserve = false;
       //объект для проверки заполненности всех нужных полей перед добавлением заявления
       var addObject = {};
+      //переменная для хранения номера заявления (если заявление новое - то "", если не новое - то его номер из базы данных)
+      var statementID;
     </script>
 <!-- ____________________________________________________________________________________________________ -->
 
 
-    <!-- Когда документ загрузится - задаём маски ввода элементам -->
+    <!-- Когда документ загрузится - задаём маски ввода элементам и парсим входящую строку запроса, если таковая была (получаем номер открытого заявления) -->
     <script>
       $(document).ready(function() {
         //маска для ввода оценок студента
         $('#score').mask('0000000000', {'translation': {0: {pattern: /[2-5]/}}});
         //маска для номера студенческого
         $('#studentID').mask('00000000', {'translation': {0: {pattern: /[0-9Ии-]/}}});
+        //маска для номера банковского счёта
+        $('#bankAccountNumber').mask('00000000000000000000');
+
+        //парсим строку запроса (получаем номер открытого заявления и находится ли оно в резерве)
+        var index = window.location.search.indexOf('&')
+        reserve = window.location.search.substring(9, index);
+        statementID = window.location.search.substring(index+13);
+
+        //проверка, был ли передан номер заявления. Если нет - мы работаем в режиме добавления заявления и прерываем работу этой функции
+        if (statementID == "") {
+          return;
+        };
+
+        if (reserve == 'true') {
+          reserve = true;
+        }
+        else {
+          reserve = false;
+        }
+
+        // меняем текст кнопки с "Добавить" на "Изменить"
+        $("#addButton").html("Изменить");
+
+        // блокируем кнопку "Найти" и элемент с номером студенческого, чтобы пользователь не мог поменять студента в изменяемом заявлении
+        $("#findButton1").prop('disabled', true);
+        $("#findButton2").prop('disabled', true);
+        $("#studentID").prop('disabled', true);
+
+        //запрашиваем данные по открытому заявлению и заполняем поля данными о нём
+        var query_data = {"statementID": statementID};
+
+        $.getJSON('/statement', query_data , function(data) {
+            $.each(data, function(index, el) {
+              $("#studentID").val(el.student.studentID);
+              $("#educationalGroup").val(el.student.educationalGroup);
+              $("#phone").val(el.student.phone);
+              $("#bankAccountNumber").val(el.student.bankAccountNumber);
+              $("#fio").val(el.student.name);
+
+              // отключаем асинхронность запросов, чтобы виды разделов успели загрузиться до того, как мы выберем в них раздел текущего заявления
+              $.ajaxSetup({async:false});
+
+              // записываем в раздел мероприятий раздел, выбранный в изменяемомо заявлении
+              $("#sectionID").html('<option value="' + el.event.section.sectionID + '">' + el.event.section.title + '</option>');
+
+              //активация checkbox "Все документы в наличии"
+              changeSettings("completeDocs", "disabled", false);
+
+              //Заполняем поле eventID мероприятиями по выбранному разделу мероприятий
+              var query_data = sendInform("sectionID");
+
+              $.getJSON('/event', query_data, function(data) {
+                  $.each(data, function(index, el) {
+                     $('<option value="' + el.eventID + '">' + el.title + '</option>').appendTo('#eventID');
+                  });
+              });
+
+              //активация комбобокса мероприятий и раздела с комментарием
+              changeSettings("eventID", "disabled", false, "comment", "disabled", false);
+
+              // выделяем нужное мероприятие, выбранное в изменяемом заявлении
+              $("#eventID").val(el.event.eventID);
+
+              //активирование нужных и деактивирование ненужных для выбранного раздела элементов, а так же заполнение активированных
+              $.getJSON('/section', query_data, function(data) {
+                  $.each(data, function(index, el1) {
+
+                     changeSettings("socialGrant", "disabled", !el1.socialGrant, 
+                      "socialCategoryID", "disabled", !el1.socialCategory,
+                      "socialWorkCategoryID", "disabled", !el1.socialWork,
+                      "socialWorkID", "disabled", !el1.socialWork,
+                      "score", "disabled", !el1.averageScore,
+                      "calculateButton", "disabled", !el1.averageScore,
+                      "bankAccountNumber", "disabled", !el1.bankAccountNumber);
+
+                     //если нужна средняя оценка за последний семестр
+                     if (el1.averageScore) {
+                        $("#averageScore").val(el.average_score);
+                     }
+
+                     // если нужна денежная категория
+                     if (el1.moneyCategory) {
+                      $("#moneyCategory").val(el.moneyCategory);
+                     };
+
+                     // если нужна социальная категория
+                     if (el1.socialCategory) {
+                        $.getJSON('/socialCategory', function(data) {
+                          $.each(data, function(index, el2) {
+                             $('<option value="' + el2.socialCategoryID + '">' + el2.title + '</option>').appendTo('#socialCategoryID');
+                          });
+                        });
+                        $("#socialCategoryID").val(el.socialCategory.socialCategoryID);
+                     };
+
+                     // если нужна социальная работа
+                     if (el1.socialWork) {
+                        $.getJSON('/socialWorkCategory', function(data) {
+                            $.each(data, function(index, el2) {
+                               $('<option value="' + el2.socialWorkCategoryID + '">' + el2.title + '</option>').appendTo('#socialWorkCategoryID');
+                            });
+                        });
+                        $("#socialWorkCategoryID").val(el.socialWork.socialWorkCategory.socialWorkCategoryID);
+
+                        var query_data = sendInform("socialWorkCategoryID");
+
+                        $.getJSON('/socialWork', query_data, function(data) {
+                            $.each(data, function(index, el3) {
+                               $('<option value="' + el3.socialWorkID + '">' + el3.title + '</option>').appendTo('#socialWorkID');
+                            });
+                        });
+                        $("#socialWorkID").val(el.socialWork.socialWorkID);
+                     };
+
+                     //отмечаем "Все докменты" в соответствии с данными из изменяемого заявления
+                     $("#completeDocs").prop('checked', el.completeDocs);
+                  });
+              });
+    
+              //активируем кнопку "Изменить"
+              changeSettings("addButton", "disabled", false);
+
+              // активирование асинхронного режима работы запросов
+              $.ajaxSetup({async:true});
+
+
+            });
+          });
+
       });
     </script>
 
@@ -644,15 +775,30 @@
         //   "reserve":reserve
         // };
 
-        //проверяем, заполнены ли все необходимые поля
-        for (var el in addObject){
-          if (addObject[el] == -1) {
-            alert("Заполнены не все необходимые поля.");
+        // проверяем, это новое заявление или мы изменяем старое
+        if (statementID != "") {
+          //если для данного раздела мероприятий нужна общественная работа и при этом не выбрана ни одна из них, то сообщаем об этом пользователю и завершаем
+          //работу скрипта
+          if (($("#socialWorkID").val() == null) && !($("#socialWorkID").is(':disabled'))) {
+            alert("Пожалуйста, выберите общественную работу.");
             return;
           }
         }
+        // заявление новое
+        else {
+          //проверяем, заполнены ли все необходимые поля
+          for (var el in addObject){
+            if (addObject[el] == -1) {
+              alert("Заполнены не все необходимые поля.");
+              return;
+            }
+          }
+        }
 
-        var query_data = sendInform("studentID", "eventID", "socialCategoryID", "socialWorkID", "completeDocs", "comment", "reserve", "averageScore");
+
+        var query_data = sendInform("studentID", "eventID", "socialCategoryID", "socialWorkID", "completeDocs", "comment", "averageScore");
+        // поскольку reserve является глобальной переменной, а не элементом формы, то запичываем его в объект вручную
+        query_data["reserve"] = reserve;
 
         var str = JSON.stringify(query_data);
 
@@ -661,17 +807,80 @@
           type: 'POST',
           data: str,
           processData: false,
-          contentType: "application/json"
-        });        
+          contentType: "application/json",
+          // делаем запрос синхронным
+          async: false
+        });
+
+        //выводим сообщение пользователю о том, что заявление принято
+        alert("Заявление принято.");
+
+        //очищаем поля ввода для следующего заявления
+        changeSettings("socialGrant", 'disabled', true,
+          "socialCategoryID", 'disabled', true,
+          "socialWorkCategoryID", 'disabled', true,
+          "socialWorkID", 'disabled', true,
+          "score",'disabled', true,
+          "calculateButton", 'disabled', true,
+          "bankAccountNumber", 'disabled', true,
+          "eventID", "disabled", true,
+          "comment", "disabled", true);
+
+        $('#sectionID').html('<option value="0" disabled selected style="display:none;">Выберите раздел</option>');
+        $('#eventID').html('<option value="0" disabled selected style="display:none;">Выберите мероприятие</option>');
+        $('#socialWorkCategoryID').html('<option value="0" disabled selected style="display:none;">Выберите категорию</option>');
+        $('#socialWorkID').html('<option value="0" disabled selected style="display:none;">Выберите общественную работу</option>');
+        $('#socialCategoryID').html('<option value="0" disabled selected style="display:none;">Выберите социальную категорию</option>');
+        $('#completeDocs').prop('checked', false);
+        $('#socialGrant').prop('checked', false);
+        $('#documents').val('');
+        $('#comment').val('');
+        $('#score').val('');
+        $('#averageScore').val('');
+        $('#moneyCategory').val('');
+        $('#studentID').val('');
+        $('#educationalGroup').val('');
+
+        // переводим фокус ввода на элемент с номером студенческого
+        $('#studentID').focus();
+
       }
     </script>
 
+
+<!-- ____________________________________________________________________________________________________ -->
+
+
+    <!-- при потере фокуса у элемента bankAccountNumber отправляем номер банковского счёта этого студента на сервер для записи -->
+    <script>
+      function onBlurBankAccountNumber(){
+
+        //проверка на нужное количество символов в номере банковского счёта
+        if ($("#bankAccountNumber").val().length != 20) {
+          alert('Неверно введён номер банковского счёта (пропущена одна или несколько цифр).');
+          return;
+        };
+
+        //формируем JSON объект для отправки на сервер
+        var query_data = sendInform("studentID", "bankAccountNumber");
+
+        // $.ajax({
+        //   url: '/student/changeBankAccountNumber',
+        //   type: 'POST',
+        //   data: query_data
+        // });
+
+        $.post('/student/changeBankAccountNumber', query_data);
+
+      }
+    </script>
 
   
     <!-- Перенаправление не страницу с карточкой студента при нажатии кнопки "Открыть карточку студента" -->
     <script>
       function onClickOpenStudent() {
-        window.location.href = "/statements?statementID=" + $('#studentID').val();
+        window.location.href = "/statements.html?statementID=" + $('#studentID').val();
+
       }
     </script>
 
