@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 //import lombok.Getter;
 //import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import tk.graalogosh.ppos.models.constuctors.StatementConstructor;
 import tk.graalogosh.ppos.utils.LocalDateDeserializer;
 import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
 
@@ -296,6 +297,10 @@ public class Statement {
         this.comment = comment;
         this.completeDocs = completeDocs;
         this.reserve = reserve;
+    }
+
+    public Statement(StatementConstructor constructor){
+
     }
 
     public Boolean studentHaveBeenOnEvent() {

@@ -232,4 +232,13 @@ public class StatementSpecifications {
             }
         };
     }
+
+    public static Specification<Statement> IDIsNot (Integer statementID){
+        return new Specification<Statement>() {
+            @Override
+            public Predicate toPredicate(Root<Statement> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.notEqual(root.get(Statement_.statementID), statementID);
+            }
+        };
+    }
 }

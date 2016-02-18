@@ -229,7 +229,7 @@ public class StatementController {
     public Boolean haveBeenOnEvent(
             @RequestParam(value = "eventID", required = true) Event event,
             @RequestParam(value = "studentID", required = true) Student student) {
-        return eventRepository.studentHaveBeenOnEvent(student, event);
+        return eventRepository.haveStudentBeenOnEvent(student, event);
     }
 
     @RequestMapping(value = "/check/beenOnAncestors", method = RequestMethod.GET)
@@ -251,5 +251,13 @@ public class StatementController {
             @RequestParam(value = "studentID", required = true) Student student,
             @RequestParam(value = "eventID", required = true) Event event) {
         return eventRepository.studentMadeStatementOnEvent(student, event);
+    }
+
+    @RequestMapping(value = "/check/beenOnEventWithoutStatement", method = RequestMethod.GET)
+    public Boolean haveBeenOnEvent(
+            @RequestParam(value = "eventID", required = true) Event event,
+            @RequestParam(value = "studentID", required = true) Student student,
+            @RequestParam(value = "statementID", required = true)Statement statement) {
+        return eventRepository.haveStudentBeenOnEventWithoutStatement(student, event, statement);
     }
 }

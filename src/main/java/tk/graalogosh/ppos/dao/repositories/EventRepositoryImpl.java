@@ -21,7 +21,7 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
 
     private Boolean haveStudentBeenOnAncestorEvent_recursive(Student student, Event event, Integer depth) {
         if (event.getAncestor() == null && depth>1) {
-            return studentHaveBeenOnEvent(student, event);
+            return haveStudentBeenOnEvent(student, event);
         } else if (event.getAncestor()==null){
             return false;
         }
@@ -36,7 +36,7 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
         return haveStudentBeenOnAncestorEvent_recursive(student,event,1);
     }
 
-    public Boolean studentHaveBeenOnEvent(Student student, Event event) {
+    public Boolean haveStudentBeenOnEvent(Student student, Event event) {
         List<Statement> statements = statementRepository.findAll(StatementSpecifications.findByStudentAndEvent(student, event));
         if (statements.size() == 0) {
             return false;
@@ -52,6 +52,26 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
     @Override
     public Boolean studentMadeStatementOnEvent(Student student, Event event) {
         return statementRepository.findOne(StatementSpecifications.findByStudentAndEvent(student, event)) != null;
+    }
+
+    @Override
+    public Boolean haveStudentBeenOnAncestorEventWithoutStatement(Student student, Event event, Statement statement) {
+        return null;
+    }
+
+    @Override
+    public Boolean haveStudentBeenOnEventWithoutStatement(Student student, Event event, Statement statement) {
+        List<Statement> statements = statementRepository.findAll(StatementSpecifications.findByStudentAndEvent(student, event));
+        statements.remove(statement);
+        if (statements.size() == 0) {
+            return false;
+        } else {
+            Statement statement1 = statements.get(0);
+            return statement1 != null && //человек подавал заявку
+                    statement1.getPermitNumber() != null && //человек прошел по конкурсу
+                    statement1.getCancellationDate() == null && //не отменил
+                    statement1.getRefusalDate() == null; //не отказался
+        }
     }
 
 

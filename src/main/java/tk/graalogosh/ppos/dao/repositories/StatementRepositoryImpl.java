@@ -152,9 +152,12 @@ public class StatementRepositoryImpl implements StatementRepositoryCustom {
          if (statementConstructor.getReserve()!=null){
              statement.setReserve(statementConstructor.getReserve());
          }
-
-        //todo valid checking?
-        statementRepository.save(statement);
-        return statement;
+        
+        if (statementRepository.statementIsValid(statement)) {
+            statementRepository.save(statement);
+            return statement;
+        } else {
+            throw new RuntimeException("statement is not valid");
+        }
     }
 }
