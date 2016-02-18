@@ -1,6 +1,7 @@
 package tk.graalogosh.ppos.dao.repositories;
 
 import junit.framework.TestCase;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class EventRepositoryTest extends TestCase {
     }
 
     @Test
+    @Ignore
     public void testFindByReseptionBeginBeforeAndReseptionFinishAfter_specification() {
 //        System.out.println("*************************");
 //        for (Event event : (List<Event>) eventRepository.findAll(EventSpecifications.findByReseptionBeginBeforeAndReseptionFinishAfter(LocalDate.now()))) {
