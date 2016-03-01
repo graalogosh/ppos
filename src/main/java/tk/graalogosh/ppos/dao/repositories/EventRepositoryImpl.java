@@ -13,8 +13,6 @@ import java.util.List;
  */
 public class EventRepositoryImpl implements EventRepositoryCustom {
     @Autowired
-    private EventRepository eventRepository;
-    @Autowired
     private StatementRepository statementRepository;
 
 

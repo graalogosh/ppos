@@ -111,12 +111,12 @@ public class StatementController {
             @RequestParam(value = "completeDocs", required = false) Boolean completeDocs,
             @RequestParam(value = "reserve", required = false) Boolean reserve,
             //@RequestParam(value = "showSuccesses", required = false) Boolean showSuccesses,
-            @RequestParam(value = "curTerm", required = false) Boolean curTerm,
-            @RequestParam(value = "activeStatements", required = false) Boolean activeStatements) {
+            @RequestParam(value = "curTerm", required = false, defaultValue = "true") Boolean curTerm,
+            @RequestParam(value = "activeStatements", required = false, defaultValue = "true") Boolean activeStatements) {
 
         //showSuccesses = showSuccesses != null ? showSuccesses : false;
-        curTerm = curTerm != null ? curTerm : true;
-        activeStatements = activeStatements != null ? activeStatements : true;
+   //     curTerm = curTerm != null ? curTerm : true;
+     //   activeStatements = activeStatements != null ? activeStatements : true;
 
 
         List<Specification<Statement>> specifications = new ArrayList<>();

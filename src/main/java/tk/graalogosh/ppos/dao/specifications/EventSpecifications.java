@@ -21,7 +21,7 @@ public class EventSpecifications {
         return new Specification<Event>() {
             @Override
             public Predicate toPredicate(Root<Event> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.get((Event_.eventID)),eventID);
+                return criteriaBuilder.equal(root.get(Event_.eventID),eventID);
             }
         };
     }

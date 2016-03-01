@@ -50,9 +50,9 @@ public class EventController {
             @RequestParam(value = "suitableCategory", required = false) String suitableCategory,
             @RequestParam(value = "firstDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate firstDate,
             @RequestParam(value = "lastDate", required = false) @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate lastDate,
-            @RequestParam(value = "curTerm", required = false) Boolean curTerm) {
+            @RequestParam(value = "curTerm", required = false, defaultValue = "true") Boolean curTerm) {
 
-        curTerm = curTerm != null ? curTerm : true;
+//        curTerm = curTerm != null ? curTerm : true;
 
         List<Specification<Event>> specifications = new ArrayList<>();
         if (eventID != null){
