@@ -2,6 +2,7 @@ package tk.graalogosh.ppos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.Data;
 import tk.graalogosh.ppos.utils.LocalDateDeserializer;
 import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
 
@@ -11,6 +12,7 @@ import java.time.*;
 /**
  * Created by graalogosh on 03.08.2015.
  */
+@Data
 @Entity
 @Table(name="student")
 public class Student {
@@ -56,108 +58,6 @@ public class Student {
 
     @Column(name = "student_must_pay")
     private Integer studentMustPay;
-
-    public String getStudentID() {
-        return studentID;
-    }
-
-    public void setStudentID(String studentID) {
-        this.studentID = studentID;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDate getEntryDate() {
-        return entryDate;
-    }
-
-    public void setEntryDate(LocalDate entryDate) {
-        this.entryDate = entryDate;
-    }
-
-    public String getEducationalGroup() {
-        return educationalGroup;
-    }
-
-    public void setEducationalGroup(String educationalGroup) {
-        this.educationalGroup = educationalGroup;
-    }
-
-    public Status getAcademicStatus() {
-        return academicStatus;
-    }
-
-    public void setAcademicStatus(Status academicStatus) {
-        this.academicStatus = academicStatus;
-    }
-
-    public Status getFinancialStatus() {
-        return financialStatus;
-    }
-
-    public void setFinancialStatus(Status financialStatus) {
-        this.financialStatus = financialStatus;
-    }
-
-    public Faculty getFaculty() {
-        return faculty;
-    }
-
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getBankAccountNumber() {
-        return bankAccountNumber;
-    }
-
-    public void setBankAccountNumber(String bankAccountNumber) {
-        this.bankAccountNumber = bankAccountNumber;
-    }
-
-    public Integer getStudentPaid() {
-        return studentPaid;
-    }
-
-    public void setStudentPaid(Integer studentPaid) {
-        this.studentPaid = studentPaid;
-    }
-
-    public Integer getStudentMustPay() {
-        return studentMustPay;
-    }
-
-    public void setStudentMustPay(Integer studentMustPay) {
-        this.studentMustPay = studentMustPay;
-    }
-
-    public Student(String studentID, String name, LocalDate entryDate, String educationalGroup, Status academicStatus, Status financialStatus, Faculty faculty, String phone, String bankAccountNumber, int studentPaid, int studentMustPay) {
-        this.studentID = studentID;
-        this.name = name;
-        this.entryDate = entryDate;
-        this.educationalGroup = educationalGroup;
-        this.academicStatus = academicStatus;
-        this.financialStatus = financialStatus;
-        this.faculty = faculty;
-        this.phone = phone;
-        this.bankAccountNumber = bankAccountNumber;
-        this.studentPaid = studentPaid;
-        this.studentMustPay = studentMustPay;
-    }
 
     public Integer getCourse(){
         return Character.getNumericValue(educationalGroup.charAt(0));
