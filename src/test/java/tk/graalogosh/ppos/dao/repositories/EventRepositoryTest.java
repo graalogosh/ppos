@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.cglib.core.Local;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import tk.graalogosh.ppos.PposApplication;
 import tk.graalogosh.ppos.models.Event;
@@ -27,12 +28,14 @@ public class EventRepositoryTest extends TestCase {
 
     @Test
     public void testFindByEventDateBetween_Specification() throws Exception {
-        //System.out.println("*************************");
-//        for(Event event : (List<Event>)eventRepository.findAll(EventSpecifications.findBetweenDates(LocalDate.of(2014, 3, 15), LocalDate.of(2014, 3, 30)))){
-//            System.out.println(event.getEventID());
-//        }
-//        System.out.println("*************************");
-        assertEquals(4, eventRepository.findAll(EventSpecifications.findBetweenDates(LocalDate.of(2014, 3, 15), LocalDate.of(2014, 3, 30))).size());
+        LocalDate start = LocalDate.of(2014, 3, 15);
+        LocalDate finish = LocalDate.of(2014, 3, 30);
+//        assertEquals(4, eventRepository.findAll(EventSpecifications.findBetweenDates(start, finish)).size());
+        for (Event event : eventRepository.findAll(EventSpecifications.findBetweenDates(start, finish))){
+            LocalDate curDate = event.getEventDate();
+            assertTrue((curDate.isAfter(start)||curDate.isEqual(start)) &&
+                       (curDate.isBefore(finish)||curDate.isEqual(finish)));
+        }
     }
 
     @Test

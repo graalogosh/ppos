@@ -12,6 +12,6 @@ import javax.persistence.Table;
  */
 @Repository
 @Table(name = "event")
-public interface EventRepository extends JpaRepository<Event, Integer>, JpaSpecificationExecutor, EventRepositoryCustom {
+public interface EventRepository extends JpaRepository<Event, Integer>, JpaSpecificationExecutor<Event>, EventRepositoryCustom {
 
 }
