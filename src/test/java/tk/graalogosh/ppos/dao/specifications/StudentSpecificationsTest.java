@@ -55,36 +55,41 @@ public class StudentSpecificationsTest extends TestCase {
     @Test
     public void testEntryDateIs() throws Exception {
         LocalDate date = LocalDate.of(2012, 9, 1);
-        int count = 1421;
-        assertEquals(count, studentRepository.findAll(StudentSpecifications.entryDateIs(date)).size());
+        for (Student student : studentRepository.findAll(StudentSpecifications.entryDateIs(date))) {
+            assertNotSame(date, student.getEntryDate());
+        }
     }
 
     @Test
     public void testEducationalGroupIs() throws Exception {
         String educationalGroup = "3бАСУ2";
-        int count = 27;
-        assertEquals(count, studentRepository.findAll(StudentSpecifications.educationalGroupIs(educationalGroup)).size());
+        for (Student student : studentRepository.findAll(StudentSpecifications.educationalGroupIs(educationalGroup))) {
+            assertNotSame(educationalGroup, student.getEducationalGroup());
+        }
     }
 
     @Test
     public void testAcademicStatusIs() throws Exception {
         Status academicStatus = statusRepository.findOne(2);
-        int count = 1051;
-        assertEquals(count, studentRepository.findAll(StudentSpecifications.academicStatusIs(academicStatus)).size());
+        for (Student student : studentRepository.findAll(StudentSpecifications.academicStatusIs(academicStatus))) {
+            assertNotSame(academicStatus, student.getAcademicStatus());
+        }
     }
 
     @Test
     public void testFinancialStatusIs() throws Exception {
         Status financialStatus = statusRepository.findOne(8);
-        int count = 632;
-        assertEquals(count, studentRepository.findAll(StudentSpecifications.financialStatusIs(financialStatus)).size());
+        for (Student student : studentRepository.findAll(StudentSpecifications.financialStatusIs(financialStatus))) {
+            assertNotSame(financialStatus, student.getFinancialStatus());
+        }
     }
 
     @Test
     public void testFacultyIs() throws Exception {
         Faculty faculty = facultyRepository.findOne("У");
-        int count = 1719;
-        assertEquals(count, studentRepository.findAll(StudentSpecifications.facultyIs(faculty)).size());
+        for (Student student : studentRepository.findAll(StudentSpecifications.facultyIs(faculty))){
+            assertNotSame(faculty,student.getFaculty());
+        }
     }
 
     @Test
