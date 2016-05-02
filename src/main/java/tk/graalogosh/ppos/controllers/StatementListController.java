@@ -14,7 +14,7 @@ import java.util.List;
  * Created by graal on 09.10.2015.
  */
 @RestController
-@RequestMapping(value = "statementList")
+@RequestMapping(value = "/api/statementList")
 public class StatementListController {
     private StatementListRepository statementListRepository;
 

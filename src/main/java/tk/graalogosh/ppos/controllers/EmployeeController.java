@@ -21,7 +21,7 @@ import java.util.List;
  * Created by graal on 05.08.2015.
  */
 @RestController
-@RequestMapping("employee")
+@RequestMapping("/api/employee")
 public class EmployeeController {
    @Autowired
     private EmployeeRepository employeeRepository;

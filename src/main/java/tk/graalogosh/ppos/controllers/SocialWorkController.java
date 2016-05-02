@@ -13,7 +13,7 @@ import java.util.List;
  * Created by graal on 27.09.2015.
  */
 @RestController
-@RequestMapping(value = "socialWork")
+@RequestMapping(value = "/api/socialWork")
 public class SocialWorkController {
     private SocialWorkRepository socialWorkRepository;
     private SocialWorkCategoryRepository socialWorkCategoryRepository;

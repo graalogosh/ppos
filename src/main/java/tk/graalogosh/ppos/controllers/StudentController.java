@@ -19,7 +19,7 @@ import java.util.List;
  * Created by GraaLoGosh (graalogosh@gmail.com)) on 05.08.2015.
  */
 @RestController
-@RequestMapping(value = "student")
+@RequestMapping(value = "/api/student")
 public class StudentController {
     @Autowired
     private StudentRepository studentRepository;

@@ -14,7 +14,7 @@ import java.util.List;
  * Created by GraaLoGosh (graalogosh@gmail.com)) on 09.10.2015.
  */
 @RestController
-@RequestMapping(value = "status")
+@RequestMapping(value = "/api/status")
 public class StatusController {
     private StatusRepository statusRepository;
 
