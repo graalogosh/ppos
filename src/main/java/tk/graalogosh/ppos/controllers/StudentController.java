@@ -120,14 +120,14 @@ public class StudentController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Student postStudent(
-            @RequestBody Student payload) {
-        System.out.println(payload);
-        studentRepository.saveAndFlush(payload);//try-catch
-        return payload;
+    public Student createStudent(
+            @RequestBody Student student) {
+        System.out.println(student);
+        studentRepository.saveAndFlush(student);//try-catch
+        return student;
     }
 
-    @RequestMapping(value = "/changeBankAccountNumber", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/changeBankAccountNumber", method = RequestMethod.POST)
     public Boolean changeBankAccountNumber(
             @RequestParam(value = "studentID", required = true) Student student,
             @RequestParam(value = "bankAccountNumber", required = true) String bankAccountNumber) {
