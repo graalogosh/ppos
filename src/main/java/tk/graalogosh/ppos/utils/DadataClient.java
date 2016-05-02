@@ -18,9 +18,10 @@ public class DadataClient {
 
         OkHttpClient client = new OkHttpClient();
 
-        Request request= new Request.Builder()
-                .url(passportURL)
-                .addHeader("Content-Type","application/json")
-                .addHeader("Authorization", "Token")
+//        Request request= new Request.Builder()
+//                .url(passportURL)
+//                .addHeader("Content-Type","application/json")
+//                .addHeader("Authorization", "Token").
+        return null;
     }
 }
