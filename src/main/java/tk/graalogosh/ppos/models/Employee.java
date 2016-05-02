@@ -3,6 +3,7 @@ package tk.graalogosh.ppos.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
 
 import javax.persistence.*;
@@ -19,8 +20,10 @@ public class Employee {
     }
 
     @Id
-    @GeneratedValue
-    @Column(name="employee_id")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "generator", strategy = "increment")
+    @GeneratedValue(generator = "generator")
+    @Column(name = "employee_id")
     private Integer employeeID;
 
     @Column(name = "name")

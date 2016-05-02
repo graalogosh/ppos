@@ -1,6 +1,7 @@
 package tk.graalogosh.ppos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -14,7 +15,9 @@ public class Score {
     }
 
     @Id
-    @GeneratedValue
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name="generator", strategy="increment")
+    @GeneratedValue(generator="generator")
     @Column(name = "score_id")
     @JsonIgnore
     private Integer scoreID;

@@ -28,6 +28,7 @@ public class Statement {
     @Id
     @GenericGenerator(name="generator", strategy="increment")
     @GeneratedValue(generator="generator")
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "statement_id")
     private Integer statementID;
 

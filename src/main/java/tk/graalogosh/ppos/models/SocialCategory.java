@@ -5,6 +5,7 @@ package tk.graalogosh.ppos.models;
  */
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -16,7 +17,9 @@ public class SocialCategory {
     }
 
     @Id
-    @GeneratedValue
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name="generator", strategy="increment")
+    @GeneratedValue(generator="generator")
     @Column(name = "social_category_id")
     private Integer socialCategoryID;
     private String title;

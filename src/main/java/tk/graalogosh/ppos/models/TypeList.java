@@ -1,6 +1,7 @@
 package tk.graalogosh.ppos.models;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -15,7 +16,9 @@ public class TypeList {
     }
 
     @Id
-    @GeneratedValue
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name="generator", strategy="increment")
+    @GeneratedValue(generator="generator")
     @Column(name = "type_id")
     private Integer typeID;
     private String title;

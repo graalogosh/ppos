@@ -1,6 +1,7 @@
 package tk.graalogosh.ppos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.GenericGenerator;
 import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
 
 import javax.persistence.*;
@@ -16,7 +17,9 @@ public class Event {
     }
 
     @Id
-    @GeneratedValue
+    @GenericGenerator(name="generator", strategy="increment")
+    @GeneratedValue(generator="generator")
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "event_id")
     private Integer eventID;
     @Column(name = "title")

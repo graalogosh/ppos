@@ -2,6 +2,7 @@ package tk.graalogosh.ppos.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import tk.graalogosh.ppos.utils.LocalDatePersistenceConverter;
 
 import javax.persistence.*;
@@ -18,7 +19,9 @@ public class StatementList {
     }
 
     @Id
-    @GeneratedValue
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name="generator", strategy="increment")
+    @GeneratedValue(generator="generator")
     @Column(name = "list_id")
     private Integer listID;
 

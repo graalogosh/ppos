@@ -1,17 +1,23 @@
 package tk.graalogosh.ppos.models;
 
+import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
  * Created by graal on 06.08.2015.
  */
+@Data
 @Entity
 @Table(name="section")
 public class Section {
     public Section() {
     }
     @Id
-    @GeneratedValue
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name="generator", strategy="increment")
+    @GeneratedValue(generator="generator")
     @Column(name = "section_id")
     private Integer sectionID;
 
@@ -53,141 +59,5 @@ public class Section {
 
     @Column(name = "money_category")
     private Boolean moneyCategory;
-
-    public Integer getSectionID() {
-        return sectionID;
-    }
-
-    public void setSectionID(Integer sectionID) {
-        this.sectionID = sectionID;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Boolean getSocialGrant() {
-        return socialGrant;
-    }
-
-    public void setSocialGrant(Boolean socialGrant) {
-        this.socialGrant = socialGrant;
-    }
-
-    public Boolean getSocialCategory() {
-        return socialCategory;
-    }
-
-    public void setSocialCategory(Boolean socialCategory) {
-        this.socialCategory = socialCategory;
-    }
-
-    public Boolean getSocialWork() {
-        return socialWork;
-    }
-
-    public void setSocialWork(Boolean socialWork) {
-        this.socialWork = socialWork;
-    }
-
-    public Boolean getAverageScore() {
-        return averageScore;
-    }
-
-    public void setAverageScore(Boolean averageScore) {
-        this.averageScore = averageScore;
-    }
-
-    public Boolean getTripCount() {
-        return tripCount;
-    }
-
-    public void setTripCount(Boolean tripCount) {
-        this.tripCount = tripCount;
-    }
-
-    public Boolean getRefusualCount() {
-        return refusualCount;
-    }
-
-    public void setRefusualCount(Boolean refusualCount) {
-        this.refusualCount = refusualCount;
-    }
-
-    public Boolean getCourse() {
-        return course;
-    }
-
-    public void setCourse(Boolean course) {
-        this.course = course;
-    }
-
-    public Boolean getPointSum() {
-        return pointSum;
-    }
-
-    public void setPointSum(Boolean pointSum) {
-        this.pointSum = pointSum;
-    }
-
-    public Boolean getBankAccountNumber() {
-        return bankAccountNumber;
-    }
-
-    public void setBankAccountNumber(Boolean bankAccountNumber) {
-        this.bankAccountNumber = bankAccountNumber;
-    }
-
-    public Boolean getList() {
-        return list;
-    }
-
-    public void setList(Boolean list) {
-        this.list = list;
-    }
-
-    public Boolean getRetrip() {
-        return retrip;
-    }
-
-    public void setRetrip(Boolean retrip) {
-        this.retrip = retrip;
-    }
-
-    public Boolean getMoneyCategory() {
-        return moneyCategory;
-    }
-
-    public void setMoneyCategory(Boolean moneyCategory) {
-        this.moneyCategory = moneyCategory;
-    }
-
-    public Section(String title, Boolean socialGrant, Boolean socialCategory, Boolean socialWork, Boolean averageScore, Boolean tripCount, Boolean refusualCount, Boolean course, Boolean pointSum, Boolean bankAccountNumber, Boolean list, Boolean retrip, Boolean moneyCategory) {
-        this.title = title;
-        this.socialGrant = socialGrant;
-        this.socialCategory = socialCategory;
-        this.socialWork = socialWork;
-        this.averageScore = averageScore;
-        this.tripCount = tripCount;
-        this.refusualCount = refusualCount;
-        this.course = course;
-        this.pointSum = pointSum;
-        this.bankAccountNumber = bankAccountNumber;
-        this.list = list;
-        this.retrip = retrip;
-        this.moneyCategory = moneyCategory;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Section section = (Section) o;
-        return sectionID.equals(section.sectionID);
-    }
 
 }
