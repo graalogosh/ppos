@@ -1,10 +1,13 @@
 package tk.graalogosh.ppos.models;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 /**
  * Created by graal on 06.08.2015.
  */
+@Data
 @Entity
 @Table(name = "status")
 public class Status {
@@ -16,25 +19,4 @@ public class Status {
     @Column(name = "status_id")
     private Integer statusID;
     private String title;
-
-    public Integer getStatusID() {
-        return statusID;
-    }
-
-    public void setStatusID(Integer statusID) {
-        this.statusID = statusID;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Status(String title) {
-        this.title = title;
-    }
-
 }
