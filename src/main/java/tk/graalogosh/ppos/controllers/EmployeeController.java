@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tk.graalogosh.ppos.dao.repositories.FacultyRepository;
 import tk.graalogosh.ppos.models.Employee;
 import tk.graalogosh.ppos.dao.repositories.EmployeeRepository;
@@ -23,10 +20,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/employee")
 public class EmployeeController {
-   @Autowired
+    @Autowired
     private EmployeeRepository employeeRepository;
-@Autowired
-private FacultyRepository facultyRepository;
+    @Autowired
+    private FacultyRepository facultyRepository;
 
     /**
      * @param employeeID        идентификатор сотрудника
@@ -83,5 +80,21 @@ private FacultyRepository facultyRepository;
             finalSpecification = Specifications.where(finalSpecification).and(spec);
         }
         return employeeRepository.findAll(finalSpecification);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public Boolean createEmployee(@RequestBody Employee employee) {
+
+        if (employeeRepository.findOne(employee.getEmployeeID()) != null) {
+            //change info
+            Employee currentInfo = employeeRepository.findOne(employee.getEmployeeID());
+        } else {
+            //create info
+            employee.setRegistrationDate(LocalDate.now());
+            employee.setDismissed(false);
+            //todo try-catch
+            employeeRepository.saveAndFlush(employee);
+        }
+        return true;
     }
 }
